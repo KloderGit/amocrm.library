@@ -21,8 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Crm.Domain\Crm.Domain.csproj" />
-    <ProjectReference Include="..\Crm.Interfaces\Crm.Interfaces.csproj" />
     <ProjectReference Include="..\Crm.Service\Crm.Service.csproj" />
   </ItemGroup>
 

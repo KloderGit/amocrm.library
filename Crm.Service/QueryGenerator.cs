@@ -1,13 +1,11 @@
-﻿using Crm.Domain.Interfaces;
-using Crm.Interfaces;
+﻿
 using Crm.Service.Filters;
+using Crm.Service.Interfaces;
 using Crm.Service.Tools;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Crm.Service

@@ -1,9 +1,9 @@
-﻿using Crm.Domain;
+﻿
 using Crm.Service.Converters;
+using Crm.Service.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Crm.Service.DTO
 {

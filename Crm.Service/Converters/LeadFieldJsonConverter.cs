@@ -1,14 +1,14 @@
-﻿using Crm.Domain;
+﻿
+using Crm.Service.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Crm.Service.Converters
 {
     internal class LeadFieldJsonConverter : JsonConverter
-    { 
+    {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             IEnumerable<string> result = ((List<Lead>)value).Select(y => y.Id.ToString());
@@ -23,7 +23,7 @@ namespace Crm.Service.Converters
             LeadField instance = (LeadField)serializer.Deserialize(reader, typeof(LeadField));
 
             if (instance?.IDs == null) { result = null; }
-            else { result = instance.IDs.Select( x=> new Lead { Id= x }); }
+            else { result = instance.IDs.Select(x => new Lead { Id = x }); }
 
             return result;
         }

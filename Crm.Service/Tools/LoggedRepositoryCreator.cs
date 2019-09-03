@@ -1,4 +1,5 @@
-﻿using Crm.Interfaces;
+﻿
+using Crm.Service.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 

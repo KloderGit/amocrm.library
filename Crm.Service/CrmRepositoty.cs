@@ -1,24 +1,17 @@
-﻿using Crm.Domain.Parent;
-using Crm.Interfaces;
-using Crm.Service.DTO;
-using Crm.Service.Extensions;
+﻿using Crm.Service.Extensions;
+using Crm.Service.Interfaces;
 using Crm.Service.Models;
 using Crm.Service.Tools;
 using Mapster;
-using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace Crm.Service
 {
-    public class CrmRepositoty<T> : IQueryableRepository<T>, IEnumerable where T : EntityCore,  new()
+    public class CrmRepositoty<T> : IQueryableRepository<T>, IEnumerable where T : EntityCore, new()
     {
         public IQueryGenerator QueryGenerator { get; set; } = new QueryGenerator();
         public ICrmProvider Provider { get; }

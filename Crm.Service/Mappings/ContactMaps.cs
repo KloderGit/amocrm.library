@@ -1,7 +1,6 @@
-﻿using Crm.Domain;
-using Crm.Domain.Fields;
-using Crm.Service.DTO;
+﻿using Crm.Service.DTO;
 using Crm.Service.Extensions;
+using Crm.Service.Models;
 using Mapster;
 using System;
 using System.Collections.Generic;

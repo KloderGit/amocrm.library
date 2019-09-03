@@ -1,8 +1,6 @@
-﻿using Crm.Domain;
-using Crm.Service.DTO;
+﻿using Crm.Service.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Crm.Service.Configurations
 {

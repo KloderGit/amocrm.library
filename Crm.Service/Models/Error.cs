@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Crm.Service.Models
 {
@@ -28,7 +25,7 @@ namespace Crm.Service.Models
 
         [JsonProperty(PropertyName = "server_time")]
         public int ServerTime { get; set; }
-        
+
         [JsonProperty(PropertyName = "auth")]
         public bool AuthResult { get; set; }
     }

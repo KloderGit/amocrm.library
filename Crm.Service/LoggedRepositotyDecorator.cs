@@ -1,9 +1,6 @@
-﻿using Crm.Domain.Parent;
-using Crm.Interfaces;
-using Crm.Service.Extensions;
-using Crm.Service.Tools;
+﻿using Crm.Service.Interfaces;
+using Crm.Service.Models;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -22,7 +19,7 @@ namespace Crm.Service
         public IQueryGenerator QueryGenerator
         {
             get => Repository.QueryGenerator;
-            set => Repository.QueryGenerator = value; 
+            set => Repository.QueryGenerator = value;
         }
 
         public LoggedRepositotyDecorator(IQueryableRepository<T> repository, ILogger logger)

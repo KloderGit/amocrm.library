@@ -1,9 +1,7 @@
 ﻿using Crm.Service.Models;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Crm.Service.Extensions
@@ -15,7 +13,7 @@ namespace Crm.Service.Extensions
             var objToJson = JsonConvert.SerializeObject(@object);
             var stringContent = new StringContent(objToJson.ToString());
 
-                var req = await client.PostAsync(url, stringContent).ConfigureAwait(false);
+            var req = await client.PostAsync(url, stringContent).ConfigureAwait(false);
 
             return req;
         }

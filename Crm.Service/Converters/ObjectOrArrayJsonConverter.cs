@@ -1,12 +1,10 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Crm.Service.Converters
 {
-    internal class ObjectOrArrayJsonConverter<T> : JsonConverter 
+    internal class ObjectOrArrayJsonConverter<T> : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {

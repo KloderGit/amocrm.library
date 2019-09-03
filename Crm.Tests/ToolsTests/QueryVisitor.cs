@@ -1,5 +1,4 @@
-﻿using Crm.Service;
-using Crm.Service.Filters;
+﻿using Crm.Service.Filters;
 using Crm.Service.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;

@@ -1,12 +1,13 @@
-﻿using Crm.Domain;
-using Crm.Interfaces;
+﻿
+
+using Crm.Service.Interfaces;
 using Crm.Service.Mappings;
+using Crm.Service.Models;
 using Crm.Service.Tools;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Threading.Tasks;
 using Company = Crm.Service.DTO.Company;
-using Task = Crm.Domain.Task;
+using Task = Crm.Service.Models.Task;
 using Tasks = System.Threading.Tasks;
 
 namespace Crm.Service
@@ -23,8 +24,8 @@ namespace Crm.Service
             this.RepositoryCreator = new BasicRepositoryCreator(Provider);
         }
 
-        public CrmManager(ILogger logger, string account, string login, string pass) 
-          :  this(account, login, pass)
+        public CrmManager(ILogger logger, string account, string login, string pass)
+          : this(account, login, pass)
         {
             this.RepositoryCreator = new LoggedRepositoryCreator(Provider, logger);
         }

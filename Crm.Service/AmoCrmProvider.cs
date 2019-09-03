@@ -1,5 +1,6 @@
-﻿using Crm.Interfaces;
+﻿
 using Crm.Service.Configurations;
+using Crm.Service.Interfaces;
 using Crm.Service.Models;
 using Newtonsoft.Json;
 using System;
@@ -7,7 +8,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Crm.Service
@@ -60,7 +60,7 @@ namespace Crm.Service
                 exception.Data.Add("IP", error.Response.Ip);
                 exception.Data.Add("Domain", error.Response.Domain);
                 exception.Data.Add("ServerTime", error.Response.ServerTime);
-                throw exception;                
+                throw exception;
             }
 
             AmoCrmProvider.cookiesLiveTime = DateTime.Now;
@@ -85,6 +85,6 @@ namespace Crm.Service
         {
             return endPoint.GetUrl<TPoint>();
         }
-        
+
     }
 }

@@ -1,10 +1,7 @@
-﻿using Crm.Domain.Parent;
-using Crm.Service.DTO;
+﻿using Crm.Service.DTO;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 
 namespace Crm.Service.Extensions
 {

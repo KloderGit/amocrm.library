@@ -1,10 +1,6 @@
-﻿using Crm.Domain;
-using Crm.Service.DTO;
-using Newtonsoft.Json;
+﻿using Crm.Service.DTO;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Crm.Tests.Data
 {

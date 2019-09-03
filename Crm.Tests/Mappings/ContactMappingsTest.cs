@@ -1,16 +1,13 @@
-﻿using Crm.Domain;
-using Crm.Service.DTO;
+﻿using Crm.Service.DTO;
 using Crm.Service.Mappings;
+using Crm.Service.Models;
 using Crm.Tests.Data;
 using JsonDiffPatchDotNet;
 using Mapster;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Crm.Tests.Mappings
 {

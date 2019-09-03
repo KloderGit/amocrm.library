@@ -1,7 +1,6 @@
-﻿using Crm.Domain;
-using Crm.Interfaces;
-using Crm.Service.DTO;
-using Crm.Service.Filters;
+﻿using Crm.Service.Filters;
+using Crm.Service.Interfaces;
+using Crm.Service.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

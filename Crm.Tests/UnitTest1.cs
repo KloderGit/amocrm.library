@@ -1,11 +1,9 @@
-using Crm.Domain;
 using Crm.Service;
 using Crm.Service.Extensions;
-using Microsoft.Extensions.DependencyInjection;
+using Crm.Service.Models;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
