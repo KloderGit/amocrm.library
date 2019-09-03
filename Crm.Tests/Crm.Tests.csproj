@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Crm.Service\Crm.Service.csproj" />
+    <ProjectReference Include="..\Crm.Service\amocrm.library.csproj" />
   </ItemGroup>
 
 </Project>

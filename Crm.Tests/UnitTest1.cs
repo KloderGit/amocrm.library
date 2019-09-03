@@ -20,7 +20,7 @@ namespace Crm.Tests
                 ILoggerFactory loggerFactory = new LoggerFactory().AddDebug(LogLevel.Debug);
                 ILogger logger = loggerFactory.CreateLogger("TstLogger");
 
-                var amoCrm = new CrmManager();
+                var amoCrm = new CrmManager(logger, account: "fpatest", login: "kloder@fitness-pro.ru", pass: "73ae95ee19bddb98cad2906890cd8a950b87f68d");
                 amoCrm.DirectAuthorization().Wait();
 
                 var contact = new Contact()

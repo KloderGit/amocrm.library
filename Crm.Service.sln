@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.452
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crm.Service", "Crm.Service\Crm.Service.csproj", "{F6BCCE2C-7400-4409-9C06-9E39CAF8FA01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "amocrm.library", "Crm.Service\amocrm.library.csproj", "{F6BCCE2C-7400-4409-9C06-9E39CAF8FA01}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Crm.Tests", "Crm.Tests\Crm.Tests.csproj", "{5F46FDAA-D42D-4F3E-A125-A1DFBB2E4A0E}"
 EndProject
