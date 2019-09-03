@@ -1,4 +1,5 @@
-﻿using System;
+﻿using amocrm.library.Models.Fields;
+using System;
 using System.Collections.Generic;
 
 namespace Crm.Service.Models
@@ -7,29 +8,29 @@ namespace Crm.Service.Models
     {
         public string Name { get; set; }
 
-        public Int32? Status { get; set; }
+        public int Status { get; set; }
 
-        public Int32? Price { get; set; }
+        public int Price { get; set; }
 
-        public Int32? LossReason { get; set; }
+        public int LossReason { get; set; }
 
-        public DateTime? ClosestTaskAt { get; set; }
+        public DateTime ClosestTaskAt { get; set; }
 
         public bool? IsDeleted { get; set; }
 
-        public DateTime? ClosedAt { get; set; }
+        public DateTime ClosedAt { get; set; }
 
-        public List<Tag> Tags { get; set; }
+        public List<SimpleObject> Tags { get; set; }
 
         public List<Field> Fields { get; set; }
 
-        public Company Company { get; set; }
+        public SimpleObject Company { get; set; }
 
-        public List<Contact> Contacts { get; set; }
+        public IdArray Contacts { get; set; }
 
-        public Contact MainContact { get; set; }
+        public IdSingle MainContact { get; set; }
 
-        public Pipeline Pipeline { get; set; }
+        public IdSingle Pipeline { get; set; }
 
         public Action<Lead> ChangeValueDelegate;
 

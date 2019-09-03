@@ -13,9 +13,7 @@ namespace Crm.Service.Extensions
             var objToJson = JsonConvert.SerializeObject(@object);
             var stringContent = new StringContent(objToJson.ToString());
 
-            var req = await client.PostAsync(url, stringContent).ConfigureAwait(false);
-
-            return req;
+            return await client.PostAsync(url, stringContent).ConfigureAwait(false);
         }
 
         public static async Task<string> PostResultAsync(this HttpClient client, Uri url, System.Object @object)

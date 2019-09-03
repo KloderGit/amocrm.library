@@ -23,6 +23,14 @@ namespace Crm.Service.Extensions
             Debug.WriteLine($"Запрос данных");
             return new List<T>(await queryable.ExecuteAsync());
         }
+
+
+        public static IQueryableRepository<Lead> Where(this IQueryableRepository<Lead> queryable, Expression<Func<Filter, bool>> predicate)
+        {
+            queryable.QueryGenerator.CreateQuery(predicate);
+            return queryable;
+        }
+
     }
 
 }

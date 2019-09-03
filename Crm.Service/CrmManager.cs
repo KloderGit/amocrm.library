@@ -6,7 +6,6 @@ using Crm.Service.Models;
 using Crm.Service.Tools;
 using Microsoft.Extensions.Logging;
 using System;
-using Company = Crm.Service.DTO.Company;
 using Task = Crm.Service.Models.Task;
 using Tasks = System.Threading.Tasks;
 
@@ -35,7 +34,7 @@ namespace Crm.Service
             return await Provider.Auth();
         }
 
-        public ICrmRepository<Lead> Leads => throw new NotImplementedException();
+        public IQueryableRepository<Lead> Leads => RepositoryCreator.GetRepository<Lead>();
 
         public IQueryableRepository<Contact> Contacts => RepositoryCreator.GetRepository<Contact>();
 

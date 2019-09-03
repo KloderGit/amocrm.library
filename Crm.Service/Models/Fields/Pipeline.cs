@@ -4,6 +4,6 @@ namespace Crm.Service.Models
 {
     public class Pipeline
     {
-        public Int32? Id { get; set; }
+        public int Id { get; set; }
     }
 }

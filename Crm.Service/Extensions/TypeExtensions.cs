@@ -1,4 +1,5 @@
-﻿using Crm.Service.DTO;
+﻿using amocrm.library.Tools;
+using Crm.Service.DTO;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -11,12 +12,12 @@ namespace Crm.Service.Extensions
         {
             var asmbly = Assembly.GetExecutingAssembly();
             var typeList = asmbly.GetTypes().Where(
-                    t => t.GetCustomAttributes(typeof(ParentAttribute), true).Length > 0
+                    t => t.GetCustomAttributes(typeof(ParentForDtoAttribute), true).Length > 0
             ).ToList();
 
             foreach (var tp in typeList)
             {
-                var attrs = tp.GetCustomAttributes(false).FirstOrDefault(x => x.GetType() == typeof(ParentAttribute)) as ParentAttribute;
+                var attrs = tp.GetCustomAttributes(false).FirstOrDefault(x => x.GetType() == typeof(ParentForDtoAttribute)) as ParentForDtoAttribute;
 
                 if (attrs?.Master == entity) return tp;
             }

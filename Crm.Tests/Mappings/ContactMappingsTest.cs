@@ -1,4 +1,5 @@
-﻿using Crm.Service.DTO;
+﻿using amocrm.library.DTO;
+using Crm.Service.DTO;
 using Crm.Service.Mappings;
 using Crm.Service.Models;
 using Crm.Tests.Data;

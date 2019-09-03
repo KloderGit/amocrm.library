@@ -33,7 +33,7 @@ namespace Crm.Service.Configurations
         {
             _baseUrl = new Uri($"https://{account}.amocrm.ru/");
 
-            //urls.Add(typeof(LeadDTO), new Uri(_baseUrl, "api/v2/leads"));
+            urls.Add(typeof(Lead), new Uri(_baseUrl, "api/v2/leads"));
             urls.Add(typeof(Contact), new Uri(_baseUrl, "api/v2/contacts"));
             //urls.Add(typeof(CompanyDTO), new Uri(_baseUrl, "api/v2/companies"));
             //urls.Add(typeof(CatalogDTO), new Uri(_baseUrl, "api/v2/catalog_elements"));

@@ -1,6 +1,9 @@
+using amocrm.library.DTO;
 using Crm.Service;
 using Crm.Service.Extensions;
+using Crm.Service.Mappings;
 using Crm.Service.Models;
+using Mapster;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -15,13 +18,21 @@ namespace Crm.Tests
         [TestMethod]
         public void TestMethod2()
         {
+            new ContactMaps();
+
+            ILoggerFactory loggerFactory = new LoggerFactory().AddDebug(LogLevel.Debug);
+            ILogger logger = loggerFactory.CreateLogger("TstLogger");
+
+            var amoCrm = new CrmManager();
+            amoCrm.DirectAuthorization().Wait();
+
+            var llll = amoCrm.Leads.Where(x=>x.Id == 86636993).ToList().Result.FirstOrDefault();
+
+
+
             try
             {
-                ILoggerFactory loggerFactory = new LoggerFactory().AddDebug(LogLevel.Debug);
-                ILogger logger = loggerFactory.CreateLogger("TstLogger");
 
-                var amoCrm = new CrmManager(logger, account: "fpatest", login: "kloder@fitness-pro.ru", pass: "73ae95ee19bddb98cad2906890cd8a950b87f68d");
-                amoCrm.DirectAuthorization().Wait();
 
                 var contact = new Contact()
                 {
