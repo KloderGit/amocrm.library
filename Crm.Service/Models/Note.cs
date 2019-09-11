@@ -1,33 +1,19 @@
-﻿using System;
-
-namespace Crm.Service.Models
+﻿namespace amocrm.library.Models
 {
-    public class Note : IEntityId
+    public class Note : EntityCore
     {
-        public Int32 Id { get; set; }
-
-        public Int32? ResponsibleUserId { get; set; }
-
-        public Int32? CreatedBy { get; set; }
-
-        public DateTime? CreatedAt { get; set; }
-
-        public DateTime? UpdatedAt { get; set; }
-
-        public Int32? AccountId { get; set; }
-
-        public Int32? GroupId { get; set; }
-
-        public string Text { get; set; }
-
-        public Int32? ElementId { get; set; }
-
-        public int? ElementType { get; set; }
-
+        public string Text { get; set; } = string.Empty;
+        public int ElementId { get; set; }
+        public int ElementType { get; set; }
         public bool? IsEditable { get; set; }
-
         public string Attachment { get; set; }
+        public int NoteType { get; set; }
+        public Params @Params { get; set; }
+    }
 
-        public int? NoteType { get; set; }
+    public class Params
+    {
+        public string Text { get; set; }
+        public string Service { get; set; }
     }
 }

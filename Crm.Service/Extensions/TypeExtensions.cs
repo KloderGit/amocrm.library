@@ -1,10 +1,10 @@
 ﻿using amocrm.library.Tools;
-using Crm.Service.DTO;
+using amocrm.library.DTO;
 using System;
 using System.Linq;
 using System.Reflection;
 
-namespace Crm.Service.Extensions
+namespace amocrm.library.Extensions
 {
     public static class TypeExtensions
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Crm.Service.Extensions
+namespace amocrm.library.Extensions
 {
     public static class HttpContentExtensions
     {

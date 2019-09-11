@@ -1,9 +1,8 @@
-﻿using amocrm.library.Tools;
-using Crm.Service.Models;
+﻿using amocrm.library.Converters;
+using amocrm.library.Models;
+using amocrm.library.Tools;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace amocrm.library.DTO
 {
@@ -56,42 +55,29 @@ namespace amocrm.library.DTO
         public int LossReason { get; set; }
 
 
+        [JsonConverter(typeof(ObjectOrNullJsonConverter))]
         [JsonProperty(PropertyName = "pipeline")]
-        public PipelineField Pipeline { get; set; }
+        public SimpleDtoObject Pipeline { get; set; }
 
+        [JsonConverter(typeof(ObjectOrNullJsonConverter))]
         [JsonProperty(PropertyName = "main_contact")]
-        public MainContactField MainContact { get; set; }
+        public SimpleDtoObject MainContact { get; set; }
 
+        [JsonConverter(typeof(ObjectOrNullJsonConverter))]
         [JsonProperty(PropertyName = "company")]
-        public CompanyField Company { get; set; }
+        public SimpleDtoObject Company { get; set; }
 
+        [JsonConverter(typeof(ObjectOrArrayJsonConverter<SimpleDtoObject>))]
         [JsonProperty(PropertyName = "tags")]
-        public List<TagDto> Tags { get; set; }
+        public List<SimpleDtoObject> Tags { get; set; }
 
-        [JsonProperty(PropertyName = "CustomFields")]
-        public List<CustomFieldsDto> CustomFields { get; set; } = new List<CustomFieldsDto>();
+        [JsonConverter(typeof(ObjectOrArrayJsonConverter<CustomFieldsDto>))]
+        [JsonProperty(PropertyName = "custom_fields")]
+        public List<CustomFieldsDto> CustomFields { get; set; }
 
+        [JsonConverter(typeof(ObjectOrNullJsonConverter))]
         [JsonProperty(PropertyName = "contacts")]
-        public ContactsField Contacts { get; set; }
+        public LinkedDataList Contacts { get; set; }
     }
-
-    public class MainContactField
-    {
-        [JsonProperty(PropertyName = "id")]
-        public int Id { get; set; }
-    }
-
-    public class ContactsField
-    {
-        [JsonProperty(PropertyName = "id")]
-        public List<int> Id { get; set; }
-    }
-
-    public class PipelineField
-    {
-        [JsonProperty(PropertyName = "id")]
-        public int Id { get; set; }
-    }
-
 
 }

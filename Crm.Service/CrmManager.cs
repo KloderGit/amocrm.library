@@ -1,15 +1,15 @@
 ﻿
 
-using Crm.Service.Interfaces;
-using Crm.Service.Mappings;
-using Crm.Service.Models;
-using Crm.Service.Tools;
+using amocrm.library.Interfaces;
+using amocrm.library.Mappings;
+using amocrm.library.Models;
+using amocrm.library.Tools;
 using Microsoft.Extensions.Logging;
 using System;
-using Task = Crm.Service.Models.Task;
+using Task = amocrm.library.Models.Task;
 using Tasks = System.Threading.Tasks;
 
-namespace Crm.Service
+namespace amocrm.library
 {
     public class CrmManager
     {

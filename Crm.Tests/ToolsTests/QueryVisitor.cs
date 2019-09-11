@@ -1,5 +1,5 @@
-﻿using Crm.Service.Filters;
-using Crm.Service.Tools;
+﻿using amocrm.library.Filters;
+using amocrm.library.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;

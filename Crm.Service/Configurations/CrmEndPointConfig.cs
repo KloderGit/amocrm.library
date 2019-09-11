@@ -1,8 +1,8 @@
-﻿using Crm.Service.Models;
+﻿using amocrm.library.Models;
 using System;
 using System.Collections.Generic;
 
-namespace Crm.Service.Configurations
+namespace amocrm.library.Configurations
 {
     internal class CrmEndPointConfig
     {

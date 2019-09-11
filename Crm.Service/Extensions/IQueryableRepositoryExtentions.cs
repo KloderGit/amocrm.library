@@ -1,13 +1,13 @@
-﻿using Crm.Service.Filters;
-using Crm.Service.Interfaces;
-using Crm.Service.Models;
+﻿using amocrm.library.Filters;
+using amocrm.library.Interfaces;
+using amocrm.library.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace Crm.Service.Extensions
+namespace amocrm.library.Extensions
 {
 
     public static class IQueryableRepositoryExtentions

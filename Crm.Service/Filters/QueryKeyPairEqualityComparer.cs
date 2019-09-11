@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Crm.Service.Filters
+namespace amocrm.library.Filters
 {
     class QueryKeyPairEqualityComparer : IEqualityComparer<KeyValuePair<string, string>>
     {

@@ -1,40 +1,24 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
-namespace Crm.Service.Converters
+namespace amocrm.library.Converters
 {
     internal class ObjectOrArrayJsonConverter<T> : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var obj = (List<T>)value;
-
-            if (obj.Count == 0)
-            {
-                serializer.Serialize(writer, new { });
-            }
-            else
-            {
-                serializer.Serialize(writer, value);
-            }
+            serializer.Serialize(writer, value);
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            object retVal = new Object();
+            var jToken = (JToken)serializer.Deserialize(reader, typeof(object));
 
-            if (reader.TokenType == JsonToken.StartObject)
-            {
-                object instance = serializer.Deserialize(reader, typeof(object));
+            if (jToken == null || !jToken.HasValues) return null;
 
-                retVal = new List<T>();
-            }
-            else if (reader.TokenType == JsonToken.StartArray)
-            {
-                retVal = serializer.Deserialize(reader, objectType);
-            }
-            return retVal;
+            return jToken.ToObject(objectType);
         }
 
         public override bool CanConvert(Type objectType)

@@ -1,11 +1,11 @@
-﻿using Crm.Service.Extensions;
-using Crm.Service.Models;
+﻿using amocrm.library.Extensions;
+using amocrm.library.Models;
 using Mapster;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Crm.Service.Tools
+namespace amocrm.library.Tools
 {
     internal class DtoModelBuilder<TEntity> where TEntity : EntityCore
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Crm.Service.Interfaces
+namespace amocrm.library.Interfaces
 {
     public interface IQueryableRepository<T> : ICrmRepository<T>
     {

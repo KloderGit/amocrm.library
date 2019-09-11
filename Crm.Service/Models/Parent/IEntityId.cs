@@ -1,4 +1,4 @@
-﻿namespace Crm.Service.Models
+﻿namespace amocrm.library.Models
 {
     public interface IEntityId
     {

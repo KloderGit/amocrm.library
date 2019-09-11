@@ -1,5 +1,5 @@
-﻿using Crm.Service.Interfaces;
-using Crm.Service.Models;
+﻿using amocrm.library.Interfaces;
+using amocrm.library.Models;
 using Microsoft.Extensions.Logging;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Crm.Service
+namespace amocrm.library
 {
     public class LoggedRepositotyDecorator<T> : IQueryableRepository<T>, IEnumerable where T : EntityCore, new()
     {

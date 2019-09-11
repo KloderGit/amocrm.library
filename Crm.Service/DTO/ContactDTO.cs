@@ -1,13 +1,11 @@
 ﻿
-using amocrm.library.DTO;
+using amocrm.library.Converters;
+using amocrm.library.Models;
 using amocrm.library.Tools;
-using Crm.Service.Converters;
-using Crm.Service.Models;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 
-namespace Crm.Service.DTO
+namespace amocrm.library.DTO
 {
     [ParentForDtoAttribute(typeof(Contact))]
     public class ContactDTO
@@ -16,7 +14,7 @@ namespace Crm.Service.DTO
         public int Id { get; set; }
 
         [JsonProperty(PropertyName = "name")]
-        public string Name { get; set; } = String.Empty;
+        public string Name { get; set; }
 
         [JsonProperty(PropertyName = "responsible_user_id")]
         public int ResponsibleUserId { get; set; }
@@ -42,34 +40,25 @@ namespace Crm.Service.DTO
         [JsonProperty(PropertyName = "closest_task_at")]
         public int ClosestTaskAt { get; set; }
 
+
+        [JsonConverter(typeof(ObjectOrNullJsonConverter))]
         [JsonProperty(PropertyName = "company")]
-        public CompanyField Company { get; set; }
+        public SimpleDtoObject Company { get; set; }
 
+        [JsonConverter(typeof(ObjectOrNullJsonConverter))]
         [JsonProperty(PropertyName = "customers")]
-        public Customers Customers { get; set; }
+        public LinkedDataList Customers { get; set; }
 
+        [JsonConverter(typeof(ObjectOrNullJsonConverter))]
         [JsonProperty(PropertyName = "leads")]
-        public LeadsDto Leads { get; set; }
+        public LinkedDataList Leads { get; set; }
 
-        [JsonConverter(typeof(ObjectOrArrayJsonConverter<TagDto>))]
+        [JsonConverter(typeof(ObjectOrArrayJsonConverter<SimpleDtoObject>))]
         [JsonProperty(PropertyName = "tags")]
-        public List<TagDto> Tags { get; set; } = new List<TagDto>();
+        public List<SimpleDtoObject> Tags { get; set; }
+
         [JsonConverter(typeof(ObjectOrArrayJsonConverter<CustomFieldsDto>))]
         [JsonProperty(PropertyName = "custom_fields")]
-        public List<CustomFieldsDto> CustomFields { get; set; } = new List<CustomFieldsDto>();
-    }
-
-    public class LeadsDto
-    {
-        public List<int> id { get; set; } = new List<int>();
-    }
-
-    public class Customers
-    {
-        [JsonProperty(PropertyName = "id")]
-        public int Id { get; set; }
-
-        [JsonProperty(PropertyName = "name")]
-        public string Name { get; set; }
+        public List<CustomFieldsDto> CustomFields { get; set; }
     }
 }

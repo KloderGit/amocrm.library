@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Crm.Service.Models
+namespace amocrm.library.Models
 {
     public class EntityCore : IEntityId
     {

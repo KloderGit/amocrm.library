@@ -1,8 +1,8 @@
 ﻿
 
-using Crm.Service.Models;
+using amocrm.library.Models;
 
-namespace Crm.Service.Interfaces
+namespace amocrm.library.Interfaces
 {
     public interface ICrmManager
     {

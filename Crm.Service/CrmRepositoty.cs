@@ -1,15 +1,16 @@
-﻿using Crm.Service.Extensions;
-using Crm.Service.Interfaces;
-using Crm.Service.Models;
-using Crm.Service.Tools;
+﻿using amocrm.library.Extensions;
+using amocrm.library.Interfaces;
+using amocrm.library.Models;
+using amocrm.library.Tools;
 using Mapster;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Crm.Service
+namespace amocrm.library
 {
     public class CrmRepositoty<T> : IQueryableRepository<T>, IEnumerable where T : EntityCore, new()
     {
@@ -106,6 +107,7 @@ namespace Crm.Service
             var token = (JArray)toJson.SelectToken("_embedded").SelectToken("items");
 
             var result = token.ToObject(genericListType);
+
             return result.Adapt<List<T>>();
         }
 

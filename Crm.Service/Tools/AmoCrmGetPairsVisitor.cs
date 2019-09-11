@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace Crm.Service.Tools
+namespace amocrm.library.Tools
 {
     public class AmoCrmGetPairsVisitor : ExpressionVisitor
     {

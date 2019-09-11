@@ -1,14 +1,14 @@
 ﻿
-using Crm.Service.Filters;
-using Crm.Service.Interfaces;
-using Crm.Service.Tools;
+using amocrm.library.Filters;
+using amocrm.library.Interfaces;
+using amocrm.library.Tools;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Crm.Service
+namespace amocrm.library
 {
     public class QueryGenerator : IQueryGenerator
     {

@@ -2,7 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Crm.Service.Interfaces
+namespace amocrm.library.Interfaces
 {
     public interface ICrmProvider
     {

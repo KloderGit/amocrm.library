@@ -1,10 +1,10 @@
-﻿using Crm.Service.Models;
+﻿using amocrm.library.Models;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Crm.Service.Extensions
+namespace amocrm.library.Extensions
 {
     public static class HttpClientExtensions
     {

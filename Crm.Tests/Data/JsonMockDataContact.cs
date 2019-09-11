@@ -1,4 +1,4 @@
-﻿using Crm.Service.DTO;
+﻿using amocrm.library.DTO;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 

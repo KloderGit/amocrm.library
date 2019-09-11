@@ -1,6 +1,6 @@
-﻿using Crm.Service.Tools;
+﻿using amocrm.library.Tools;
 
-namespace Crm.Service.Filters
+namespace amocrm.library.Filters
 {
     public class Filter
     {

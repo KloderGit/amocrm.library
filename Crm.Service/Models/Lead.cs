@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace Crm.Service.Models
+namespace amocrm.library.Models
 {
     public class Lead : EntityCore
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = String.Empty;
 
         public int Status { get; set; }
 
@@ -14,15 +14,17 @@ namespace Crm.Service.Models
 
         public int LossReason { get; set; }
 
-        public DateTime ClosestTaskAt { get; set; }
+        public DateTime ClosestTaskAt { get; set; } = default;
 
         public bool? IsDeleted { get; set; }
 
-        public DateTime ClosedAt { get; set; }
+        public DateTime ClosedAt { get; set; } = default;
 
-        public List<SimpleObject> Tags { get; set; }
+        public int PipelineId { get; set; }
 
-        public List<Field> Fields { get; set; }
+        public List<SimpleObject> Tags { get; set; } = new List<SimpleObject>();
+
+        public List<Field> Fields { get; set; } = new List<Field>();
 
         public SimpleObject Company { get; set; }
 
@@ -31,19 +33,5 @@ namespace Crm.Service.Models
         public IdSingle MainContact { get; set; }
 
         public IdSingle Pipeline { get; set; }
-
-        public Action<Lead> ChangeValueDelegate;
-
-        public Lead GetChanges()
-        {
-            var leadWithChangedFields = new Lead();
-            leadWithChangedFields.Id = this.Id;
-
-            if (ChangeValueDelegate == null) throw new NullReferenceException($"Изменений в {this.GetType().Name} не было");
-
-            ChangeValueDelegate.Invoke(leadWithChangedFields);
-
-            return leadWithChangedFields;
-        }
     }
 }

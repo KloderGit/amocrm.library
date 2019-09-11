@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Crm.Service.Models
+namespace amocrm.library.Models
 {
 
     public class Error

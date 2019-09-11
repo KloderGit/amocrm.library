@@ -1,4 +1,4 @@
-﻿namespace Crm.Service.Tools
+﻿namespace amocrm.library.Tools
 {
     public class FilterNameRepresentAttribute : System.Attribute
     {

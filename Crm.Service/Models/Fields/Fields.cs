@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Crm.Service.Models
+namespace amocrm.library.Models
 {
     public class Field
     {

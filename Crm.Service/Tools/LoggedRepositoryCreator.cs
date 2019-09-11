@@ -1,9 +1,9 @@
 ﻿
-using Crm.Service.Interfaces;
+using amocrm.library.Interfaces;
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace Crm.Service.Tools
+namespace amocrm.library.Tools
 {
     public interface IRepositoryCreator
     {

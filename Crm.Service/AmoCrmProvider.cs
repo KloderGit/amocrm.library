@@ -1,7 +1,7 @@
 ﻿
-using Crm.Service.Configurations;
-using Crm.Service.Interfaces;
-using Crm.Service.Models;
+using amocrm.library.Configurations;
+using amocrm.library.Interfaces;
+using amocrm.library.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace Crm.Service
+namespace amocrm.library
 {
     public class AmoCrmProvider : ICrmProvider
     {

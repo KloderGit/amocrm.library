@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Crm.Service.Extensions
+namespace amocrm.library.Extensions
 {
     public static class DateTimeExtensions
     {

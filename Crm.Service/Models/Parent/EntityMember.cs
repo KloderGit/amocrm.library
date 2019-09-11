@@ -1,7 +1,8 @@
-﻿using System;
+﻿using amocrm.library.Models.Fields;
+using System;
 using System.Collections.Generic;
 
-namespace Crm.Service.Models
+namespace amocrm.library.Models
 {
     public class EntityMember : EntityCore
     {
@@ -9,7 +10,7 @@ namespace Crm.Service.Models
 
         public DateTime ClosestTaskAt { get; set; } = default;
 
-        public List<Tag> Tags { get; set; } = new List<Tag>();
+        public List<SimpleObject> Tags { get; set; } = new List<SimpleObject>();
 
         public List<Field> Fields { get; set; } = new List<Field>();
     }
