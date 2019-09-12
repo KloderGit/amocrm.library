@@ -37,8 +37,8 @@ namespace amocrm.library.Configurations
             urls.Add(typeof(Contact), new Uri(_baseUrl, "api/v2/contacts"));
             //urls.Add(typeof(CompanyDTO), new Uri(_baseUrl, "api/v2/companies"));
             //urls.Add(typeof(CatalogDTO), new Uri(_baseUrl, "api/v2/catalog_elements"));
-            //urls.Add(typeof(TaskDTO), new Uri(_baseUrl, "api/v2/tasks"));
-            //urls.Add(typeof(NoteDTO), new Uri(_baseUrl, "api/v2/notes"));
+            urls.Add(typeof(Task), new Uri(_baseUrl, "api/v2/tasks"));
+            urls.Add(typeof(Note), new Uri(_baseUrl, "api/v2/notes"));
             //urls.Add(typeof(Account), new Uri(_baseUrl, "api/v2/account"));
         }
 

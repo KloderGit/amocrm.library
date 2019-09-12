@@ -1,7 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using amocrm.library.Models;
+using amocrm.library.Tools;
+using Newtonsoft.Json;
 
 namespace amocrm.library.DTO
 {
+    [ParentForDtoAttribute(typeof(Note))]
     public class NoteDTO
     {
         [JsonProperty(PropertyName = "id")]

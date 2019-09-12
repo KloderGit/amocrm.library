@@ -75,7 +75,7 @@ namespace Crm.Tests.Mappings
         [TestMethod] public void LeadsIsNotNull() => Assert.AreNotEqual(company.Adapt<CompanyDTO>().Leads, null);
         [TestMethod] public void LeadsHasValues() => Assert.AreEqual(company.Adapt<CompanyDTO>().Leads.Id.Count(), 3);
         [TestMethod] public void LeadsFirstValue() => Assert.AreEqual(company.Adapt<CompanyDTO>().Leads.Id.First(), 111);
-        [TestMethod] public void LeadsIsNull() => Assert.IsNull(new Company().Adapt<CompanyDTO>().CustomFields);
+        [TestMethod] public void LeadsIsNull() => Assert.IsNull(new Company().Adapt<CompanyDTO>().Leads);
 
         [TestMethod] public void ContactsTypeIs() => Assert.IsInstanceOfType(company.Adapt<CompanyDTO>().Contacts, typeof(LinkedDataList));
         [TestMethod] public void ContactsIsNotNull() => Assert.AreNotEqual(company.Adapt<CompanyDTO>().Contacts, null);

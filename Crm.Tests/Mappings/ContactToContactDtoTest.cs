@@ -3,21 +3,27 @@ using amocrm.library.Extensions;
 using amocrm.library.Mappings;
 using amocrm.library.Models;
 using amocrm.library.Models.Fields;
+using Crm.Tests.Data;
 using Mapster;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Crm.Tests.Mappings
 {
     [TestClass]
-    public class ContactToContactDtoTest
+    public class ContactToContactDTOTest
     {
-        public ContactToContactDtoTest()
+        Contact contact;
+
+        public ContactToContactDTOTest()
         {
             new ContactMaps();
+
+            contact = new ContactMockData().GetContacts().First();
         }
 
         [TestMethod]
@@ -31,83 +37,57 @@ namespace Crm.Tests.Mappings
             var contactFromDto = contact.Adapt<ContactDTO>();
             var contactDtoFromNew = new ContactDTO();
 
-            var ContactDTO1 = JsonConvert.SerializeObject(contactFromDto).ToString();
-            var ContactDTO2 = JsonConvert.SerializeObject(contactDtoFromNew).ToString();
+            var ContactDTODTO1 = JsonConvert.SerializeObject(contactFromDto).ToString();
+            var ContactDTODTO2 = JsonConvert.SerializeObject(contactDtoFromNew).ToString();
 
-            Assert.AreEqual(ContactDTO1, ContactDTO2);
+            Assert.AreEqual(ContactDTODTO1, ContactDTODTO2);
         }
 
 
-        [TestMethod]
-        public void IntTest()
-        {
-            var contact = new Contact() { Id = 0 };
-            var dto = contact.Adapt<ContactDTO>();
+        [TestMethod] public void Id() => Assert.AreEqual(contact.Adapt<ContactDTO>().Id, 654654);
+        [TestMethod] public void ResponsibleUserId() => Assert.AreEqual(contact.Adapt<ContactDTO>().ResponsibleUserId, 77777);
+        [TestMethod] public void AccountId() => Assert.AreEqual(contact.Adapt<ContactDTO>().AccountId, 987987);
+        [TestMethod] public void GroupId() => Assert.AreEqual(contact.Adapt<ContactDTO>().GroupId, 8888);
+        [TestMethod] public void UpdatedBy() => Assert.AreEqual(contact.Adapt<ContactDTO>().UpdatedBy, 88888);
+        [TestMethod] public void CreatedBy() => Assert.AreEqual(contact.Adapt<ContactDTO>().CreatedBy, 55555);
 
-            var contactValue = new Contact() { Id = 123 };
-            var dtoValue = contactValue.Adapt<ContactDTO>();
+        [TestMethod] public void Name() => Assert.AreEqual(contact.Adapt<ContactDTO>().Name, "TestUser1");
+        [TestMethod] public void NameIsNotNull() => Assert.IsNull(new Contact().Adapt<ContactDTO>().Name);
 
-            Assert.AreEqual(dto.Id, 0);
-            Assert.AreEqual(dtoValue.Id, 123);
-        }
+        [TestMethod] public void CreatedAt() => Assert.AreEqual(contact.Adapt<ContactDTO>().CreatedAt, new DateTime(2019, 10, 1).ToTimestamp());
+        [TestMethod] public void CreatedAtZero() => Assert.AreEqual(new Contact().Adapt<ContactDTO>().CreatedAt, 0);
 
-        [TestMethod]
-        public void DateToIntTest()
-        {
-            var contact = new Contact() { CreatedAt = DateTime.MinValue };
-            var dto = contact.Adapt<ContactDTO>();
+        [TestMethod] public void UpdatedAt() => Assert.AreEqual(contact.Adapt<ContactDTO>().UpdatedAt, new DateTime(2019, 10, 2).ToTimestamp());
+        [TestMethod] public void UpdatedAtZero() => Assert.AreEqual(new Contact().Adapt<ContactDTO>().UpdatedAt, 0);
 
-            var contactValue = new Contact() { CreatedAt = new DateTime(2019, 11, 10) };
-            var dtoValue = contactValue.Adapt<ContactDTO>();
+        [TestMethod] public void ClosestTaskAt() => Assert.AreEqual(contact.Adapt<ContactDTO>().ClosestTaskAt, new DateTime(2019, 10, 30).ToTimestamp());
+        [TestMethod] public void ClosestTaskAtZero() => Assert.AreEqual(new Contact().Adapt<ContactDTO>().ClosestTaskAt, 0);
 
-            Assert.AreEqual(dto.CreatedAt, 0);
-            Assert.AreEqual(dtoValue.CreatedAt, new DateTime(2019, 11, 10).ToTimestamp());
-        }
+        [TestMethod] public void TagsIsNotNull() => Assert.AreNotEqual(contact.Adapt<ContactDTO>().Tags, null);
+        [TestMethod] public void TagsHasValue() => Assert.AreEqual(contact.Adapt<ContactDTO>().Tags.Count, 2);
+        [TestMethod] public void TagsFirstValue() => Assert.AreEqual(contact.Adapt<ContactDTO>().Tags[0].Id, 123);
+        [TestMethod] public void TagsIsNull() => Assert.IsNull(new Contact().Adapt<ContactDTO>().Tags);
 
-        [TestMethod]
-        public void StringTest()
-        {
-            var contact = new Contact() { Name = String.Empty };
-            var dto = contact.Adapt<ContactDTO>();
+        [TestMethod] public void FieldsIsNotNull() => Assert.AreNotEqual(contact.Adapt<ContactDTO>().CustomFields, null);
+        [TestMethod] public void FieldsHasValues() => Assert.AreEqual(contact.Adapt<ContactDTO>().CustomFields.Count, 3);
+        [TestMethod] public void FieldsFirstValue() => Assert.AreEqual(contact.Adapt<ContactDTO>().CustomFields[0].Id, 112);
+        [TestMethod] public void FieldsIsNull() => Assert.IsNull(new Contact().Adapt<ContactDTO>().CustomFields);
 
-            var contactValue = new Contact() { Name = "Some Name" };
-            var dtoValue = contactValue.Adapt<ContactDTO>();
+        [TestMethod] public void LeadsTypeIs() => Assert.IsInstanceOfType(contact.Adapt<ContactDTO>().Leads, typeof(LinkedDataList));
+        [TestMethod] public void LeadsIsNotNull() => Assert.AreNotEqual(contact.Adapt<ContactDTO>().Leads, null);
+        [TestMethod] public void LeadsHasValues() => Assert.AreEqual(contact.Adapt<ContactDTO>().Leads.Id.Count(), 3);
+        [TestMethod] public void LeadsFirstValue() => Assert.AreEqual(contact.Adapt<ContactDTO>().Leads.Id.First(), 963369);
+        [TestMethod] public void LeadsIsNull() => Assert.IsNull(new Contact().Adapt<ContactDTO>().Leads);
 
-            Assert.AreEqual(dto.Name, null);
-            Assert.AreEqual(dtoValue.Name, "Some Name");
-        }
+        [TestMethod] public void ContactDTOsIsNotNull() => Assert.AreNotEqual(contact.Adapt<ContactDTO>().Company, null);
+        [TestMethod] public void ContactDTOsHasValues() => Assert.AreEqual(contact.Adapt<ContactDTO>().Company.Id, 95123);
+        [TestMethod] public void ContactIsNull() => Assert.IsNull(new Contact().Adapt<ContactDTO>().Company);
 
-        [TestMethod]
-        public void ObjectTest()
-        {
-            var contact = new Contact() { Company = null };
-            var dto = contact.Adapt<ContactDTO>();
-
-            var contactValue = new Contact() { Company = new SimpleObject { Id = 123 } };
-            var dtoValue = contactValue.Adapt<ContactDTO>();
-
-            Assert.AreEqual(dto.Company, null);
-            Assert.AreNotEqual(dtoValue.Company, null);
-            Assert.AreEqual(dtoValue.Company.Id, 123);
-        }
-
-        [TestMethod]
-        public void ListTest()
-        {
-            var contact = new Contact() { Tags = null };
-            var dto = contact.Adapt<ContactDTO>();
-
-            var contactValue = new Contact() { Tags = new List<SimpleObject> { new SimpleObject { Id = 123 } } };
-            var dtoValue = contactValue.Adapt<ContactDTO>();
-
-            var contactEmptyValue = new Contact() { Tags = new List<SimpleObject>() };
-            var dtoEmptyValue = contactEmptyValue.Adapt<ContactDTO>();
-
-            Assert.AreEqual(dto.Tags, null);
-            Assert.AreEqual(dtoEmptyValue.Tags, null);
-            Assert.AreEqual(dtoValue.Tags[0].Id, 123);
-        }
+        [TestMethod] public void CustomersTypeIs() => Assert.IsInstanceOfType(contact.Adapt<ContactDTO>().Customers, typeof(LinkedDataList));
+        [TestMethod] public void CustomersIsNotNull() => Assert.AreNotEqual(contact.Adapt<ContactDTO>().Customers, null);
+        [TestMethod] public void CustomersHasValue() => Assert.AreEqual(contact.Adapt<ContactDTO>().Customers.Id.Count(), 3);
+        [TestMethod] public void CustomersFirstValue() => Assert.AreEqual(contact.Adapt<ContactDTO>().Customers.Id.First(), 987654);
+        [TestMethod] public void CustomersIsNull() => Assert.IsNull(new Contact().Adapt<ContactDTO>().Customers);
     }
-
 }
 

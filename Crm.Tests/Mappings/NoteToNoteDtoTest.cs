@@ -2,11 +2,13 @@
 using amocrm.library.Extensions;
 using amocrm.library.Mappings;
 using amocrm.library.Models;
+using Crm.Tests.Data;
 using Mapster;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Crm.Tests.Mappings
@@ -14,6 +16,8 @@ namespace Crm.Tests.Mappings
     [TestClass]
     public class NoteToNoteDtoTest
     {
+        NoteDTO note = NoteMockData.GetNoteDTO().First();
+
         public NoteToNoteDtoTest()
         {
             new ContactMaps();
@@ -31,41 +35,32 @@ namespace Crm.Tests.Mappings
             Assert.AreEqual(noteDTO1, noteDTO2);
         }
 
-        [TestMethod]
-        public void DateToIntTest()
-        {
-            var note = new Note() { CreatedAt = DateTime.MinValue }.Adapt<NoteDTO>();
-            var noteValue = new Note() { CreatedAt = new DateTime(2019, 10, 5) }.Adapt<NoteDTO>();
+        [TestMethod] public void Id() => Assert.AreEqual(note.Adapt<NoteDTO>().Id, 8663699);
+        [TestMethod] public void ResponsibleUserId() => Assert.AreEqual(note.Adapt<NoteDTO>().ResponsibleUserId, 88888);
+        [TestMethod] public void AccountId() => Assert.AreEqual(note.Adapt<NoteDTO>().AccountId, 17769199);
+        [TestMethod] public void GroupId() => Assert.AreEqual(note.Adapt<NoteDTO>().GroupId, 212704);
+        [TestMethod] public void CreatedBy() => Assert.AreEqual(note.Adapt<NoteDTO>().CreatedBy, 2081797);
+        [TestMethod] public void ElementId() => Assert.AreEqual(note.Adapt<NoteDTO>().ElementId, 654654);
+        [TestMethod] public void ElementType() => Assert.AreEqual(note.Adapt<NoteDTO>().ElementType, 2);
+        [TestMethod] public void NoteDTOType() => Assert.AreEqual(note.Adapt<NoteDTO>().NoteType, 987);
 
-            Assert.AreEqual(note.CreatedAt, 0);
-            Assert.AreEqual(noteValue.CreatedAt, new DateTime(2019, 10, 5).ToTimestamp());
-        }
+        [TestMethod] public void IsEditable() => Assert.AreEqual(note.Adapt<NoteDTO>().IsEditable, false);
+        [TestMethod] public void IsEditableIsNull() => Assert.IsNull(new Note().Adapt<NoteDTO>().IsEditable);
 
-        [TestMethod]
-        public void StringTest()
-        {
-            var note = new Note() { Text = null }.Adapt<NoteDTO>();
-            var noteValue = new Note() { Text = "Some Name" }.Adapt<NoteDTO>();
+        [TestMethod] public void AttachmentValue() => Assert.AreEqual(note.Adapt<NoteDTO>().Attachment, "url of attachment");
+        [TestMethod] public void AttachmentIsNull() => Assert.IsNull(new Note().Adapt<NoteDTO>().Attachment);
 
-            Assert.AreEqual(note.Text, null);
-            Assert.AreEqual(noteValue.Text, "Some Name");
+        [TestMethod] public void TextValue() => Assert.AreEqual(note.Adapt<NoteDTO>().Text, "Some value");
+        [TestMethod] public void TextIsNotNull() => Assert.IsNull(new Note().Adapt<NoteDTO>().Text);
 
-            var note1 = new Note() { Attachment = string.Empty }.Adapt<NoteDTO>();
-            var noteValue1 = new Note() { Attachment = "Some Value" }.Adapt<NoteDTO>();
+        [TestMethod] public void CreatedAt() => Assert.AreEqual(note.Adapt<NoteDTO>().CreatedAt, 1527690442);
+        [TestMethod] public void CreatedAtZero() => Assert.AreEqual(new Note().Adapt<NoteDTO>().CreatedAt, 0);
 
-            Assert.AreEqual(note1.Attachment, null);
-            Assert.AreEqual(noteValue1.Attachment, "Some Value");
-        }
+        [TestMethod] public void UpdatedAt() => Assert.AreEqual(note.Adapt<NoteDTO>().UpdatedAt, 1567519347);
+        [TestMethod] public void UpdatedAtZero() => Assert.AreEqual(new Note().Adapt<NoteDTO>().UpdatedAt, 0);
 
-        [TestMethod]
-        public void ObjectTest()
-        {
-            var note = new Note() { Params = null }.Adapt<NoteDTO>();
-            var noteValue = new Note() { Params = new Params { Text = "value" } }.Adapt<NoteDTO>();
-
-            Assert.AreEqual(note.Params, null);
-            Assert.AreNotEqual(noteValue.Params, null);
-            Assert.AreEqual(noteValue.Params.Text, "value");
-        }
+        [TestMethod] public void ParamsIsNotNull() => Assert.IsNotNull(note.Adapt<NoteDTO>().Params);
+        [TestMethod] public void ParamsHasValue() => Assert.AreEqual(note.Adapt<NoteDTO>().Params.Text, "Message");
+        [TestMethod] public void ParamsIsNull() => Assert.IsNull(new Note().Adapt<NoteDTO>().Params);
     }
 }

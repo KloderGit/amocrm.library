@@ -1,10 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using amocrm.library.Models;
+using amocrm.library.Tools;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace amocrm.library.DTO
 {
+    [ParentForDtoAttribute(typeof(Task))]
     public class TaskDTO
     {
         [JsonProperty(PropertyName = "id")]

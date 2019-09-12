@@ -28,10 +28,10 @@ namespace amocrm.library.Models
 
         public SimpleObject Company { get; set; }
 
-        public IdArray Contacts { get; set; }
+        public List<int> Contacts { get; set; } = new List<int>();
 
-        public IdSingle MainContact { get; set; }
+        public int MainContact { get; set; }
 
-        public IdSingle Pipeline { get; set; }
+        public int Pipeline { get; set; }
     }
 }

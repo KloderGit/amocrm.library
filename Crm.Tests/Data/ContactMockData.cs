@@ -1,10 +1,12 @@
 ﻿using amocrm.library.DTO;
+using amocrm.library.Models;
+using amocrm.library.Models.Fields;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 namespace Crm.Tests.Data
 {
-    internal class JsonMockDataContact
+    internal class ContactMockData
     {
         public List<ContactDTO> GetDTOs()
         {
@@ -15,16 +17,44 @@ namespace Crm.Tests.Data
 
             var result = toJson.ToObject(typeof(ContactDTO));
 
-            return new List<ContactDTO> {
-                result as ContactDTO,
-                new ContactDTO{ Id = 123 }
-            };
+            return new List<ContactDTO> { result as ContactDTO };
         }
 
         public JObject GetJsonObject()
         {
             return JObject.Parse(GetJsonString());
         }
+
+
+        public List<Contact> GetContacts()
+        {
+            var contact = new Contact()
+            {
+                Id = 654654,
+                AccountId = 987987,
+                ClosestTaskAt = new System.DateTime(2019, 10, 30),
+                CreatedAt = new System.DateTime(2019, 10, 1),
+                UpdatedAt = new System.DateTime(2019, 10, 2),
+                CreatedBy = 55555,
+                GroupId = 8888,
+                Name = "TestUser1",
+                ResponsibleUserId = 77777,
+                UpdatedBy = 88888,
+                Tags = new List<SimpleObject> { new SimpleObject { Id = 123, Name = "tag1" }, new SimpleObject { Id = 321, Name = "tag2" } },
+                Leads = new List<int> { 963369, 85258, 74147 },
+                Customers = new List<int> { 987654, 321654, 654963 },
+                Company = new SimpleObject { Id = 95123, Name = "TestCompany" },
+                Fields = new List<Field> {
+                   new Field { Id = 112, Name = "Field1", IsSystem = false, Values = new List<FieldValue>{ new FieldValue { Enum = 899, Value = "FieldValue1" } } },
+                   new Field { Id = 113, Name = "Field2", IsSystem = false, Values = new List<FieldValue>{ new FieldValue { Enum = 788, Value = "FieldValue2" } } },
+                   new Field { Id = 114, Name = "Field3", IsSystem = false, Values = new List<FieldValue>{ new FieldValue { Enum = 788, Value = "FieldValue3" } } }
+               }
+            };
+
+            return new List<Contact> { contact as Contact };
+        }
+
+
 
         public string GetJsonString()
         {
@@ -56,7 +86,14 @@ namespace Crm.Tests.Data
                               16239863
                   ]
                 },
-                ""closest_task_at"": 0,
+                ""customers"": {
+                            ""id"": [
+                              555555,
+                              656565,
+                              787878
+                  ]
+                },
+                ""closest_task_at"": 1567630740,
                 ""tags"": [
                   {
                     ""id"": 246241,
@@ -201,7 +238,6 @@ namespace Crm.Tests.Data
                     ""is_system"": true
                   }
                 ],
-                ""customers"": {},
                 ""_links"": {
                   ""self"": {
                     ""href"": ""/api/v2/contacts?id=29127849"",

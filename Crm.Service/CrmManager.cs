@@ -38,10 +38,10 @@ namespace amocrm.library
 
         public IQueryableRepository<Contact> Contacts => RepositoryCreator.GetRepository<Contact>();
 
-        public ICrmRepository<Company> Companies => throw new NotImplementedException();
+        public ICrmRepository<Company> Companies => RepositoryCreator.GetRepository<Company>();
 
-        public ICrmRepository<Task> Tasks => throw new NotImplementedException();
+        public ICrmRepository<Task> Tasks => RepositoryCreator.GetRepository<Task>();
 
-        public ICrmRepository<Note> Notes => throw new NotImplementedException();
+        public ICrmRepository<Note> Notes => RepositoryCreator.GetRepository<Note>();
     }
 }

@@ -1,4 +1,5 @@
-﻿using amocrm.library.Models;
+﻿using amocrm.library.Converters;
+using amocrm.library.Models;
 using Newtonsoft.Json;
 using System;
 using System.Net.Http;
@@ -10,7 +11,7 @@ namespace amocrm.library.Extensions
     {
         public static async Task<HttpResponseMessage> PostObjectAsync(this HttpClient client, Uri url, System.Object @object)
         {
-            var objToJson = JsonConvert.SerializeObject(@object);
+            var objToJson = JsonConvert.SerializeObject(@object, new PostJsonSerializerSettings().GetSerializeSetting());
             var stringContent = new StringContent(objToJson.ToString());
 
             return await client.PostAsync(url, stringContent).ConfigureAwait(false);

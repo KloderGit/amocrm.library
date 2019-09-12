@@ -20,7 +20,8 @@ namespace amocrm.library.Mappings
                 .Map(dest => dest.ClosestTaskAt, src => new DateTime().FromTimestamp(src.ClosestTaskAt))
                 .Map(dest => dest.CreatedAt, src => new DateTime().FromTimestamp(src.CreatedAt))
                 .Map(dest => dest.UpdatedAt, src => new DateTime().FromTimestamp(src.UpdatedAt))
-                .Map(dest => dest.Leads, src => src.Leads == null ? new List<int>() : src.Leads.Id);
+                .Map(dest => dest.Leads, src => src.Leads == null ? new List<int>() : src.Leads.Id)
+                .Map(dest => dest.Customers, src => src.Customers == null ? new List<int>() : src.Customers.Id);
 
             TypeAdapterConfig<Contact, ContactDTO>
                 .NewConfig()
@@ -30,7 +31,9 @@ namespace amocrm.library.Mappings
                 .Map(dest => dest.ClosestTaskAt, src => src.ClosestTaskAt.ToTimestamp())
                 .Map(dest => dest.CreatedAt, src => src.CreatedAt.ToTimestamp())
                 .Map(dest => dest.UpdatedAt, src => src.UpdatedAt.ToTimestamp())
-                .Map(dest => dest.Leads, src => src.Leads.Count() == 0 ? null : new LinkedDataList { Id = src.Leads.ToList() });
+                .Map(dest => dest.Leads, src => src.Leads.Count() == 0 ? null : new LinkedDataList { Id = src.Leads.ToList() })
+                .Map(dest => dest.Customers, src => src.Customers == null || src.Customers.Count() == 0 ? null : new LinkedDataList { Id = new List<int>(src.Customers) });
+
 
 
             TypeAdapterConfig<LeadDTO, Lead>
@@ -41,7 +44,10 @@ namespace amocrm.library.Mappings
                 .Map(dest => dest.ClosestTaskAt, src => new DateTime().FromTimestamp(src.ClosestTaskAt))
                 .Map(dest => dest.CreatedAt, src => new DateTime().FromTimestamp(src.CreatedAt))
                 .Map(dest => dest.UpdatedAt, src => new DateTime().FromTimestamp(src.UpdatedAt))
-                .Map(dest => dest.ClosedAt, src => new DateTime().FromTimestamp(src.ClosedAt));
+                .Map(dest => dest.ClosedAt, src => new DateTime().FromTimestamp(src.ClosedAt))
+                .Map(dest => dest.Contacts, src => src.Contacts == null ? new List<int>() : src.Contacts.Id)
+                .Map(dest => dest.MainContact, src => src.MainContact == null ? 0 : src.MainContact.Id)
+                .Map(dest => dest.Pipeline, src => src.Pipeline == null ? 0 : src.Pipeline.Id);
 
             TypeAdapterConfig<Lead, LeadDTO>
                 .NewConfig()
@@ -51,7 +57,10 @@ namespace amocrm.library.Mappings
                 .Map(dest => dest.ClosestTaskAt, src => src.ClosestTaskAt.ToTimestamp())
                 .Map(dest => dest.CreatedAt, src => src.CreatedAt.ToTimestamp())
                 .Map(dest => dest.UpdatedAt, src => src.UpdatedAt.ToTimestamp())
-                .Map(dest => dest.ClosedAt, src => src.ClosedAt.ToTimestamp());
+                .Map(dest => dest.ClosedAt, src => src.ClosedAt.ToTimestamp())
+                .Map(dest => dest.Contacts, src => src.Contacts == null || src.Tags.Count == 0 ? null : new LinkedDataList { Id = src.Contacts })
+                .Map(dest => dest.MainContact, src => src.MainContact == 0 ? null : new SimpleDtoObject { Id = src.MainContact })
+                .Map(dest => dest.Pipeline, src => src.Pipeline == 0 ? null : new SimpleDtoObject { Id = src.Pipeline });
 
 
 

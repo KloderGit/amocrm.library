@@ -1,4 +1,6 @@
 ﻿using amocrm.library.Converters;
+using amocrm.library.Models;
+using amocrm.library.Tools;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -6,6 +8,7 @@ using System.Text;
 
 namespace amocrm.library.DTO
 {
+    [ParentForDtoAttribute(typeof(Company))]
     public class CompanyDTO
     {
         [JsonProperty(PropertyName = "id")]
@@ -58,12 +61,5 @@ namespace amocrm.library.DTO
         [JsonConverter(typeof(ObjectOrArrayJsonConverter<CustomFieldsDto>))]
         [JsonProperty(PropertyName = "custom_fields")]
         public List<CustomFieldsDto> CustomFields { get; set; }
-
-        public class Adapt<T>
-        {
-            public Adapt()
-            {
-            }
-        }
     }
 }

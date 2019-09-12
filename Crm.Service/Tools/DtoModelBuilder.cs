@@ -20,7 +20,7 @@ namespace amocrm.library.Tools
 
         public Object GetUpdateModel(IEnumerable<TEntity> entities)
         {
-            entities.ToList().ForEach(x => x.UpdatedAt = DateTime.Now);
+            entities.ToList().ForEach(x => x.UpdatedAt = DateTime.Now.AddMilliseconds(500));
             return new { update = ConvertEntityCollectionToDto(entities) };
         }
 

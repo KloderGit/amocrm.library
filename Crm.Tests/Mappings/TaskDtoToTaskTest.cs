@@ -15,6 +15,8 @@ namespace Crm.Tests.Mappings
     [TestClass]
     public class TaskDtoToTaskTest
     {
+        TaskDTO dto = TaskMockData.GetTaskDto().First();
+
         public TaskDtoToTaskTest()
         {
             new ContactMaps();
@@ -32,45 +34,35 @@ namespace Crm.Tests.Mappings
             Assert.AreEqual(taskDTO1, taskDTO2);
         }
 
-        [TestMethod]
-        public void MapFilledTaskDtoToTaskTest()
-        {
-            var taskFromDto = TaskMockData.GetTaskDto().First().Adapt<Task>();
 
-            var json = JObject.FromObject(taskFromDto);
+        [TestMethod] public void Id() => Assert.AreEqual(dto.Adapt<Task>().Id, 5555);
+        [TestMethod] public void ResponsibleUserId() => Assert.AreEqual(dto.Adapt<Task>().ResponsibleUserId, 2997712);
+        [TestMethod] public void AccountId() => Assert.AreEqual(dto.Adapt<Task>().AccountId, 17769199);
+        [TestMethod] public void GroupId() => Assert.AreEqual(dto.Adapt<Task>().GroupId, 212704);
+        [TestMethod] public void CreatedBy() => Assert.AreEqual(dto.Adapt<Task>().CreatedBy, 2081797);
+        [TestMethod] public void ElementId() => Assert.AreEqual(dto.Adapt<Task>().ElementId, 9999);
+        [TestMethod] public void ElementType() => Assert.AreEqual(dto.Adapt<Task>().ElementType, 2);
+        [TestMethod] public void TaskType() => Assert.AreEqual(dto.Adapt<Task>().TaskType, 1);
+        [TestMethod] public void IsEditable() => Assert.AreEqual(dto.Adapt<Task>().IsCompleted, true);
+        [TestMethod] public void IsEditableIsNull() => Assert.IsNull(new TaskDTO().Adapt<Task>().IsCompleted);
+        [TestMethod] public void Duration() => Assert.AreEqual(dto.Adapt<Task>().Duration, 55);
 
-            Assert.AreEqual(json.Count, 15);
-        }
+        [TestMethod] public void TextValue() => Assert.AreEqual(dto.Adapt<Task>().Text, "Выполненная задача");
+        [TestMethod] public void TextIsEmpty() => Assert.AreEqual(new TaskDTO().Adapt<Task>().Text, string.Empty);
+        [TestMethod] public void TextIsNotNull() => Assert.IsNotNull(new TaskDTO().Adapt<Task>().Text);
 
-        [TestMethod]
-        public void IntToDateTest()
-        {
-            var task = new TaskDTO() { CreatedAt = 0 }.Adapt<Task>();
-            var taskValue = new TaskDTO() { CreatedAt = 1527690442 }.Adapt<Task>();
+        [TestMethod] public void CreatedAt() => Assert.AreEqual(dto.Adapt<Task>().CreatedAt, new DateTime().FromTimestamp(1527690442));
+        [TestMethod] public void CreatedAtZero() => Assert.AreEqual(new TaskDTO().Adapt<Task>().CreatedAt, DateTime.MinValue);
 
-            Assert.AreEqual(task.CreatedAt, DateTime.MinValue);
-            Assert.AreEqual(taskValue.CreatedAt, new DateTime().FromTimestamp(1527690442));
-        }
+        [TestMethod] public void UpdatedAt() => Assert.AreEqual(dto.Adapt<Task>().UpdatedAt, new DateTime().FromTimestamp(1567519347));
+        [TestMethod] public void UpdatedAtZero() => Assert.AreEqual(new TaskDTO().Adapt<Task>().UpdatedAt, DateTime.MinValue);
 
-        [TestMethod]
-        public void StringTest()
-        {
-            var task = new TaskDTO() { Text = null }.Adapt<Task>();
-            var taskValue = new TaskDTO() { Text = "Some Name" }.Adapt<Task>();
+        [TestMethod] public void CompleteTillAt() => Assert.AreEqual(dto.Adapt<Task>().CompleteTillAt, new DateTime().FromTimestamp(1567630740));
+        [TestMethod] public void CompleteTillAtZero() => Assert.AreEqual(new TaskDTO().Adapt<Task>().CompleteTillAt, DateTime.MinValue);
 
-            Assert.AreEqual(task.Text, string.Empty);
-            Assert.AreEqual(taskValue.Text, "Some Name");
-        }
+        [TestMethod] public void ResultIsNotNull() => Assert.IsNotNull(dto.Adapt<Task>().Result);
+        [TestMethod] public void ResultHasValue() => Assert.AreEqual(dto.Adapt<Task>().Result.Id, 888);
+        [TestMethod] public void ResultIsNull() => Assert.IsNull(new TaskDTO().Adapt<Task>().Result);
 
-        [TestMethod]
-        public void ObjectTest()
-        {
-            var task = new TaskDTO() { Result = null }.Adapt<Task>();
-            var taskValue = new TaskDTO() { Result = new TaskResultDto { Id = 123 } }.Adapt<Task>();
-
-            Assert.AreEqual(task.Result, null);
-            Assert.AreNotEqual(taskValue.Result, null);
-            Assert.AreEqual(taskValue.Result.Id, 123);
-        }
     }
 }

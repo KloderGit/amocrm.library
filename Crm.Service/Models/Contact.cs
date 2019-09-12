@@ -7,8 +7,10 @@ namespace amocrm.library.Models
     {
         public int UpdatedBy { get; set; }
 
-        public List<int> Leads { get; set; } = new List<int>();
+        public IEnumerable<int> Leads { get; set; } = new List<int>();
 
         public SimpleObject Company { get; set; }
+
+        public IEnumerable<int> Customers { get; set; } = new List<int>();
     }
 }

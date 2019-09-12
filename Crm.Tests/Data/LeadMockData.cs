@@ -27,11 +27,11 @@ namespace Crm.Tests.Data
                 Status = 143,
                 UpdatedAt = new System.DateTime(2019, 9, 12),
 
-                MainContact = new IdSingle { Id = 29127849 },
+                MainContact = 29127849,
                 Company = new SimpleObject { Id = 33478747, Name = "Какоето название компании" },
                 Tags = new List<SimpleObject> { new SimpleObject { Id = 266651, Name = "бартер" }, new SimpleObject { Id = 288043, Name = "оплачено" } },
-                Contacts = new IdArray { Id = new List<int> { 29127849, 29127848 } },
-                Pipeline = new IdSingle { Id = 1020193 },
+                Contacts = new List<int> { 29127849, 29127848 },
+                Pipeline = 1020193,
                 Fields = new List<Field> {
                     new Field{ Id = 66339, Name = "Источник", IsSystem = false, Values = new List<FieldValue>{ new FieldValue { Enum = 139517, Value = "Сайт" } } },
                     new Field{ Id = 66349, Name = "Интересующая услуга", IsSystem = false, Values = new List<FieldValue>{ new FieldValue { Enum = 139967, Value = "Восстановление двигательной активности" } } },

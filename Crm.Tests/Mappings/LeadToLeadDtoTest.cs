@@ -9,13 +9,14 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Crm.Tests.Mappings
 {
     [TestClass]
     public class LeadToLeadDtoTest
     {
-        IEnumerable<Lead> array = LeadMockData.GetLeads();
+        LeadDTO array = LeadMockData.GetLeadDTO().First();
 
         public LeadToLeadDtoTest()
         {
@@ -28,9 +29,8 @@ namespace Crm.Tests.Mappings
             //Statement - All incoming data become defaul value even if data is null. 
             //    Equality ensures that all properties have been converted correctly.
 
-            var lead = new Lead();
 
-            var leadDtoFromLead = lead.Adapt<LeadDTO>();
+            var leadDtoFromLead = new Lead().Adapt<LeadDTO>();
             var leadDtoFromNew = new LeadDTO();
 
             var leadDto1 = JsonConvert.SerializeObject(leadDtoFromLead).ToString();
@@ -40,87 +40,61 @@ namespace Crm.Tests.Mappings
         }
 
 
-        [TestMethod]
-        public void IntTest()
-        {
-            var lead = new Lead() { Id = 0 };
-            var dto = lead.Adapt<LeadDTO>();
+        [TestMethod] public void Id() => Assert.AreEqual(array.Adapt<LeadDTO>().Id, 8663699);
+        [TestMethod] public void ResponsibleUserId() => Assert.AreEqual(array.Adapt<LeadDTO>().ResponsibleUserId, 2997712);
+        [TestMethod] public void AccountId() => Assert.AreEqual(array.Adapt<LeadDTO>().AccountId, 17769199);
+        [TestMethod] public void GroupId() => Assert.AreEqual(array.Adapt<LeadDTO>().GroupId, 212704);
+        [TestMethod] public void CreatedBy() => Assert.AreEqual(array.Adapt<LeadDTO>().CreatedBy, 2081797);
 
-            var leadValue = new Lead() { Id = 123 };
-            var dtoValue = leadValue.Adapt<LeadDTO>();
+        [TestMethod] public void Name() => Assert.AreEqual(array.Adapt<LeadDTO>().Name, "Тестовая сделка");
+        [TestMethod] public void NameIsNotNull() => Assert.IsNull(new Lead().Adapt<LeadDTO>().Name);
 
-            Assert.AreEqual(dto.Id, 0);
-            Assert.AreEqual(dtoValue.Id, 123);
-        }
+        [TestMethod] public void CreatedAt() => Assert.AreEqual(array.Adapt<LeadDTO>().CreatedAt, 1527690442);
+        [TestMethod] public void CreatedAtZero() => Assert.AreEqual(new Lead().Adapt<LeadDTO>().CreatedAt, 0);
 
-        [TestMethod]
-        public void DateToIntTest()
-        {
-            var lead = new Lead() { CreatedAt = DateTime.MinValue };
-            var dto = lead.Adapt<LeadDTO>();
+        [TestMethod] public void UpdatedAt() => Assert.AreEqual(array.Adapt<LeadDTO>().UpdatedAt, 1567519347);
+        [TestMethod] public void UpdatedAtZero() => Assert.AreEqual(new Lead().Adapt<LeadDTO>().UpdatedAt, 0);
 
-            var leadValue = new Lead() { CreatedAt = new DateTime( 2019, 11, 10) };
-            var dtoValue = leadValue.Adapt<LeadDTO>();
+        [TestMethod] public void ClosestTaskAt() => Assert.AreEqual(array.Adapt<LeadDTO>().ClosestTaskAt, 1567630740);
+        [TestMethod] public void ClosestTaskAtZero() => Assert.AreEqual(new Lead().Adapt<LeadDTO>().ClosestTaskAt, 0);
 
-            Assert.AreEqual(dto.CreatedAt, 0);
-            Assert.AreEqual(dtoValue.CreatedAt, new DateTime(2019, 11, 10).ToTimestamp());
-        }
+        [TestMethod] public void ClosedAt() => Assert.AreEqual(array.Adapt<LeadDTO>().ClosedAt, 1567514942);
+        [TestMethod] public void ClosedAtZero() => Assert.AreEqual(new Lead().Adapt<LeadDTO>().ClosedAt, 0);
 
-        [TestMethod]
-        public void StringTest()
-        {
-            var lead = new Lead() { Name = String.Empty };
-            var dto = lead.Adapt<LeadDTO>();
+        [TestMethod] public void IsDeleted() => Assert.AreEqual(array.Adapt<LeadDTO>().IsDeleted, false);
+        [TestMethod] public void IsDeletedNull() => Assert.IsNull(new Lead().Adapt<LeadDTO>().IsDeleted);
 
-            var leadValue = new Lead() { Name = "Some Name" };
-            var dtoValue = leadValue.Adapt<LeadDTO>();
+        [TestMethod] public void LossReason() => Assert.AreEqual(array.Adapt<LeadDTO>().LossReason, 955438);
+        [TestMethod] public void PipelineId() => Assert.AreEqual(array.Adapt<LeadDTO>().PipelineId, 1020193);
+        [TestMethod] public void Price() => Assert.AreEqual(array.Adapt<LeadDTO>().Price, 10000);
+        [TestMethod] public void Status() => Assert.AreEqual(array.Adapt<LeadDTO>().Status, 143);
 
-            Assert.AreEqual(dto.Name, null);
-            Assert.AreEqual(dtoValue.Name, "Some Name");
-        }
+        [TestMethod] public void MainContactIsNotNull() => Assert.AreNotEqual(array.Adapt<LeadDTO>().MainContact, null);
+        [TestMethod] public void MainContactHasValue() => Assert.AreEqual(array.Adapt<LeadDTO>().MainContact.Id, 29127849);
+        [TestMethod] public void MainContactIsNull() => Assert.IsNull(new Lead().Adapt<LeadDTO>().MainContact);
 
-        [TestMethod]
-        public void ObjectTest()
-        {
-            var lead = new Lead() { MainContact = null};
-            var dto = lead.Adapt<LeadDTO>();
+        [TestMethod] public void CompanytIsNotNull() => Assert.AreNotEqual(array.Adapt<LeadDTO>().Company, null);
+        [TestMethod] public void CompanyHasValue() => Assert.AreEqual(array.Adapt<LeadDTO>().Company.Id, 33478747);
+        [TestMethod] public void CompanyIsNull() => Assert.IsNull(new Lead().Adapt<LeadDTO>().Company);
 
-            var leadValue = new Lead() { MainContact = new IdSingle { Id = 123 } };
-            var dtoValue = leadValue.Adapt<LeadDTO>();
+        [TestMethod] public void PipelineIsNotNull() => Assert.AreNotEqual(array.Adapt<LeadDTO>().Pipeline, null);
+        [TestMethod] public void PipelineHasValue() => Assert.AreEqual(array.Adapt<LeadDTO>().Pipeline.Id, 1020193);
+        [TestMethod] public void PipelineIsNull() => Assert.IsNull(new Lead().Adapt<LeadDTO>().Pipeline);
 
-            Assert.AreEqual(dto.MainContact, null);
-            Assert.AreNotEqual(dtoValue.MainContact, null);
-            Assert.AreEqual(dtoValue.MainContact.Id, 123);
-        }
+        [TestMethod] public void TagsIsNotNull() => Assert.AreNotEqual(array.Adapt<LeadDTO>().Tags, null);
+        [TestMethod] public void TagsHasValue() => Assert.AreEqual(array.Adapt<LeadDTO>().Tags.Count, 2);
+        [TestMethod] public void TagsFirstValue() => Assert.AreEqual(array.Adapt<LeadDTO>().Tags[0].Id, 266651);
+        [TestMethod] public void TagsIsNull() => Assert.IsNull(new Lead().Adapt<LeadDTO>().Tags);
 
-        [TestMethod]
-        public void ListTest()
-        {
-            var lead = new Lead() { Tags = null };
-            var dto = lead.Adapt<LeadDTO>();
+        [TestMethod] public void FieldsIsNotNull() => Assert.AreNotEqual(array.Adapt<LeadDTO>().CustomFields, null);
+        [TestMethod] public void FieldsHasValues() => Assert.AreEqual(array.Adapt<LeadDTO>().CustomFields.Count, 3);
+        [TestMethod] public void FieldsFirstValue() => Assert.AreEqual(array.Adapt<LeadDTO>().CustomFields[0].Id, 66339);
+        [TestMethod] public void FieldsIsNull() => Assert.IsNull(new Lead().Adapt<LeadDTO>().CustomFields);
 
-            var leadValue = new Lead() { Tags = new List<SimpleObject> { new SimpleObject { Id = 123 } } };
-            var dtoValue = leadValue.Adapt<LeadDTO>();
-
-            var leadEmptyValue = new Lead() { Tags = new List<SimpleObject>() };
-            var dtoEmptyValue = leadEmptyValue.Adapt<LeadDTO>();
-
-            Assert.AreEqual(dto.Tags, null);
-            Assert.AreEqual(dtoEmptyValue.Tags, null);
-            Assert.AreEqual(dtoValue.Tags[0].Id, 123);
-        }
-
-        [TestMethod]
-        public void BoolTest()
-        {
-            var lead = new Lead() { IsDeleted = null };
-            var dto = lead.Adapt<LeadDTO>();
-
-            var leadValue = new Lead() { IsDeleted = true };
-            var dtoValue = leadValue.Adapt<LeadDTO>();
-
-            Assert.AreEqual(dto.IsDeleted, null);
-            Assert.AreEqual(dtoValue.IsDeleted, true);
-        }
+        [TestMethod] public void ContactsTypeIs() => Assert.IsInstanceOfType(array.Adapt<LeadDTO>().Contacts, typeof(LinkedDataList));
+        [TestMethod] public void ContactsIsNotNull() => Assert.AreNotEqual(array.Adapt<LeadDTO>().Contacts, null);
+        [TestMethod] public void ContactsHasValues() => Assert.AreEqual(array.Adapt<LeadDTO>().Contacts.Id.Count(), 2);
+        [TestMethod] public void ContactsFirstValue() => Assert.AreEqual(array.Adapt<LeadDTO>().Contacts.Id.First(), 29127849);
+        [TestMethod] public void ContactsIsNull() => Assert.IsNull(new Lead().Adapt<LeadDTO>().Contacts);
     }
 }
