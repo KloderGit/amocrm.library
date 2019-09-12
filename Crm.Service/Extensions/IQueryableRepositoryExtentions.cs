@@ -13,7 +13,7 @@ namespace amocrm.library.Extensions
     public static class IQueryableRepositoryExtentions
     {
 
-        public static IQueryableRepository<Contact> Where(this IQueryableRepository<Contact> queryable, Expression<Func<Filter, bool>> predicate)
+        public static IQueryableRepository<Contact> Where(this IQueryableRepository<Contact> queryable, Expression<Func<ContactFilter, bool>> predicate)
         {
             queryable.QueryGenerator.CreateQuery(predicate);
             return queryable;
@@ -25,7 +25,7 @@ namespace amocrm.library.Extensions
         }
 
 
-        public static IQueryableRepository<Lead> Where(this IQueryableRepository<Lead> queryable, Expression<Func<Filter, bool>> predicate)
+        public static IQueryableRepository<Lead> Where(this IQueryableRepository<Lead> queryable, Expression<Func<LeadFilter, bool>> predicate)
         {
             queryable.QueryGenerator.CreateQuery(predicate);
             return queryable;

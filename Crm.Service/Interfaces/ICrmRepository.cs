@@ -7,9 +7,9 @@ namespace amocrm.library.Interfaces
     {
         ICrmProvider Provider { get; }
 
+        Task<T> FindByIdAsync(int id);
         Task<IEnumerable<int>> AddAsync(T element);
         Task<IEnumerable<int>> AddAsync(IEnumerable<T> element);
-
         Task<IEnumerable<int>> UpdateAsync(T element);
         Task<IEnumerable<int>> UpdateAsync(IEnumerable<T> element);
     }

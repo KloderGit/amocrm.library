@@ -141,5 +141,34 @@ namespace amocrm.library
 
             return result;
         }
+
+        public async Task<T> FindByIdAsync(int id)
+        {
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+
+            logger.LogDebug($"Получен Provider с AuthCookiesLifeTime - {Repository.Provider.AuthCookiesLifeTime()}.");
+            var endPointLog = Repository.Provider.GetEndPoint<T>();
+            logger.LogDebug($"Получен EndPoint для отправки запроса - {endPointLog}.");
+
+            T result = new T();
+
+            try
+            {
+                result = await Repository.FindByIdAsync(id);
+
+                logger.LogDebug($"Найдено записей.");
+
+                sw.Stop();
+                logger.LogDebug("Время выполнения запроса - {time} ", sw.Elapsed);
+            }
+            catch (HttpRequestException ex)
+            {
+                logger.LogDebug($"Запрос вернул ошибку - {ex.Message}");
+                throw ex;
+            }
+
+            return result;
+        }
     }
 }

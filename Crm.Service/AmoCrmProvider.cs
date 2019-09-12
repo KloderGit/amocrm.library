@@ -19,8 +19,8 @@ namespace amocrm.library
         HttpClient client;
         HttpClientHandler handler;
         CrmEndPointConfig endPoint;
-        string login, pass;
-
+        private readonly string login;
+        private string pass;
 
         public AmoCrmProvider(string account, string login, string pass)
         {
@@ -29,7 +29,7 @@ namespace amocrm.library
             this.pass = pass;
         }
 
-        public async Task<bool> Auth()
+        public async System.Threading.Tasks.Task Auth()
         {
             Debug.WriteLine($"Соединение с CRM");
 
@@ -64,7 +64,7 @@ namespace amocrm.library
             }
 
             AmoCrmProvider.cookiesLiveTime = DateTime.Now;
-            return true;
+
         }
 
         public bool AuthCookiesLifeTime()

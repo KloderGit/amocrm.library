@@ -30,17 +30,15 @@ namespace Crm.Tests
             ILogger logger = loggerFactory.CreateLogger("TstLogger");
 
             var amoCrm = new CrmManager(logger, account: "apfitness", login: "kloder@fitness-pro.ru", pass: "99aad176302f7ea9213c307e1e6ab8fc");
+
             amoCrm.DirectAuthorization().Wait();
 
 
-            var lead = new Lead { Name = "TstLeadFor TstUser", Contacts = new List<int> { 34715691 } };
+            //var lead = amoCrm.Leads.FindByIdAsync(17553803).Result;
 
-            var company = new Company
-            {
-                Name = "Tst Company new" + new Random().Next(1, 1000),
-                Contacts = new List<int> { 34715691 },
+            
 
-            };
+            var contt = amoCrm.Contacts.Where(x => x.Contains == "89031453412").ToList().Result;
 
         }
     }

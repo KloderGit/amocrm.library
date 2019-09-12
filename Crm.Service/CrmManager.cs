@@ -29,9 +29,9 @@ namespace amocrm.library
             this.RepositoryCreator = new LoggedRepositoryCreator(Provider, logger);
         }
 
-        public async Tasks.Task<bool> DirectAuthorization()
+        public async Tasks.Task DirectAuthorization()
         {
-            return await Provider.Auth();
+            await Provider.Auth();
         }
 
         public IQueryableRepository<Lead> Leads => RepositoryCreator.GetRepository<Lead>();

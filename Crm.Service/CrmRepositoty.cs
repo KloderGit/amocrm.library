@@ -33,6 +33,8 @@ namespace amocrm.library
             return result;
         }
 
+
+
         public async Task<IEnumerable<T>> ExecuteAsync()
         {
             var client = await Provider.GetClient();
@@ -96,6 +98,17 @@ namespace amocrm.library
             return CreatePostResult(responseString);
         }
 
+
+        public async Task<T> FindByIdAsync(int id)
+        {
+            var client = await Provider.GetClient();
+            var endPoint = Provider.GetEndPoint<T>();
+
+            var responseString = await client.GetResultAsync(endPoint + "?id="+id).ConfigureAwait(false);
+
+            return string.IsNullOrEmpty(responseString) ? null : CreateGetResult(responseString).FirstOrDefault();
+        }
+
         IEnumerable<T> CreateGetResult(string jsonString)
         {
             var dtoType = typeof(T).GetDtoType();
@@ -121,5 +134,6 @@ namespace amocrm.library
             var result = token.Select(x => x["id"].Value<int>()).ToList();
             return result;
         }
+
     }
 }
