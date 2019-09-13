@@ -11,7 +11,7 @@ namespace amocrm.library.Extensions
     {
         public static async Task<IEnumerable<T>> ReadGetResponseAsync<T>(this HttpContent content)
         {
-            var dtoType = typeof(T).GetDtoType();
+            var dtoType = typeof(T).GetDtoType(Models.ActionEnum.Get);
 
             var listType = typeof(List<>);
             var genericListType = listType.MakeGenericType(dtoType);

@@ -16,7 +16,7 @@ namespace Crm.Tests.Converters
                                     ""name"": ""Название не указано""
                                } }";
 
-            var contact = JsonConvert.DeserializeObject<ContactDTO>(jsonString);
+            var contact = JsonConvert.DeserializeObject<ContactGetDTO>(jsonString);
 
             Assert.AreNotEqual(contact.Company, null);
             Assert.AreEqual(contact.Company.Id, 33478747);
@@ -27,7 +27,7 @@ namespace Crm.Tests.Converters
         {
             var jsonString = @"{""company"": {} }";
 
-            var contact = JsonConvert.DeserializeObject<ContactDTO>(jsonString);
+            var contact = JsonConvert.DeserializeObject<ContactGetDTO>(jsonString);
 
             Assert.AreEqual(contact.Company, null);
         }
@@ -35,7 +35,7 @@ namespace Crm.Tests.Converters
         [TestMethod]
         public void WriteJsonFieldWithValue()
         {
-            var leadDto = new LeadDTO { MainContact = new SimpleDtoObject { Id = 123 } };
+            var leadDto = new LeadGetDTO { MainContact = new SimpleDtoObject { Id = 123 } };
 
             var jsonObject = JObject.FromObject(leadDto);
 
@@ -47,7 +47,7 @@ namespace Crm.Tests.Converters
         [TestMethod]
         public void WriteJsonFieldWithOutValue()
         {
-            var leadDto = new LeadDTO();
+            var leadDto = new LeadGetDTO();
 
             var jsonObject = JObject.FromObject(leadDto);
 

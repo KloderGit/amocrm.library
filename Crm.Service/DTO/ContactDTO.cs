@@ -1,5 +1,4 @@
-﻿
-using amocrm.library.Converters;
+﻿using amocrm.library.Converters;
 using amocrm.library.Models;
 using amocrm.library.Tools;
 using Newtonsoft.Json;
@@ -7,8 +6,8 @@ using System.Collections.Generic;
 
 namespace amocrm.library.DTO
 {
-    [ParentForDtoAttribute(typeof(Contact))]
-    public class ContactDTO
+    [SelectDtoAttribute(typeof(Contact), ActionEnum.Get)]
+    public class ContactGetDTO
     {
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }

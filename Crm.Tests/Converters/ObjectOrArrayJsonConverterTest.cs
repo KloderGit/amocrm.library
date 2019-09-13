@@ -23,7 +23,7 @@ namespace Crm.Tests.Converters
                                     }
                                 ]}";
 
-            var contact = JsonConvert.DeserializeObject<ContactDTO>(jsonString);
+            var contact = JsonConvert.DeserializeObject<ContactGetDTO>(jsonString);
 
             Assert.AreNotEqual(contact.Tags, null);
             Assert.AreEqual(contact.Tags.Count, 2);
@@ -34,7 +34,7 @@ namespace Crm.Tests.Converters
         {
             var jsonString = @"{""tags"": {} }";
 
-            var contact = JsonConvert.DeserializeObject<ContactDTO>(jsonString);
+            var contact = JsonConvert.DeserializeObject<ContactGetDTO>(jsonString);
 
             Assert.AreEqual(contact.Tags, null);
         }
@@ -42,7 +42,7 @@ namespace Crm.Tests.Converters
         [TestMethod]
         public void WriteJsonFieldWithValue()
         {
-            var leadDto = new LeadDTO { Tags = new List<SimpleDtoObject> { new SimpleDtoObject { Id = 123 }, new SimpleDtoObject { Id = 654 } } };
+            var leadDto = new LeadGetDTO { Tags = new List<SimpleDtoObject> { new SimpleDtoObject { Id = 123 }, new SimpleDtoObject { Id = 654 } } };
 
             var jsonObject = JObject.FromObject(leadDto);
 
@@ -53,7 +53,7 @@ namespace Crm.Tests.Converters
         [TestMethod]
         public void WriteJsonFieldWithOutValue()
         {
-            var leadDto = new LeadDTO();
+            var leadDto = new LeadGetDTO();
 
             var jsonObject = JObject.FromObject(leadDto);
 

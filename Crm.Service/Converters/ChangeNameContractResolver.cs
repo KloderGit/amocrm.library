@@ -39,7 +39,7 @@ namespace amocrm.library.Converters
                 return true;
             };
 
-            if (member.DeclaringType == typeof(ContactDTO))
+            if (member.DeclaringType == typeof(ContactGetDTO))
             {
                 if (useJsonPropertyName) property.PropertyName = names.ContainsKey(property.PropertyName) ? names[property.PropertyName] : property.PropertyName;
             }

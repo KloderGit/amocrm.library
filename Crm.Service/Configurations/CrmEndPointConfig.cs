@@ -9,25 +9,8 @@ namespace amocrm.library.Configurations
         Uri _baseUrl { get; }
         Dictionary<Type, Uri> urls = new Dictionary<Type, Uri>();
 
-        public Uri Base { get => _baseUrl; }
 
         public Uri Auth { get => new Uri(_baseUrl, "private/api/auth.php?type=json"); }
-
-        public Uri Lead { get => new Uri(_baseUrl, "api/v2/leads"); }
-        public Uri NotesLead { get => new Uri(_baseUrl, "api/v2/notes?type=lead"); }
-
-        public Uri Contact { get => new Uri(_baseUrl, "api/v2/contacts"); }
-        public Uri NotesContact { get => new Uri(_baseUrl, "api/v2/notes?type=contact"); }
-
-        public Uri Company { get => new Uri(_baseUrl, "api/v2/companies"); }
-        public Uri NotesCompany { get => new Uri(_baseUrl, "api/v2/notes?type=company"); }
-
-        public Uri Task { get => new Uri(_baseUrl, "api/v2/tasks"); }
-        public Uri NotesTask { get => new Uri(_baseUrl, "api/v2/notes?type=task"); }
-
-        public Uri Catalog { get => new Uri(_baseUrl, "api/v2/catalog_elements"); }
-
-        public Uri Fields { get => new Uri(_baseUrl, "api/v2/account"); }
 
         public CrmEndPointConfig(string account)
         {
@@ -35,7 +18,7 @@ namespace amocrm.library.Configurations
 
             urls.Add(typeof(Lead), new Uri(_baseUrl, "api/v2/leads"));
             urls.Add(typeof(Contact), new Uri(_baseUrl, "api/v2/contacts"));
-            //urls.Add(typeof(CompanyDTO), new Uri(_baseUrl, "api/v2/companies"));
+            urls.Add(typeof(Company), new Uri(_baseUrl, "api/v2/companies"));
             //urls.Add(typeof(CatalogDTO), new Uri(_baseUrl, "api/v2/catalog_elements"));
             urls.Add(typeof(Task), new Uri(_baseUrl, "api/v2/tasks"));
             urls.Add(typeof(Note), new Uri(_baseUrl, "api/v2/notes"));

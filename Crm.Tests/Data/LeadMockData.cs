@@ -42,9 +42,9 @@ namespace Crm.Tests.Data
             return new List<Lead> { lead };
         }
 
-        public static IEnumerable<LeadDTO> GetLeadDTO()
+        public static IEnumerable<LeadGetDTO> GetLeadDTO()
         {
-            var leadDto1 = new LeadDTO()
+            var leadDto1 = new LeadGetDTO()
             {
                 Id = 8663699,
                 AccountId = 17769199,
@@ -74,7 +74,7 @@ namespace Crm.Tests.Data
                 }
             };
 
-            return new List<LeadDTO> { leadDto1 };
+            return new List<LeadGetDTO> { leadDto1 };
         }
     }
 }

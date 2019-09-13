@@ -6,8 +6,8 @@ using System.Collections.Generic;
 
 namespace amocrm.library.DTO
 {
-    [ParentForDtoAttribute(typeof(Lead))]
-    public class LeadDTO
+    [SelectDtoAttribute(typeof(Lead), ActionEnum.Get)]
+    public class LeadGetDTO
     {
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }

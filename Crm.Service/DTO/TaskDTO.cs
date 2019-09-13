@@ -7,7 +7,7 @@ using System.Text;
 
 namespace amocrm.library.DTO
 {
-    [ParentForDtoAttribute(typeof(Task))]
+    [SelectDtoAttribute(typeof(Task), ActionEnum.Get )]
     public class TaskDTO
     {
         [JsonProperty(PropertyName = "id")]

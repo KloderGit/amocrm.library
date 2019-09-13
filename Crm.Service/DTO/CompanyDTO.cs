@@ -2,13 +2,11 @@
 using amocrm.library.Models;
 using amocrm.library.Tools;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace amocrm.library.DTO
 {
-    [ParentForDtoAttribute(typeof(Company))]
+    [SelectDtoAttribute(typeof(Company), ActionEnum.Get)]
     public class CompanyDTO
     {
         [JsonProperty(PropertyName = "id")]

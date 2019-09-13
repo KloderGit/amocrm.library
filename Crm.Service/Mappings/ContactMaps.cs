@@ -12,7 +12,7 @@ namespace amocrm.library.Mappings
     {
         public ContactMaps()
         {
-            TypeAdapterConfig<ContactDTO, Contact>
+            TypeAdapterConfig<ContactGetDTO, Contact>
                 .NewConfig()
                 .Map(dest => dest.Name, src => isNull(src.Name) ? string.Empty : src.Name)
                 .Map(dest => dest.Fields, src => isNull(src.CustomFields) ? new List<CustomFieldsDto>() : src.CustomFields)
@@ -23,7 +23,7 @@ namespace amocrm.library.Mappings
                 .Map(dest => dest.Leads, src => src.Leads == null ? new List<int>() : src.Leads.Id)
                 .Map(dest => dest.Customers, src => src.Customers == null ? new List<int>() : src.Customers.Id);
 
-            TypeAdapterConfig<Contact, ContactDTO>
+            TypeAdapterConfig<Contact, ContactGetDTO>
                 .NewConfig()
                 .Map(dest => dest.Name, src => String.IsNullOrEmpty(src.Name) ? null : src.Name)
                 .Map(dest => dest.CustomFields, src => src.Fields == null || src.Fields.Count == 0 ? null : src.Fields)
@@ -36,7 +36,7 @@ namespace amocrm.library.Mappings
 
 
 
-            TypeAdapterConfig<LeadDTO, Lead>
+            TypeAdapterConfig<LeadGetDTO, Lead>
                 .NewConfig()
                 .Map(dest => dest.Name, src => isNull(src.Name) ? string.Empty : src.Name)
                 .Map(dest => dest.Fields, src => isNull(src.CustomFields) ? new List<CustomFieldsDto>() : src.CustomFields)
@@ -49,7 +49,7 @@ namespace amocrm.library.Mappings
                 .Map(dest => dest.MainContact, src => src.MainContact == null ? 0 : src.MainContact.Id)
                 .Map(dest => dest.Pipeline, src => src.Pipeline == null ? 0 : src.Pipeline.Id);
 
-            TypeAdapterConfig<Lead, LeadDTO>
+            TypeAdapterConfig<Lead, LeadGetDTO>
                 .NewConfig()
                 .Map(dest => dest.Name, src => String.IsNullOrEmpty(src.Name) ? null : src.Name)
                 .Map(dest => dest.CustomFields, src => src.Fields == null || src.Fields.Count == 0 ? null : src.Fields)
@@ -58,10 +58,32 @@ namespace amocrm.library.Mappings
                 .Map(dest => dest.CreatedAt, src => src.CreatedAt.ToTimestamp())
                 .Map(dest => dest.UpdatedAt, src => src.UpdatedAt.ToTimestamp())
                 .Map(dest => dest.ClosedAt, src => src.ClosedAt.ToTimestamp())
-                .Map(dest => dest.Contacts, src => src.Contacts == null || src.Tags.Count == 0 ? null : new LinkedDataList { Id = src.Contacts })
+                .Map(dest => dest.Contacts, src => src.Contacts == null || src.Contacts.Count == 0 ? null : new LinkedDataList { Id = src.Contacts })
                 .Map(dest => dest.MainContact, src => src.MainContact == 0 ? null : new SimpleDtoObject { Id = src.MainContact })
                 .Map(dest => dest.Pipeline, src => src.Pipeline == 0 ? null : new SimpleDtoObject { Id = src.Pipeline });
 
+
+
+            TypeAdapterConfig<Lead, LeadUpdateDTO>
+                .NewConfig()
+                .Map(dest => dest.Name, src => String.IsNullOrEmpty(src.Name) ? null : src.Name)
+                .Map(dest => dest.CustomFields, src => src.Fields == null || src.Fields.Count == 0 ? null : src.Fields)
+                .Map(dest => dest.Tags, src => src.Tags == null || src.Tags.Count == 0 ? null : src.Tags.Select(x => x.Name))
+                .Map(dest => dest.CreatedAt, src => src.CreatedAt.ToTimestamp())
+                .Map(dest => dest.UpdatedAt, src => src.UpdatedAt.ToTimestamp())
+                .Map(dest => dest.Contacts, src => src.Contacts == null || src.Contacts.Count == 0 ? null : src.Contacts)
+                .Map(dest => dest.Company, src => src.Company == null ? 0 : src.Company.Id);
+
+
+            TypeAdapterConfig<Lead, LeadAddDTO>
+                .NewConfig()
+                .Map(dest => dest.Name, src => String.IsNullOrEmpty(src.Name) ? null : src.Name)
+                .Map(dest => dest.CustomFields, src => src.Fields == null || src.Fields.Count == 0 ? null : src.Fields)
+                .Map(dest => dest.Tags, src => src.Tags == null || src.Tags.Count == 0 ? null : src.Tags.Select(x => x.Name))
+                .Map(dest => dest.CreatedAt, src => src.CreatedAt.ToTimestamp())
+                .Map(dest => dest.UpdatedAt, src => src.UpdatedAt.ToTimestamp())
+                .Map(dest => dest.Contacts, src => src.Contacts == null || src.Contacts.Count == 0 ? null : src.Contacts)
+                .Map(dest => dest.Company, src => src.Company == null ? 0 : src.Company.Id);
 
 
             TypeAdapterConfig<TaskDTO, Task>

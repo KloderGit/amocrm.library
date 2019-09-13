@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace amocrm.library.DTO
 {
-    [ParentForDtoAttribute(typeof(Note))]
+    [SelectDtoAttribute(typeof(Note), ActionEnum.Get)]
     public class NoteDTO
     {
         [JsonProperty(PropertyName = "id")]

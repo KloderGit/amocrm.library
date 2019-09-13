@@ -8,16 +8,16 @@ namespace Crm.Tests.Data
 {
     internal class ContactMockData
     {
-        public List<ContactDTO> GetDTOs()
+        public List<ContactGetDTO> GetDTOs()
         {
             string contactDto1 = GetJsonString();
 
             var toJson = JObject.Parse(contactDto1);
             var str = toJson.ToString();
 
-            var result = toJson.ToObject(typeof(ContactDTO));
+            var result = toJson.ToObject(typeof(ContactGetDTO));
 
-            return new List<ContactDTO> { result as ContactDTO };
+            return new List<ContactGetDTO> { result as ContactGetDTO };
         }
 
         public JObject GetJsonObject()

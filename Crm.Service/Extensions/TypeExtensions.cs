@@ -1,5 +1,5 @@
-﻿using amocrm.library.Tools;
-using amocrm.library.DTO;
+﻿using amocrm.library.Models;
+using amocrm.library.Tools;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -8,21 +8,21 @@ namespace amocrm.library.Extensions
 {
     public static class TypeExtensions
     {
-        public static Type GetDtoType(this Type entity)
+        public static Type GetDtoType(this Type entity, ActionEnum dtoAction)
         {
             var asmbly = Assembly.GetExecutingAssembly();
             var typeList = asmbly.GetTypes().Where(
-                    t => t.GetCustomAttributes(typeof(ParentForDtoAttribute), true).Length > 0
+                    t => t.GetCustomAttributes(typeof(SelectDtoAttribute), true).Length > 0
             ).ToList();
 
             foreach (var tp in typeList)
             {
-                var attrs = tp.GetCustomAttributes(false).FirstOrDefault(x => x.GetType() == typeof(ParentForDtoAttribute)) as ParentForDtoAttribute;
+                var attrs = tp.GetCustomAttributes(false).FirstOrDefault(x => x.GetType() == typeof(SelectDtoAttribute)) as SelectDtoAttribute;
 
-                if (attrs?.Master == entity) return tp;
+                if (attrs?.Entity == entity && attrs.Action == dtoAction) return tp;
             }
 
-            throw new Exception($"Тип DTO не найден для данного типа {entity.Name}");
+            throw new Exception($"Тип DTO не найден для данного типа {entity.Name} или действия {dtoAction}");
         }
     }
 }

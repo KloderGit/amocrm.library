@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using amocrm.library.Models;
+using System;
 
 namespace amocrm.library.Tools
 {
-    public class ParentForDtoAttribute : Attribute
+    public class SelectDtoAttribute : Attribute
     {
-        public Type Master { get; set; }
-        public ParentForDtoAttribute()
-        { }
-        public ParentForDtoAttribute(Type type)
+        public Type Entity { get; set; }
+        public ActionEnum Action { get; set; }
+
+        public SelectDtoAttribute(Type type, ActionEnum action)
         {
-            Master = type;
+            Entity = type;
+            Action = action;
         }
     }
 }

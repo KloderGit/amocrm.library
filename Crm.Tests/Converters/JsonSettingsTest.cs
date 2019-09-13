@@ -11,14 +11,14 @@ namespace Crm.Tests.Converters
     [TestClass]
     public class PostJsonSerializerSettingsTest
     {
-        IEnumerable<LeadDTO> array = LeadMockData.GetLeadDTO();
+        IEnumerable<LeadGetDTO> array = LeadMockData.GetLeadDTO();
 
         [TestMethod]
         public void CommonJsonSettingEmptyTest()
         {
             // Statement - Only one property will appear in JSON
 
-            var dto = new LeadDTO { Id = 123 };
+            var dto = new LeadGetDTO { Id = 123 };
 
             var jObject = JObject.FromObject(dto, new PostJsonSerializerSettings().GetSerializer());
 
@@ -63,7 +63,7 @@ namespace Crm.Tests.Converters
         {
             // Statement - Properties with a value of zero are discarded from json
 
-            var dto = new LeadDTO { Id = 0 };
+            var dto = new LeadGetDTO { Id = 0 };
 
             var jObject = JObject.FromObject(dto, new PostJsonSerializerSettings().GetSerializer());
 

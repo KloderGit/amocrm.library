@@ -1,4 +1,5 @@
-﻿using amocrm.library.Extensions;
+﻿using amocrm.library.DTO;
+using amocrm.library.Extensions;
 using amocrm.library.Interfaces;
 using amocrm.library.Models;
 using amocrm.library.Tools;
@@ -111,7 +112,7 @@ namespace amocrm.library
 
         IEnumerable<T> CreateGetResult(string jsonString)
         {
-            var dtoType = typeof(T).GetDtoType();
+            var dtoType = typeof(T).GetDtoType(ActionEnum.Get);
 
             var listType = typeof(List<>);
             var genericListType = listType.MakeGenericType(dtoType);
