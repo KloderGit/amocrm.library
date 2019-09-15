@@ -52,7 +52,7 @@ namespace amocrm.library.DTO
         //public Unlink Unlink { get; set; }
     }
 
-    public class Unlink
+    public class UnlinkFromLead
     {
         [JsonProperty(PropertyName = "contacts_id")]
         public List<int> Contacts { get; set; }

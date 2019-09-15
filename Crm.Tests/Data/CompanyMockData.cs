@@ -10,9 +10,9 @@ namespace Crm.Tests.Data
 {
     public static class CompanyMockData
     {
-        public static IEnumerable<CompanyDTO> GetCompanyDTO()
+        public static IEnumerable<CompanyGetDTO> GetCompanyGetDTO()
         {
-            var dto = new CompanyDTO
+            var dto = new CompanyGetDTO
             {
                 Id = 8663699,
                 AccountId = 17769199,
@@ -36,7 +36,7 @@ namespace Crm.Tests.Data
                 }                 
             };
 
-            return new List<CompanyDTO> { dto };
+            return new List<CompanyGetDTO> { dto };
         }
 
         public static IEnumerable<Company> GetCompany()
