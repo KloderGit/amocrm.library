@@ -1,13 +1,16 @@
 ﻿using amocrm.library.Extensions;
+using amocrm.library.Interfaces;
 using amocrm.library.Models;
 using Mapster;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace amocrm.library.Tools
 {
-    internal class DtoModelBuilder<TEntity> where TEntity : EntityCore
+    public class DtoModelBuilder<TEntity> where TEntity : EntityCore
     {
         private Type dtoType;
         private Type listType = typeof(List<>);
@@ -17,7 +20,6 @@ namespace amocrm.library.Tools
         {
             dtoType = typeof(TEntity).GetDtoType(ActionEnum.Update);
 
-            entities.ToList().ForEach(x => x.UpdatedAt = DateTime.Now.AddMilliseconds(500));
             return new { update = ConvertEntityCollectionToDto(entities) };
         }
 
@@ -34,9 +36,22 @@ namespace amocrm.library.Tools
 
             genericListType = listType.MakeGenericType(this.dtoType);
 
-            var sdfsdfs = elements.Adapt(type1, this.genericListType);
+            var array = elements.Adapt(type1, this.genericListType);
 
-            return sdfsdfs;
+            ValidateArray(array);
+
+            return array;
+        }
+
+
+        private bool ValidateArray(object array)
+        {
+            foreach (var item in (IEnumerable)array)
+            {
+                ((IValidate)item).Validate();
+            }
+
+            return true;
         }
     }
 }

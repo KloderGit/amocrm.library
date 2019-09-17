@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace amocrm.library
@@ -24,6 +23,7 @@ namespace amocrm.library
 
         public LoggedRepositotyDecorator(IQueryableRepository<T> repository, ILogger logger)
         {
+            logger.LogDebug($"Creating logged repository - {this.GetType().Name}");
             this.logger = logger;
             Repository = repository;
         }
@@ -38,31 +38,21 @@ namespace amocrm.library
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            logger.LogDebug($"Получен Provider с AuthCookiesLifeTime - {Repository.Provider.AuthCookiesLifeTime()}.");
-
-
+            logger.LogDebug($"Request for get data (async).");
+            logger.LogDebug($"The authentication cookie has not expired - {Repository.Provider.AuthCookiesLifeTime()}.");
 
             var endPointLog = Repository.Provider.GetEndPoint<T>();
-            logger.LogDebug($"Получен EndPoint для отправки запроса - {endPointLog}.");
+            logger.LogDebug($"EndPoint to send request is - {endPointLog}.");
+
             var queryLog = await Repository.QueryGenerator.Generate();
-            logger.LogDebug($"Сгенерирован фильтр запроса - {queryLog}.");
-            logger.LogDebug($"Полный URL запроса - {endPointLog}{queryLog}.");
+            logger.LogDebug($"Query filters are generated  - {queryLog}.");
+            logger.LogDebug($"Full request URL - {endPointLog}{queryLog}.");
 
-            IEnumerable<T> result = new List<T>();
+            var result = await Repository.ExecuteAsync();
+            logger.LogDebug($"Received {result.Count()} records.");
 
-            try
-            {
-                result = await Repository.ExecuteAsync();
-                logger.LogDebug($"Получено {result.Count()} записей.");
-
-                sw.Stop();
-                logger.LogDebug("Время выполнения запроса - {time} ", sw.Elapsed);
-            }
-            catch (HttpRequestException ex)
-            {
-                logger.LogDebug($"Запрос вернул ошибку - {ex.Message}");
-                throw ex;
-            }
+            sw.Stop();
+            logger.LogDebug("Query execution time - {time} ", sw.Elapsed);
 
             return result;
         }
@@ -89,38 +79,25 @@ namespace amocrm.library
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            logger.LogDebug($"Получен Provider с AuthCookiesLifeTime - {Repository.Provider.AuthCookiesLifeTime()}.");
+            logger.LogDebug($"Request for update data (async).");
+
+            logger.LogDebug($"The authentication cookie has not expired - {Repository.Provider.AuthCookiesLifeTime()}.");
+
             var endPointLog = Repository.Provider.GetEndPoint<T>();
-            logger.LogDebug($"Получен EndPoint для отправки запроса - {endPointLog}.");
+            logger.LogDebug($"EndPoint to send request is - {endPointLog}.");
 
-            IEnumerable<int> result = new List<int>();
+            var result = await Repository.UpdateAsync(elements);
+            logger.LogDebug($"Updated {result.Count()} records.");
 
-            try
-            {
-                result = await Repository.UpdateAsync(elements);
-                logger.LogDebug($"Обновлено {result.Count()} записей.");
-
-                sw.Stop();
-                logger.LogDebug("Время выполнения запроса - {time} ", sw.Elapsed);
-            }
-            catch (HttpRequestException ex)
-            {
-                logger.LogDebug($"Запрос вернул ошибку - {ex.Message}");
-                throw ex;
-            }
+            sw.Stop();
+            logger.LogDebug("Query execution time - {time} ", sw.Elapsed);
 
             return result;
         }
 
         public async Task<IEnumerable<int>> AddAsync(T element)
         {
-            logger.LogDebug($"Добавление объекта - {element}.");
-
-            var result = await AddAsync(new List<T> { element });
-
-            logger.LogDebug($"Id объекта - {result.First()}.");
-
-            return result;
+            return await AddAsync(new List<T> { element });
         }
 
         public async Task<IEnumerable<int>> AddAsync(IEnumerable<T> elements)
@@ -128,25 +105,19 @@ namespace amocrm.library
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            logger.LogDebug($"Получен Provider с AuthCookiesLifeTime - {Repository.Provider.AuthCookiesLifeTime()}.");
+            logger.LogDebug($"Request for add data (async).");
+
+            logger.LogDebug($"The authentication cookie has not expired - {Repository.Provider.AuthCookiesLifeTime()}.");
+
             var endPointLog = Repository.Provider.GetEndPoint<T>();
-            logger.LogDebug($"Получен EndPoint для отправки запроса - {endPointLog}.");
+            logger.LogDebug($"EndPoint to send request is - {endPointLog}.");
 
-            IEnumerable<int> result = new List<int>();
 
-            try
-            {
-                result = await Repository.AddAsync(elements);
-                logger.LogDebug($"Добавлено {result.Count()} записей.");
+            var result = await Repository.AddAsync(elements);
+            logger.LogDebug($"Added {result.Count()} records.");
 
-                sw.Stop();
-                logger.LogDebug("Время выполнения запроса - {time} ", sw.Elapsed);
-            }
-            catch (HttpRequestException ex)
-            {
-                logger.LogDebug($"Запрос вернул ошибку - {ex.Message}");
-                throw ex;
-            }
+            sw.Stop();
+            logger.LogDebug("Query execution time - {time} ", sw.Elapsed);
 
             return result;
         }
@@ -156,30 +127,20 @@ namespace amocrm.library
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            logger.LogDebug($"Получен Provider с AuthCookiesLifeTime - {Repository.Provider.AuthCookiesLifeTime()}.");
+            logger.LogDebug($"Find object by Id (async).");
+
+            logger.LogDebug($"The authentication cookie has not expired - {Repository.Provider.AuthCookiesLifeTime()}.");
+
             var endPointLog = Repository.Provider.GetEndPoint<T>();
-            logger.LogDebug($"Получен EndPoint для отправки запроса - {endPointLog}.");
+            logger.LogDebug($"EndPoint to send request is - {endPointLog}.");
 
-            T result = new T();
+            var result = await Repository.FindByIdAsync(id);
+            logger.LogInformation($"Found { (result == null ? 0 : 1) } record. Type - {result.GetType().Name}");
 
-            try
-            {
-                result = await Repository.FindByIdAsync(id);
+            sw.Stop();
+            logger.LogDebug("Query execution time - {time} ", sw.Elapsed);
 
-                logger.LogInformation("Получено в модель DTO {@Model}", result);
-
-                logger.LogDebug($"Найдено записей.");
-
-                sw.Stop();
-                logger.LogDebug("Время выполнения запроса - {time} ", sw.Elapsed);
-            }
-            catch (HttpRequestException ex)
-            {
-                logger.LogDebug($"Запрос вернул ошибку - {ex.Message}");
-                throw ex;
-            }
-
-            return result;
+            return (T)result;
         }
     }
 }

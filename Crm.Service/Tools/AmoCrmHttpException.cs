@@ -5,7 +5,7 @@ using System.Text;
 
 namespace amocrm.library.Tools
 {
-    public class AmoCrmException : Exception
+    public class AmoCrmHttpException : Exception
     {
         public string Error { get; set; }
         public string ErrorCode { get; set; }
@@ -15,15 +15,15 @@ namespace amocrm.library.Tools
         public bool AuthResult { get; set; }
 
 
-        public AmoCrmException(Error error)
-             : base (error.Response.Error)
+        public AmoCrmHttpException(AuthResponse error)
+             : base (error.Content.Error)
         {
-            Error = error.Response.Error;
-            ErrorCode = error.Response.ErrorCode;
-            Ip = error.Response.Ip;
-            Domain = error.Response.Domain;
-            ServerTime = error.Response.ServerTime;
-            AuthResult = error.Response.AuthResult;
+            Error = error.Content.Error;
+            ErrorCode = error.Content.ErrorCode;
+            Ip = error.Content.Ip;
+            Domain = error.Content.Domain;
+            ServerTime = error.Content.ServerTime;
+            AuthResult = error.Content.AuthResult;
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿
 using amocrm.library.Configurations;
+using amocrm.library.Extensions;
 using amocrm.library.Interfaces;
 using amocrm.library.Models;
+using amocrm.library.Tools;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -24,6 +26,10 @@ namespace amocrm.library
 
         static object locker = new object();
 
+        public AuthContent AuthInfo { get; set; }
+
+        public TimeSpan ServerTimeDiff { get; set; }
+
         public AmoCrmProvider(string account, string login, string pass)
         {
             endPoint = new CrmEndPointConfig(account);
@@ -35,20 +41,11 @@ namespace amocrm.library
         {
             Debug.WriteLine($"Соединение с CRM");
 
-            handler = new HttpClientHandler
-            {
-                CookieContainer = new CookieContainer(),
-                UseCookies = true,
-                UseDefaultCredentials = true
-            };
+            handler = new HttpClientHandler { CookieContainer = new CookieContainer(), UseCookies = true, UseDefaultCredentials = true };
 
             client = new HttpClient(handler);
 
-            var requestParams = new Dictionary<string, string>
-                {
-                   { "USER_LOGIN", this.login},
-                   { "USER_HASH", this.pass }
-                };
+            var requestParams = new Dictionary<string, string> { { "USER_LOGIN", this.login}, { "USER_HASH", this.pass } };
 
             var content = new FormUrlEncodedContent(requestParams);
             var request = await client.PostAsync(endPoint.Auth, content);
@@ -56,16 +53,15 @@ namespace amocrm.library
 
             if (!request.IsSuccessStatusCode)
             {
-                var error = JsonConvert.DeserializeObject<Error>(response);
-                var exception = new HttpRequestException(error.Response.Error);
-                exception.Data.Add("ErrorCode", error.Response.ErrorCode);
-                exception.Data.Add("IP", error.Response.Ip);
-                exception.Data.Add("Domain", error.Response.Domain);
-                exception.Data.Add("ServerTime", error.Response.ServerTime);
+                var error = JsonConvert.DeserializeObject<AuthResponse>(response);
+                var exception = new AmoCrmHttpException(error);
                 throw exception;
             }
 
-            lock(locker)
+            AuthInfo = JsonConvert.DeserializeObject<AuthResponse>(response).Content;
+            ServerTimeDiff = (DateTime.Now - new DateTime().FromTimestamp(AuthInfo.ServerTime)) * -1;
+
+            lock (locker)
             {
                 AmoCrmProvider.cookiesLiveTime = DateTime.Now;
             }

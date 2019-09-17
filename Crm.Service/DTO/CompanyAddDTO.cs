@@ -1,14 +1,16 @@
-﻿using amocrm.library.Converters;
+﻿using amocrm.library.Interfaces;
 using amocrm.library.Models;
 using amocrm.library.Tools;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace amocrm.library.DTO
 {
     [SelectDtoAttribute(typeof(Company), ActionEnum.Add)]
-    public class CompanyAddDTO
+    public class CompanyAddDTO : IValidate
     {
+        [Required]
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
@@ -40,5 +42,19 @@ namespace amocrm.library.DTO
 
         [JsonProperty(PropertyName = "custom_fields")]
         public List<CustomFieldsDto> CustomFields { get; set; }
+
+        public bool Validate()
+        {
+            var results = new List<ValidationResult>();
+
+            var context = new ValidationContext(this);
+
+            if (!Validator.TryValidateObject(this, context, results, true))
+            {
+                throw new AmoCrmModelException(results);
+            }
+
+            return true;
+        }
     }
 }

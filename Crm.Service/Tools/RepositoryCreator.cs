@@ -5,11 +5,6 @@ using System;
 
 namespace amocrm.library.Tools
 {
-    public interface IRepositoryCreator
-    {
-        IQueryableRepository<T> GetRepository<T>();
-    }
-
     public abstract class RepositoryCreator : IRepositoryCreator
     {
         protected ICrmProvider provider;

@@ -6,6 +6,7 @@ using amocrm.library.Tools;
 using Mapster;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,8 @@ namespace amocrm.library
         {
             var client = await Provider.GetClient();
             var endPoint = Provider.GetEndPoint<T>();
+
+            elements.ToList().ForEach(x => x.UpdatedAt = DateTime.Now + Provider.ServerTimeDiff);
 
             var dtoToUpdate = new DtoModelBuilder<T>().GetUpdateModel(elements);
 

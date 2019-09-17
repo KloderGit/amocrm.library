@@ -1,16 +1,23 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace amocrm.library.Models
 {
 
-    public class Error
+    public class AuthResponse
     {
         [JsonProperty(PropertyName = "response")]
-        public Response Response { get; set; }
+        public AuthContent Content { get; set; }
     }
 
-    public class Response
+    public class AuthContent
     {
+        [JsonProperty(PropertyName = "auth")]
+        public bool AuthResult { get; set; }
+
+        [JsonProperty(PropertyName = "server_time")]
+        public int ServerTime { get; set; }
+
         [JsonProperty(PropertyName = "error")]
         public string Error { get; set; }
 
@@ -23,11 +30,37 @@ namespace amocrm.library.Models
         [JsonProperty(PropertyName = "domain")]
         public string Domain { get; set; }
 
-        [JsonProperty(PropertyName = "server_time")]
-        public int ServerTime { get; set; }
+        [JsonProperty(PropertyName = "user")]
+        public AuthUser User { get; set; }
 
-        [JsonProperty(PropertyName = "auth")]
-        public bool AuthResult { get; set; }
+        [JsonProperty(PropertyName = "accounts")]
+        public List<AuthAccount> Accounts { get; set; }
     }
 
+    public class AuthUser
+    {
+        [JsonProperty(PropertyName = "id")]
+        public int Id { get; set; }
+
+        [JsonProperty(PropertyName = "language")]
+        public string Language { get; set; }
+    }
+
+    public class AuthAccount
+    {
+        [JsonProperty(PropertyName = "id")]
+        public int Id { get; set; }
+
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+
+        [JsonProperty(PropertyName = "subdomain")]
+        public string Subdomain { get; set; }
+
+        [JsonProperty(PropertyName = "language")]
+        public string Language { get; set; }
+
+        [JsonProperty(PropertyName = "timezone")]
+        public string TimeZone { get; set; }
+    }
 }

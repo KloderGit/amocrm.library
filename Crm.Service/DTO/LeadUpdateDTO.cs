@@ -1,14 +1,18 @@
 ﻿using amocrm.library.Converters;
+using amocrm.library.Interfaces;
 using amocrm.library.Models;
 using amocrm.library.Tools;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace amocrm.library.DTO
 {
     [SelectDtoAttribute(typeof(Lead), ActionEnum.Update)]
-    public class LeadUpdateDTO
+    public class LeadUpdateDTO : IValidate
     {
+        [Required]
+        [NotZeroValidation]
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
 
@@ -21,6 +25,8 @@ namespace amocrm.library.DTO
         [JsonProperty(PropertyName = "created_at")]
         public int CreatedAt { get; set; }
 
+        [Required]
+        [NotZeroValidation]
         [JsonProperty(PropertyName = "updated_at")]
         public int UpdatedAt { get; set; }
 
@@ -47,6 +53,20 @@ namespace amocrm.library.DTO
 
         [JsonProperty(PropertyName = "contacts_id")]
         public List<int> Contacts { get; set; }
+
+        public bool Validate()
+        {
+            var results = new List<ValidationResult>();
+
+            var context = new ValidationContext(this);
+
+            if (!Validator.TryValidateObject(this, context, results, true))
+            {
+                throw new AmoCrmModelException(results);
+            }
+
+            return true;
+        }
 
         //[JsonProperty(PropertyName = "unlink")]
         //public Unlink Unlink { get; set; }

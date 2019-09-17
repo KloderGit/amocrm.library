@@ -1,27 +1,34 @@
-﻿using amocrm.library.Models;
+﻿using amocrm.library.Interfaces;
+using amocrm.library.Models;
 using amocrm.library.Tools;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace amocrm.library.DTO
 {
     [SelectDtoAttribute(typeof(Task), ActionEnum.Add )]
-    public class TaskAddDTO
+    public class TaskAddDTO : IValidate
     {
+        [Required]
         [JsonProperty(PropertyName = "element_id")]
         public int ElementId { get; set; }
 
+        [Required]
         [JsonProperty(PropertyName = "element_type")]
         public int ElementType { get; set; }
 
+        [Required]
         [JsonProperty(PropertyName = "complete_till_at")]
         public int CompleteTillAt { get; set; }
 
+        [Required]
         [JsonProperty(PropertyName = "task_type")]
         public int TaskType { get; set; }
 
+        [Required]
         [JsonProperty(PropertyName = "text")]
         public string Text { get; set; }
 
@@ -39,5 +46,19 @@ namespace amocrm.library.DTO
 
         [JsonProperty(PropertyName = "created_by")]
         public int CreatedBy { get; set; }
+
+        public bool Validate()
+        {
+            var results = new List<ValidationResult>();
+
+            var context = new ValidationContext(this);
+
+            if (!Validator.TryValidateObject(this, context, results, true))
+            {
+                throw new AmoCrmModelException(results);
+            }
+
+            return true;
+        }
     }
 }

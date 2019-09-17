@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.1.0</Version>
+    <PackageId>amocrm.library.net</PackageId>
+    <Authors>KloderGit</Authors>
+    <Company />
+    <Description>Access library AmoCrm. C#</Description>
+    <PackageProjectUrl>https://github.com/KloderGit/amocrm.library</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/KloderGit/amocrm.library</RepositoryUrl>
+    <PackageTags>amocrm</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>

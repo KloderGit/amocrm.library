@@ -8,7 +8,9 @@ namespace amocrm.library.Interfaces
     {
         Task Auth();
         Task<HttpClient> GetClient();
+        TimeSpan ServerTimeDiff { get; set; }
         bool AuthCookiesLifeTime();
+
         Uri GetEndPoint<T>();
     }
 }

@@ -1,15 +1,12 @@
 using amocrm.library;
 using amocrm.library.Configurations;
-using amocrm.library.DTO;
-using amocrm.library.Extensions;
 using amocrm.library.Mappings;
 using amocrm.library.Models;
-using amocrm.library.Models.Fields;
-using Mapster;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Crm.Tests
@@ -70,7 +67,10 @@ namespace Crm.Tests
 
             var amoCrm = new CrmManager(logger, account: "apfitness", login: "kloder@fitness-pro.ru", pass: "99aad176302f7ea9213c307e1e6ab8fc");
 
-            amoCrm.DirectAuthorization().Wait();
+            amoCrm.DirectAuthorization().GetAwaiter().GetResult();
+
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
 
             var lead = new Lead
             {
@@ -100,7 +100,6 @@ namespace Crm.Tests
 
 
             var iii2 = amoCrm.Leads.UpdateAsync(leadToUpdate).Result;
-
 
             var task = new Task
             {
@@ -135,6 +134,9 @@ namespace Crm.Tests
             };
 
             var noteId = amoCrm.Notes.AddAsync(note).Result;
+
+            sw.Stop();
+            Debug.WriteLine(sw.Elapsed);
 
         }
     }
