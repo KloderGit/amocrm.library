@@ -1,4 +1,5 @@
-﻿using amocrm.library.DTO;
+﻿using amocrm.library.Configurations;
+using amocrm.library.DTO;
 using amocrm.library.Models;
 using System;
 using System.Collections.Generic;
@@ -7,9 +8,9 @@ namespace Crm.Tests.Data
 {
     public static class TaskMockData
     {
-        public static IEnumerable<TaskDTO> GetTaskDto()
+        public static IEnumerable<TaskGetDTO> GetTaskDto()
         {
-            var dto1 = new TaskDTO
+            var dto1 = new TaskGetDTO
             {
                 Id = 5555,
                 AccountId = 17769199,
@@ -28,7 +29,7 @@ namespace Crm.Tests.Data
                 Result = new TaskResultDto { Id = 888, Text = "К выполнению" }
             };
 
-            return new List<TaskDTO> { dto1 };
+            return new List<TaskGetDTO> { dto1 };
         }
 
         public static IEnumerable<Task> GetTask()
@@ -43,7 +44,7 @@ namespace Crm.Tests.Data
                 GroupId = 212704,
                 Duration = 55,
                 ElementId = 9999,
-                ElementType = 2,
+                ElementType = ElementTypeEnum.Lead,
                 IsCompleted = true,
                 ResponsibleUserId = 2997712,
                 TaskType = 1,

@@ -1,4 +1,5 @@
 using amocrm.library;
+using amocrm.library.Configurations;
 using amocrm.library.DTO;
 using amocrm.library.Extensions;
 using amocrm.library.Mappings;
@@ -7,6 +8,7 @@ using amocrm.library.Models.Fields;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,10 +18,52 @@ namespace Crm.Tests
     public class UnitTest1
     {
         [TestMethod]
+        public void GetLeadFromAmoCrm()
+        {
+            new ContactMaps();
+
+            ILoggerFactory loggerFactory = new LoggerFactory().AddDebug(LogLevel.Debug);
+            ILogger logger = loggerFactory.CreateLogger("TstLogger");
+
+            var amoCrm = new CrmManager(logger, account: "apfitness", login: "kloder@fitness-pro.ru", pass: "99aad176302f7ea9213c307e1e6ab8fc");
+
+            var lead = amoCrm.Leads.FindByIdAsync(17622959).Result;
+
+            ;
+        }
+
+        [TestMethod]
+        public void AddTaskToLead()
+        {
+            new TaskMaps();
+
+            ILoggerFactory loggerFactory = new LoggerFactory().AddDebug(LogLevel.Debug);
+            ILogger logger = loggerFactory.CreateLogger("TstLogger");
+
+            var amoCrm = new CrmManager(logger, account: "apfitness", login: "kloder@fitness-pro.ru", pass: "99aad176302f7ea9213c307e1e6ab8fc");
+
+
+            var task = new Task
+            {
+                ElementId = 17627143,
+                ElementType = ElementTypeEnum.Lead,
+                CompleteTillAt = new System.DateTime(2019, 10, 5),
+                TaskType = 786424,
+                Text = "Test task from service",
+                ResponsibleUserId = 2079718
+            };
+
+            var taskId = amoCrm.Tasks.AddAsync(task).Result;
+        }
+
+
+        [TestMethod]
         public void TestMethod2()
         {
 
             new ContactMaps();
+            new TaskMaps();
+            new NoteMaps();
 
             ILoggerFactory loggerFactory = new LoggerFactory().AddDebug(LogLevel.Debug);
             ILogger logger = loggerFactory.CreateLogger("TstLogger");
@@ -43,8 +87,6 @@ namespace Crm.Tests
 
             var leadId = amoCrm.Leads.AddAsync(lead).Result;
 
-            lead = amoCrm.Leads.FindByIdAsync(leadId.First()).Result;
-
             var contact = new Contact
             {
                 Name = "Test Contact from Service2",
@@ -54,34 +96,45 @@ namespace Crm.Tests
             var contactId = amoCrm.Contacts.AddAsync(contact).Result;
 
 
-            var lead2 = amoCrm.Leads.FindByIdAsync(17581201).Result;
+            var leadToUpdate = new Lead { Id = leadId.First(), Contacts = new List<int> { contactId.First() } };
 
-            var contact2 = amoCrm.Contacts.FindByIdAsync(34744489).Result;
 
-            var iii2 = amoCrm.Leads.UpdateAsync(lead).Result;
+            var iii2 = amoCrm.Leads.UpdateAsync(leadToUpdate).Result;
 
 
             var task = new Task
             {
-                ElementId = lead.Id,
-                ElementType = 2,
+                ElementId = iii2.First(),
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now.AddMilliseconds(500),                 
+                ElementType = ElementTypeEnum.Lead,
                 CompleteTillAt = new System.DateTime(2019, 10, 5),
                 TaskType = 786433,
                 Text = "Test task from service",
                 ResponsibleUserId = 2079718
             };
 
-            var taskId = amoCrm.Tasks.AddAsync(task).Result;
+
+            try
+            {
+                var taskId = amoCrm.Tasks.AddAsync(task).Result;
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            
 
             var note = new Note
             {
                 ElementId = contactId.First(),
-                ElementType = 1,
+                ElementType = ElementTypeEnum.Contact,
                 NoteType = 4,
                 Text = "Test note from service"
             };
 
-            var noteId = amoCrm.Notes.AddAsync(note);
+            var noteId = amoCrm.Notes.AddAsync(note).Result;
 
         }
     }

@@ -40,7 +40,7 @@ namespace amocrm.library.DTO
         public int Company { get; set; }
 
         [JsonProperty(PropertyName = "tags")]
-        public List<string> Tags { get; set; }
+        public string Tags { get; set; }
 
         [JsonProperty(PropertyName = "custom_fields")]
         public List<CustomFieldsDto> CustomFields { get; set; }

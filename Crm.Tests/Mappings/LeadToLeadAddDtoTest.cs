@@ -2,12 +2,10 @@
 using amocrm.library.Extensions;
 using amocrm.library.Mappings;
 using amocrm.library.Models;
-using amocrm.library.Models.Fields;
 using Crm.Tests.Data;
 using Mapster;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -55,8 +53,7 @@ namespace Crm.Tests.Mappings
         [TestMethod] public void Status() => Assert.AreEqual(array.Adapt<LeadAddDTO>().Status, 143);
 
         [TestMethod] public void TagsIsNotNull() => Assert.AreNotEqual(array.Adapt<LeadAddDTO>().Tags, null);
-        [TestMethod] public void TagsHasValue() => Assert.AreEqual(array.Adapt<LeadAddDTO>().Tags, "tag1,tag2");
-        [TestMethod] public void TagsFirstValue() => Assert.AreEqual(array.Adapt<LeadAddDTO>().Tags[0], "бартер");
+        [TestMethod] public void TagsHasValue() => Assert.AreEqual(array.Adapt<LeadAddDTO>().Tags, "бартер,оплачено");
         [TestMethod] public void TagsIsNull() => Assert.IsNull(new Lead().Adapt<LeadAddDTO>().Tags);
 
         [TestMethod] public void ContactsTypeIs() => Assert.IsInstanceOfType(array.Adapt<LeadAddDTO>().Contacts, typeof(IEnumerable<int>));

@@ -1,4 +1,6 @@
-﻿using amocrm.library.DTO;
+﻿using amocrm.library.Configurations;
+using amocrm.library.DTO;
+using amocrm.library.Extensions;
 using amocrm.library.Models;
 using System.Collections.Generic;
 
@@ -6,9 +8,9 @@ namespace Crm.Tests.Data
 {
     internal static class NoteMockData
     {
-        public static IEnumerable<NoteDTO> GetNoteDTO()
+        public static IEnumerable<NoteGetDTO> GetNoteDTO()
         {
-            var dto1 = new NoteDTO
+            var dto1 = new NoteGetDTO
             {
                 Id = 8663699,
                 AccountId = 17769199,
@@ -26,7 +28,7 @@ namespace Crm.Tests.Data
                 Attachment = "url of attachment"
             };
 
-            return new List<NoteDTO> { dto1 };
+            return new List<NoteGetDTO> { dto1 };
         }
 
         public static IEnumerable<Note> GetNote()
@@ -35,15 +37,15 @@ namespace Crm.Tests.Data
             {
                 Id = 8663699,
                 AccountId = 17769199,
-                CreatedAt = new System.DateTime(2019, 10, 1),
+                CreatedAt = new System.DateTime().FromTimestamp(1527690442),
                 CreatedBy = 2081797,
                 GroupId = 212704,
                 ElementId = 654654,
-                ElementType = 2,
+                ElementType = ElementTypeEnum.Contact,
                 IsEditable = false,
                 NoteType = 987,
                 ResponsibleUserId = 88888,
-                UpdatedAt = new System.DateTime(2019, 10, 2),
+                UpdatedAt = new System.DateTime().FromTimestamp(1567519347),
                 Params = new Params{ Text = "Message", Service = "SourceService" },
                 Text = "Some value",
                 Attachment = "url of attachment"

@@ -17,7 +17,13 @@ namespace amocrm.library
         ContactMaps mappings = new ContactMaps();
         IRepositoryCreator RepositoryCreator;
 
+        public CrmManager()
+        {
+            new InitMappings();
+        }
+
         public CrmManager(string account, string login, string pass)
+            : this()
         {
             Provider = new AmoCrmProvider(account: account, login: login, pass: pass);
             this.RepositoryCreator = new BasicRepositoryCreator(Provider);

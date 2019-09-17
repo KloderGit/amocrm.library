@@ -20,7 +20,9 @@ namespace amocrm.library
         HttpClientHandler handler;
         CrmEndPointConfig endPoint;
         private readonly string login;
-        private string pass;
+        private readonly string pass;
+
+        static object locker = new object();
 
         public AmoCrmProvider(string account, string login, string pass)
         {
@@ -63,15 +65,20 @@ namespace amocrm.library
                 throw exception;
             }
 
-            AmoCrmProvider.cookiesLiveTime = DateTime.Now;
-
+            lock(locker)
+            {
+                AmoCrmProvider.cookiesLiveTime = DateTime.Now;
+            }
         }
 
         public bool AuthCookiesLifeTime()
         {
-            var lifeTime = TimeSpan.FromMinutes(13);
+            lock (locker)
+            {
+                var lifeTime = TimeSpan.FromMinutes(13);
 
-            return DateTime.Now.Subtract(AmoCrmProvider.cookiesLiveTime) < lifeTime & handler != null;
+                return DateTime.Now.Subtract(AmoCrmProvider.cookiesLiveTime) < lifeTime & handler != null;
+            }
         }
 
         public async Task<HttpClient> GetClient()

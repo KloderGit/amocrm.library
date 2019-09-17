@@ -1,10 +1,12 @@
-﻿namespace amocrm.library.Models
+﻿using amocrm.library.Configurations;
+
+namespace amocrm.library.Models
 {
     public class Note : EntityCore
     {
         public string Text { get; set; } = string.Empty;
         public int ElementId { get; set; }
-        public int ElementType { get; set; }
+        public ElementTypeEnum ElementType { get; set; }
         public bool? IsEditable { get; set; }
         public string Attachment { get; set; }
         public int NoteType { get; set; }

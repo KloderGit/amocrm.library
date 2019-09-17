@@ -56,10 +56,9 @@ namespace Crm.Tests.Mappings
 
         [TestMethod] public void Status() => Assert.AreEqual(array.Adapt<LeadUpdateDTO>().Status, 143);
 
-        [TestMethod] public void TagsIsNotNull() => Assert.AreNotEqual(array.Adapt<LeadUpdateDTO>().Tags, null);
-        [TestMethod] public void TagsHasValue() => Assert.AreEqual(array.Adapt<LeadUpdateDTO>().Tags.Count, 2);
-        [TestMethod] public void TagsFirstValue() => Assert.AreEqual(array.Adapt<LeadUpdateDTO>().Tags[0], "бартер");
-        [TestMethod] public void TagsIsNull() => Assert.IsNull(new Lead().Adapt<LeadUpdateDTO>().Tags);
+        [TestMethod] public void TagsIsNotNull() => Assert.AreNotEqual(array.Adapt<LeadAddDTO>().Tags, null);
+        [TestMethod] public void TagsHasValue() => Assert.AreEqual(array.Adapt<LeadAddDTO>().Tags, "бартер,оплачено");
+        [TestMethod] public void TagsIsNull() => Assert.IsNull(new Lead().Adapt<LeadAddDTO>().Tags);
 
         [TestMethod] public void ContactsTypeIs() => Assert.IsInstanceOfType(array.Adapt<LeadUpdateDTO>().Contacts, typeof(IEnumerable<int>));
         [TestMethod] public void ContactsIsNotNull() => Assert.AreNotEqual(array.Adapt<LeadUpdateDTO>().Contacts, null);

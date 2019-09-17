@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace amocrm.library
@@ -33,8 +34,6 @@ namespace amocrm.library
             var result = this.ExecuteAsync().ConfigureAwait(false).GetAwaiter().GetResult();
             return result;
         }
-
-
 
         public async Task<IEnumerable<T>> ExecuteAsync()
         {

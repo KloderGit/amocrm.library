@@ -1,4 +1,5 @@
-﻿using System;
+﻿using amocrm.library.Configurations;
+using System;
 
 namespace amocrm.library.Models
 {
@@ -10,7 +11,7 @@ namespace amocrm.library.Models
         public int TaskType { get; set; }
         public string Text { get; set; } = string.Empty;
         public int ElementId { get; set; }
-        public int ElementType { get; set; }
+        public ElementTypeEnum ElementType { get; set; }
         public Result Result { get; set; }
     }
 }

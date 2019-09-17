@@ -34,7 +34,9 @@ namespace amocrm.library.Tools
 
             genericListType = listType.MakeGenericType(this.dtoType);
 
-            return elements.Adapt(type1, this.genericListType);
+            var sdfsdfs = elements.Adapt(type1, this.genericListType);
+
+            return sdfsdfs;
         }
     }
 }

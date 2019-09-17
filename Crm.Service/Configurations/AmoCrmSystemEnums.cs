@@ -9,17 +9,11 @@
 
     public enum ElementTypeEnum
     {
-        Контакт = 1,
-        Сделка = 2,
-        Компания = 3,
-        Задача = 4,
-    }
-    public enum ElementTypesEnum
-    {
         Contact = 1,
         Lead = 2,
         Company = 3,
         Task = 4,
+        Customer = 12
     }
 
     public enum NoteType

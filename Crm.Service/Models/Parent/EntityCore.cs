@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 
 namespace amocrm.library.Models
 {
@@ -17,5 +18,10 @@ namespace amocrm.library.Models
         public int AccountId { get; set; }
 
         public int GroupId { get; set; }
+
+        public override string ToString()
+        {
+            return JObject.FromObject(this).ToString();
+        }
     }
 }

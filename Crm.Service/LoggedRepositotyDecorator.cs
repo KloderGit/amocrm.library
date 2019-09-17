@@ -39,6 +39,9 @@ namespace amocrm.library
             sw.Start();
 
             logger.LogDebug($"Получен Provider с AuthCookiesLifeTime - {Repository.Provider.AuthCookiesLifeTime()}.");
+
+
+
             var endPointLog = Repository.Provider.GetEndPoint<T>();
             logger.LogDebug($"Получен EndPoint для отправки запроса - {endPointLog}.");
             var queryLog = await Repository.QueryGenerator.Generate();
@@ -111,7 +114,13 @@ namespace amocrm.library
 
         public async Task<IEnumerable<int>> AddAsync(T element)
         {
-            return await AddAsync(new List<T> { element });
+            logger.LogDebug($"Добавление объекта - {element}.");
+
+            var result = await AddAsync(new List<T> { element });
+
+            logger.LogDebug($"Id объекта - {result.First()}.");
+
+            return result;
         }
 
         public async Task<IEnumerable<int>> AddAsync(IEnumerable<T> elements)
@@ -156,6 +165,8 @@ namespace amocrm.library
             try
             {
                 result = await Repository.FindByIdAsync(id);
+
+                logger.LogInformation("Получено в модель DTO {@Model}", result);
 
                 logger.LogDebug($"Найдено записей.");
 
