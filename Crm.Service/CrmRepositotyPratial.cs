@@ -14,27 +14,19 @@ namespace amocrm.library
 {
     public partial class CrmRepositoty<T> : IQueryableRepository<T>, IEnumerable where T : EntityCore, new()
     {
-        void isModelValid(IEnumerable<T> elements, IValidateRules<T> validator)
+        bool isModelValid(IEnumerable<T> elements, IValidateRules<T> validator)
         {
             var result = elements.ToList().Select(x => validator.ValidateBool(x));
-
-            if (result.Any(x => x == false)) throw new Exception("Model validation error. Check the completion of the fields.");
+            return result.Contains(false) ? false : true;
         }
 
-
-        void isModelValidResult(IEnumerable<T> elements, IValidateRules<T> validator)
+        void GenerateException(IEnumerable<T> elements, IValidateRules<T> validator)
         {
-            var errors = new List<ValidationResult>();
-
             foreach (var item in elements)
             {
-
+                var errors = validator.ValidateResults(item);
+                if (errors.Count() > 0) throw new AmoCrmModelException(errors);
             }
-
-
-            var result = elements.ToList().Select(x => validator.ValidateResults(x));
-
-            //if (result.Any(x => x == false)) throw new Exception("Model validation error. Check the completion of the fields.");
         }
 
 
