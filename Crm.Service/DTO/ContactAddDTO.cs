@@ -1,5 +1,4 @@
-﻿using amocrm.library.Interfaces;
-using amocrm.library.Models;
+﻿using amocrm.library.Models;
 using amocrm.library.Tools;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace amocrm.library.DTO
 {
     [SelectDtoAttribute(typeof(Contact), ActionEnum.Add)]
-    public class ContactAddDTO : IValidate
+    public class ContactAddDTO
     {
         [Required]
         [JsonProperty(PropertyName = "name")]
@@ -43,19 +42,5 @@ namespace amocrm.library.DTO
 
         [JsonProperty(PropertyName = "custom_fields")]
         public List<CustomFieldsDto> CustomFields { get; set; }
-
-        public bool Validate()
-        {
-            var results = new List<ValidationResult>();
-
-            var context = new ValidationContext(this);
-
-            if (!Validator.TryValidateObject(this, context, results, true))
-            {
-                throw new AmoCrmModelException(results);
-            }
-
-            return true;
-        }
     }
 }

@@ -38,20 +38,7 @@ namespace amocrm.library.Tools
 
             var array = elements.Adapt(type1, this.genericListType);
 
-            ValidateArray(array);
-
             return array;
-        }
-
-
-        private bool ValidateArray(object array)
-        {
-            foreach (var item in (IEnumerable)array)
-            {
-                ((IValidate)item).Validate();
-            }
-
-            return true;
         }
     }
 }

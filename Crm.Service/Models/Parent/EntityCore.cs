@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using amocrm.library.Interfaces;
+using Newtonsoft.Json.Linq;
 using System;
 
 namespace amocrm.library.Models

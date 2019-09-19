@@ -1,14 +1,12 @@
-﻿using amocrm.library.Interfaces;
-using amocrm.library.Models;
+﻿using amocrm.library.Models;
 using amocrm.library.Tools;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace amocrm.library.DTO
 {
     [SelectDtoAttribute(typeof(Note), ActionEnum.Add)]
-    public class NoteAddDTO : IValidate
+    public class NoteAddDTO
     {
         [Required]
         [JsonProperty(PropertyName = "element_id")]
@@ -40,19 +38,5 @@ namespace amocrm.library.DTO
 
         [JsonProperty(PropertyName = "attachment")]
         public string Attachment { get; set; }
-
-        public bool Validate()
-        {
-            var results = new List<ValidationResult>();
-
-            var context = new ValidationContext(this);
-
-            if (!Validator.TryValidateObject(this, context, results, true))
-            {
-                throw new AmoCrmModelException(results);
-            }
-
-            return true;
-        }
     }
 }

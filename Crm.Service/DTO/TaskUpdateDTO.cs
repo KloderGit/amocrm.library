@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace amocrm.library.DTO
 {
     [SelectDtoAttribute(typeof(Task), ActionEnum.Update )]
-    public class TaskUpdateDTO : IValidate
+    public class TaskUpdateDTO
     {
         [Required]
         [JsonProperty(PropertyName = "id")]
@@ -45,19 +45,5 @@ namespace amocrm.library.DTO
 
         [JsonProperty(PropertyName = "created_by")]
         public int CreatedBy { get; set; }
-
-        public bool Validate()
-        {
-            var results = new List<ValidationResult>();
-
-            var context = new ValidationContext(this);
-
-            if (!Validator.TryValidateObject(this, context, results, true))
-            {
-                throw new AmoCrmModelException(results);
-            }
-
-            return true;
-        }
     }
 }
