@@ -1,9 +1,6 @@
 ﻿using amocrm.library.Models;
 using amocrm.library.Tools;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace amocrm.library.DTO
 {

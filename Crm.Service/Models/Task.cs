@@ -1,9 +1,10 @@
 ﻿using amocrm.library.Configurations;
+using amocrm.library.Interfaces;
 using System;
 
 namespace amocrm.library.Models
 {
-    public class Task : EntityCore
+    public class Task : EntityCore, IValidate<Task>
     {
         public int Duration { get; set; }
         public bool? IsCompleted { get; set; }
@@ -13,5 +14,10 @@ namespace amocrm.library.Models
         public int ElementId { get; set; }
         public ElementTypeEnum ElementType { get; set; }
         public Result Result { get; set; }
+
+        public bool Validate(IValidateRules<Task> validateRules)
+        {
+            return validateRules.Validate(this);
+        }
     }
 }

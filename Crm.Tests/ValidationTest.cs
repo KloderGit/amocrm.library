@@ -10,6 +10,20 @@ namespace Crm.Tests
     [TestClass]
     public class ValidationTest
     {
+
+        [TestMethod]
+
+        public void dsff()
+        {
+
+            var ddd = new ValidateRulesManager().GetFactory<Task>().CreateUpdate();
+
+            var lddd = new Task() { Id = 2, UpdatedAt = DateTime.Now, Text = "s" };
+
+            var rrr = lddd.Validate(ddd);
+
+        }
+
         [TestMethod]
         public void LeadValidations()
         {
@@ -25,7 +39,7 @@ namespace Crm.Tests
             {
 
             }
-            
+
 
         }
     }

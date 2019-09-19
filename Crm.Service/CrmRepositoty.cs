@@ -1,24 +1,20 @@
-﻿using amocrm.library.DTO;
-using amocrm.library.Extensions;
+﻿using amocrm.library.Extensions;
 using amocrm.library.Interfaces;
 using amocrm.library.Models;
 using amocrm.library.Tools;
-using Mapster;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace amocrm.library
 {
-    public class CrmRepositoty<T> : IQueryableRepository<T>, IEnumerable where T : EntityCore, new()
+    public partial class CrmRepositoty<T> : IQueryableRepository<T>, IEnumerable where T : EntityCore, new()
     {
         public IQueryGenerator QueryGenerator { get; set; } = new QueryGenerator();
         public ICrmProvider Provider { get; }
+
+        private IValidationRulesFactory<T> validatingRulesFactory = new ValidateRulesManager().GetFactory<T>();
 
         public CrmRepositoty(ICrmProvider crmProvider)
         {
@@ -71,7 +67,14 @@ namespace amocrm.library
             var client = await Provider.GetClient();
             var endPoint = Provider.GetEndPoint<T>();
 
-            elements.ToList().ForEach(x => x.UpdatedAt = DateTime.Now + Provider.ServerTimeDiff);
+            isModelValid(elements, validatingRulesFactory.CreateUpdate());
+
+            SetUpdateDateTime(elements);
+
+
+            //ValidateModels(elements);
+
+
 
             var dtoToUpdate = new DtoModelBuilder<T>().GetUpdateModel(elements);
 
@@ -92,6 +95,8 @@ namespace amocrm.library
             var client = await Provider.GetClient();
             var endPoint = Provider.GetEndPoint<T>();
 
+            //ValidateModels(elements);
+
             var dtoToAdd = new DtoModelBuilder<T>().GetAddModel(elements);
 
             var responseString = await client.PostResultAsync(endPoint, dtoToAdd).ConfigureAwait(false);
@@ -100,7 +105,6 @@ namespace amocrm.library
 
             return CreatePostResult(responseString);
         }
-
 
         public async Task<T> FindByIdAsync(int id)
         {
@@ -111,32 +115,5 @@ namespace amocrm.library
 
             return string.IsNullOrEmpty(responseString) ? null : CreateGetResult(responseString).FirstOrDefault();
         }
-
-        IEnumerable<T> CreateGetResult(string jsonString)
-        {
-            var dtoType = typeof(T).GetDtoType(ActionEnum.Get);
-
-            var listType = typeof(List<>);
-            var genericListType = listType.MakeGenericType(dtoType);
-
-            var toJson = JObject.Parse(jsonString);
-            var token = (JArray)toJson.SelectToken("_embedded").SelectToken("items");
-
-            var result = token.ToObject(genericListType);
-
-            return result.Adapt<List<T>>();
-        }
-
-        IEnumerable<int> CreatePostResult(string jsonString)
-        {
-            var listType = typeof(List<int>);
-
-            var toJson = JObject.Parse(jsonString);
-            var token = (JArray)toJson.SelectToken("_embedded").SelectToken("items");
-
-            var result = token.Select(x => x["id"].Value<int>()).ToList();
-            return result;
-        }
-
     }
 }
