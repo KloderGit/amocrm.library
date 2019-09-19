@@ -17,7 +17,7 @@ namespace amocrm.library
         {
             var result = elements.ToList().Select(x => validator.Validate(x));
 
-            //if (result.Any(x => x == false)) throw new AmoCrmModelException();
+            if (result.Any(x => x == false)) throw new Exception("Model validation error. Check the completion of the fields.");
         }
 
         IValidateRules<T> DefineUpdateValidateRules()

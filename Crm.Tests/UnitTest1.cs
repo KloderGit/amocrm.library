@@ -50,6 +50,8 @@ namespace Crm.Tests
                 ResponsibleUserId = 2079718
             };
 
+            var emptyTask = new Task { Text = "ser" };
+
             var taskId = amoCrm.Tasks.AddAsync(task).Result;
         }
 

@@ -71,11 +71,6 @@ namespace amocrm.library
 
             SetUpdateDateTime(elements);
 
-
-            //ValidateModels(elements);
-
-
-
             var dtoToUpdate = new DtoModelBuilder<T>().GetUpdateModel(elements);
 
             var responseString = await client.PostResultAsync(endPoint, dtoToUpdate).ConfigureAwait(false);
@@ -95,7 +90,7 @@ namespace amocrm.library
             var client = await Provider.GetClient();
             var endPoint = Provider.GetEndPoint<T>();
 
-            //ValidateModels(elements);
+            isModelValid(elements, validatingRulesFactory.CreateAdd());
 
             var dtoToAdd = new DtoModelBuilder<T>().GetAddModel(elements);
 

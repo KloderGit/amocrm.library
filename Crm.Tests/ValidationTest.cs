@@ -1,4 +1,5 @@
-﻿using amocrm.library.Mappings;
+﻿using amocrm.library;
+using amocrm.library.Mappings;
 using amocrm.library.Models;
 using amocrm.library.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -16,11 +17,13 @@ namespace Crm.Tests
         public void dsff()
         {
 
-            var ddd = new ValidateRulesManager().GetFactory<Task>().CreateUpdate();
+            var ddd = new ValidateRulesManager().GetFactory<Task>().CreateAdd();
 
-            var lddd = new Task() { Id = 2, UpdatedAt = DateTime.Now, Text = "s" };
+            var lddd = new Task() { Text = "asdasd" };
 
             var rrr = lddd.Validate(ddd);
+
+            var fggg = ddd.Validate(lddd);
 
         }
 
