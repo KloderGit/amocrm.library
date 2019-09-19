@@ -12,7 +12,7 @@ namespace amocrm.library.Factory
         public IValidateRules<Company> CreateAdd()
         {
             var rules = new ValidateRules<Company>();
-            rules.AddRule(x => !String.IsNullOrEmpty(x.Name));
+            rules.AddRule(x => !String.IsNullOrEmpty(x.Name), "Name field can't be empty");
 
             return rules;
         }
@@ -20,8 +20,8 @@ namespace amocrm.library.Factory
         public IValidateRules<Company> CreateUpdate()
         {
             var rules = new ValidateRules<Company>();
-            rules.AddRule(x => x.Id != 0);
-            rules.AddRule(x => x.UpdatedAt != DateTime.MinValue);
+            rules.AddRule(x => x.Id != 0, "Id field must have a value");
+            rules.AddRule(x => x.UpdatedAt != DateTime.MinValue, "UpdatedAt field must have a set");
 
             return rules;
         }

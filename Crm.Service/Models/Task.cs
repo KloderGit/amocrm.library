@@ -17,7 +17,7 @@ namespace amocrm.library.Models
 
         public bool Validate(IValidateRules<Task> validateRules)
         {
-            return validateRules.Validate(this);
+            return validateRules.ValidateBool(this);
         }
     }
 }

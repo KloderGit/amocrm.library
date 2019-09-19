@@ -5,12 +5,38 @@ using amocrm.library.Tools;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Crm.Tests
 {
     [TestClass]
     public class ValidationTest
     {
+
+
+        [TestMethod]
+        public void dsfssssssf()
+        {
+
+            var ruls = new ValidateRules<Task>();
+            ruls.AddRule(x => x.Id != 0, "Zero is wrong");
+            ruls.AddRule(x => x.Id != 5, "Five is wrong as well");
+            ruls.AddRule(x => !String.IsNullOrEmpty(x.Text), "Text is wrong");
+
+            var task = new Task();
+            var task2 = new Task { Id =5, Text ="asd" };
+            var task3 = new Task { Id = 3, Text = "asd" };
+
+            var errors = ruls.ValidateResults(task);
+            var errors2 = ruls.ValidateResults(task2);
+            var errors3 = ruls.ValidateResults(task3);
+
+            var rrr = ruls.ValidateBool(task);
+            var rrr2 = ruls.ValidateBool(task2);
+            var rrr3 = ruls.ValidateBool(task3);
+        }
+
+
 
         [TestMethod]
 
@@ -23,7 +49,7 @@ namespace Crm.Tests
 
             var rrr = lddd.Validate(ddd);
 
-            var fggg = ddd.Validate(lddd);
+            var fggg = ddd.ValidateBool(lddd);
 
         }
 

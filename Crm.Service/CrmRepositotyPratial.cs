@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 namespace amocrm.library
@@ -15,19 +16,27 @@ namespace amocrm.library
     {
         void isModelValid(IEnumerable<T> elements, IValidateRules<T> validator)
         {
-            var result = elements.ToList().Select(x => validator.Validate(x));
+            var result = elements.ToList().Select(x => validator.ValidateBool(x));
 
             if (result.Any(x => x == false)) throw new Exception("Model validation error. Check the completion of the fields.");
         }
 
-        IValidateRules<T> DefineUpdateValidateRules()
-        {
-            var validator = new ValidateRules<T>();
-            validator.AddRule(x => x.Id > 0);
-            validator.AddRule(x => x.UpdatedAt != DateTime.MinValue);
 
-            return validator;
+        void isModelValidResult(IEnumerable<T> elements, IValidateRules<T> validator)
+        {
+            var errors = new List<ValidationResult>();
+
+            foreach (var item in elements)
+            {
+
+            }
+
+
+            var result = elements.ToList().Select(x => validator.ValidateResults(x));
+
+            //if (result.Any(x => x == false)) throw new Exception("Model validation error. Check the completion of the fields.");
         }
+
 
         void SetUpdateDateTime(IEnumerable<T> elements)
         {
