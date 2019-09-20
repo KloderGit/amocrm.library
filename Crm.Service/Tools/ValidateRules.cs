@@ -28,7 +28,7 @@ namespace amocrm.library.Tools
                 results.Add(lambda.Invoke(element));
             }
 
-            return !results.Contains(false);
+            return results.Contains(false) ? false : true;
         }
 
         public IEnumerable<ValidationResult> ValidateResults(T element)
@@ -57,6 +57,5 @@ namespace amocrm.library.Tools
 
             return result;
         }
-
     }
 }
