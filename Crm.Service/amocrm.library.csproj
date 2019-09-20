@@ -3,11 +3,13 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.0</Version>
+    <Version>0.1.1</Version>
     <PackageId>amocrm.library.net</PackageId>
     <Authors>KloderGit</Authors>
     <Company />
-    <Description>Access library AmoCrm. C#</Description>
+    <Description>Access library AmoCrm. C#
+
+Provides access to Leads \ Contacts \ Tasks and Notes</Description>
     <PackageProjectUrl>https://github.com/KloderGit/amocrm.library</PackageProjectUrl>
     <RepositoryUrl>https://github.com/KloderGit/amocrm.library</RepositoryUrl>
     <PackageTags>amocrm</PackageTags>
@@ -15,12 +17,10 @@
 
   <ItemGroup>
     <PackageReference Include="Mapster" Version="4.0.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.2.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="System.Diagnostics.Debug" Version="4.3.0" />
     <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
   </ItemGroup>
 

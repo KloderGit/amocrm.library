@@ -13,6 +13,7 @@ namespace amocrm.library.Tools
 
         public void AddRule(Expression<Predicate<T>> predicate, string message)
         {
+            if (predicate == null || string.IsNullOrEmpty(message)) throw new ArgumentNullException();
             rules.Add(predicate, message);
         }
 
