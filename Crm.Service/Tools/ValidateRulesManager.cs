@@ -21,7 +21,9 @@ namespace amocrm.library.Tools
 
         public IValidationRulesFactory<T> GetFactory<T>()
         {
-            return factories[typeof(T)] as IValidationRulesFactory<T>;
+            if (!factories.Keys.Contains(typeof(T))) return new EmptyValidatingRulesFactory<T>() as IValidationRulesFactory<T>;
+
+            return factories[typeof(T)] as IValidationRulesFactory<T>; 
         }
     }
 }

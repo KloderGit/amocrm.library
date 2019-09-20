@@ -21,7 +21,7 @@ namespace amocrm.library.Factory
         {
             var rules = new ValidateRules<Contact>();
             rules.AddRule(x => x.Id != 0, "Id field must have a value");
-            rules.AddRule(x => x.UpdatedAt != DateTime.MinValue, "UpdatedAt field must have a set");
+            rules.AddRule(x => x.UpdatedAt != DateTime.MinValue, "UpdatedAt field must be set");
 
             return rules;
         }

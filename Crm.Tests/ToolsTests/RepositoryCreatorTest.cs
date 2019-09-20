@@ -18,7 +18,7 @@ namespace Crm.Tests.ToolsTests
 
             IRepositoryCreator creator = new BasicRepositoryCreator(provider);
 
-            Assert.IsInstanceOfType(creator.GetRepository<Lead>(), typeof(CrmRepositoty<Lead>));
+            Assert.IsInstanceOfType(creator.GetRepository<EntityCore>(), typeof(CrmRepositoty<EntityCore>));
         }
 
         [TestMethod]
@@ -29,7 +29,7 @@ namespace Crm.Tests.ToolsTests
 
             IRepositoryCreator creator = new LoggedRepositoryCreator(provider, logger);
 
-            Assert.IsInstanceOfType(creator.GetRepository<Lead>(), typeof(LoggedRepositotyDecorator<Lead>));
+            Assert.IsInstanceOfType(creator.GetRepository<EntityCore>(), typeof(LoggedRepositotyDecorator<EntityCore>));
         }
     }
 }
