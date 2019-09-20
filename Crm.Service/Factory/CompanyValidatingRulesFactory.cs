@@ -2,8 +2,6 @@
 using amocrm.library.Models;
 using amocrm.library.Tools;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace amocrm.library.Factory
 {
@@ -21,7 +19,7 @@ namespace amocrm.library.Factory
         {
             var rules = new ValidateRules<Company>();
             rules.AddRule(x => x.Id != 0, "Id field must have a value");
-            rules.AddRule(x => x.UpdatedAt != DateTime.MinValue, "UpdatedAt field must have a set");
+            rules.AddRule(x => x.UpdatedAt != DateTime.MinValue, "UpdatedAt field must be set");
 
             return rules;
         }

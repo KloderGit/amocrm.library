@@ -13,6 +13,7 @@ namespace amocrm.library.Tools
 
         public void AddRule(Expression<Predicate<T>> predicate, string message)
         {
+            if (predicate == null || string.IsNullOrEmpty(message)) throw new ArgumentNullException();
             rules.Add(predicate, message);
         }
 
@@ -27,7 +28,7 @@ namespace amocrm.library.Tools
                 results.Add(lambda.Invoke(element));
             }
 
-            return !results.Contains(false);
+            return results.Contains(false) ? false : true;
         }
 
         public IEnumerable<ValidationResult> ValidateResults(T element)
@@ -56,6 +57,5 @@ namespace amocrm.library.Tools
 
             return result;
         }
-
     }
 }

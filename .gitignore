@@ -271,4 +271,8 @@ ASALocalRun/
 .localhistory/
 # BeatPulse healthcheck temp database
 healthchecksdb
+<<<<<<< HEAD
 /Crm.Tests/Integration/UnitTest1.cs
+=======
+/Crm.Tests/Integration
+>>>>>>> AddTest

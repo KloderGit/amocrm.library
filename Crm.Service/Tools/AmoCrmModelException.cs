@@ -6,17 +6,6 @@ using System.Text;
 
 namespace amocrm.library.Tools
 {
-    public class AmoCrmDefaultArgumentsException : Exception
-    {
-        List<ValidationResult> Errors { get; set; } = new List<ValidationResult>();
-
-        public AmoCrmDefaultArgumentsException(List<ValidationResult> errors)
-            : base(String.Join(" | ", errors.Select( x=> x.ErrorMessage)))
-        {
-            Errors = errors;
-        }        
-    }
-
     public class AmoCrmModelException : Exception
     {
         IEnumerable<ValidationResult> Errors { get; set; } = new List<ValidationResult>();
