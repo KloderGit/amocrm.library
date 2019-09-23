@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace amocrm.library
 {
-    public class AmoCrmProvider : ICrmProvider
+    internal class AmoCrmProvider : ICrmProvider
     {
         static DateTime cookiesLiveTime;
 

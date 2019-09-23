@@ -3,7 +3,7 @@ using amocrm.library.Tools;
 
 namespace amocrm.library.Factory
 {
-    public class EmptyValidatingRulesFactory<T> : IValidationRulesFactory<T>
+    internal class EmptyValidatingRulesFactory<T> : IValidationRulesFactory<T>
     {
         public IValidateRules<T> CreateAdd()
         {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace amocrm.library.Interfaces
 {
-    public interface IRepositoryCreator
+    internal interface IRepositoryCreator
     {
         IQueryableRepository<T> GetRepository<T>();
     }

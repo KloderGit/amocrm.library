@@ -3,7 +3,7 @@ using System;
 
 namespace amocrm.library.Tools
 {
-    public class SelectDtoAttribute : Attribute
+    internal class SelectDtoAttribute : Attribute
     {
         public Type Entity { get; set; }
         public ActionEnum Action { get; set; }

@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace amocrm.library.Converters
 {
-    public class ZeroValuesAndNameContractResolver : DefaultContractResolver
+    internal class ZeroValuesAndNameContractResolver : DefaultContractResolver
     {
         bool useJsonPropertyName { get; }
 

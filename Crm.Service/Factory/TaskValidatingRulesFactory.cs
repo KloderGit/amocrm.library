@@ -5,7 +5,7 @@ using System;
 
 namespace amocrm.library.Factory
 {
-    public class TaskValidatingRulesFactory : IValidationRulesFactory<Task>
+    internal class TaskValidatingRulesFactory : IValidationRulesFactory<Task>
     {
         public IValidateRules<Task> CreateAdd()
         {

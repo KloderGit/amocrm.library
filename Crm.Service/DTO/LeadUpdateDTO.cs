@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace amocrm.library.DTO
 {
     [SelectDtoAttribute(typeof(Lead), ActionEnum.Update)]
-    public class LeadUpdateDTO 
+    internal class LeadUpdateDTO 
     {
         [Required]
         [NotZeroValidation]
@@ -56,7 +56,7 @@ namespace amocrm.library.DTO
         //public Unlink Unlink { get; set; }
     }
 
-    public class UnlinkFromLead
+    internal class UnlinkFromLead
     {
         [JsonProperty(PropertyName = "contacts_id")]
         public List<int> Contacts { get; set; }

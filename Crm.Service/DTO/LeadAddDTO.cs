@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace amocrm.library.DTO
 {
     [SelectDtoAttribute(typeof(Lead), ActionEnum.Add)]
-    public class LeadAddDTO
+    internal class LeadAddDTO
     {
         [Required(ErrorMessage = "Lead Name field is required, but it has missed")]
         [JsonProperty(PropertyName = "name")]

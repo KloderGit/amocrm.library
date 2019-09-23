@@ -4,7 +4,7 @@ using System.Text;
 
 namespace amocrm.library.Mappings
 {
-    public class InitMappings
+    internal class InitMappings
     {
         public InitMappings()
         {

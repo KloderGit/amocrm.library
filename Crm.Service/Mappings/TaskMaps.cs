@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace amocrm.library.Mappings
 {
-    public class TaskMaps
+    internal class TaskMaps
     {
         public TaskMaps()
         {

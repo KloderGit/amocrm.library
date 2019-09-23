@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace amocrm.library.Tools
 {
-    public class DtoModelBuilder<TEntity> where TEntity : EntityCore
+    internal class DtoModelBuilder<TEntity> where TEntity : EntityCore
     {
         private Type dtoType;
         private Type listType = typeof(List<>);

@@ -10,7 +10,7 @@ namespace Crm.Tests.Data
 {
     public static class CompanyMockData
     {
-        public static IEnumerable<CompanyGetDTO> GetCompanyGetDTO()
+        internal static IEnumerable<CompanyGetDTO> GetCompanyGetDTO()
         {
             var dto = new CompanyGetDTO
             {

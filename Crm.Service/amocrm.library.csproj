@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.1</Version>
+    <Version>0.2.0</Version>
     <PackageId>amocrm.library.net</PackageId>
     <Authors>KloderGit</Authors>
     <Company />

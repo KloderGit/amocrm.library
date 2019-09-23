@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace amocrm.library.Tools
 {
-    public class AmoCrmGetPairsVisitor : ExpressionVisitor
+    internal class AmoCrmGetPairsVisitor : ExpressionVisitor
     {
         public HashSet<KeyValuePair<string, string>> Pairs { get; } = new HashSet<KeyValuePair<string, string>>();
 

@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace amocrm.library.Mappings
 {
-    public class LeadtMaps
+    internal class LeadtMaps
     {
         public LeadtMaps()
         {

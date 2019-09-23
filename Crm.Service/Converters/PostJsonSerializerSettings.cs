@@ -5,7 +5,7 @@ using System.Text;
 
 namespace amocrm.library.Converters
 {
-    public class PostJsonSerializerSettings
+    internal class PostJsonSerializerSettings
     {
         public JsonSerializerSettings GetSerializeSetting()
         {

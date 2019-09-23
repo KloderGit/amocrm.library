@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace amocrm.library.Extensions
 {
-    public static class HttpClientExtensions
+    internal static class HttpClientExtensions
     {
         public static async Task<string> PostResultAsync(this HttpClient client, Uri url, System.Object @object)
         {

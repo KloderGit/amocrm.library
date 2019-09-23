@@ -4,7 +4,7 @@ using System;
 
 namespace amocrm.library.Converters
 {
-    public class ObjectOrNullJsonConverter : JsonConverter
+    internal class ObjectOrNullJsonConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {

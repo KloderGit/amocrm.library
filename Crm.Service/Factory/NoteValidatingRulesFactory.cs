@@ -7,7 +7,7 @@ using System.Text;
 
 namespace amocrm.library.Factory
 {
-    public class NoteValidatingRulesFactory : IValidationRulesFactory<Note>
+    internal class NoteValidatingRulesFactory : IValidationRulesFactory<Note>
     {
         public IValidateRules<Note> CreateAdd()
         {

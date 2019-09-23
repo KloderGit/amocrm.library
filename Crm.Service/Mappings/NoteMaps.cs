@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace amocrm.library.Mappings
 {
-    public class NoteMaps
+    internal class NoteMaps
     {
         public NoteMaps()
         {

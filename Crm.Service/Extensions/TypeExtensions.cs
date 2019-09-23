@@ -6,7 +6,7 @@ using System.Reflection;
 
 namespace amocrm.library.Extensions
 {
-    public static class TypeExtensions
+    internal static class TypeExtensions
     {
         public static Type GetDtoType(this Type entity, ActionEnum dtoAction)
         {

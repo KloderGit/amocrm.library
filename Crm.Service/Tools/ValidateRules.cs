@@ -7,7 +7,7 @@ using System.Linq.Expressions;
 
 namespace amocrm.library.Tools
 {
-    public class ValidateRules<T> : IValidateRules<T>
+    internal class ValidateRules<T> : IValidateRules<T>
     {
         IDictionary<Expression<Predicate<T>>, string> rules = new Dictionary<Expression<Predicate<T>>, string>();
 

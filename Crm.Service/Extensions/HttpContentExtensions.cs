@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace amocrm.library.Extensions
 {
-    public static class HttpContentExtensions
+    internal static class HttpContentExtensions
     {
         public static async Task<IEnumerable<T>> ReadGetResponseAsync<T>(this HttpContent content)
         {

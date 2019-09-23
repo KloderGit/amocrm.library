@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace amocrm.library.Tools
 {
-    public class ValidateRulesManager : IValidationRulesManager
+    internal class ValidateRulesManager : IValidationRulesManager
     {
         private IDictionary<Type, object> factories = new Dictionary<Type, object>();
 

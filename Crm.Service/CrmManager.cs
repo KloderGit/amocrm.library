@@ -3,12 +3,11 @@ using amocrm.library.Mappings;
 using amocrm.library.Models;
 using amocrm.library.Tools;
 using Microsoft.Extensions.Logging;
-using Task = amocrm.library.Models.Task;
-using Tasks = System.Threading.Tasks;
+using System.Runtime.CompilerServices;
 
 namespace amocrm.library
 {
-    public class CrmManager
+    public class CrmManager : ICrmManager
     {
         ICrmProvider Provider { get; }
         ContactMaps mappings = new ContactMaps();
@@ -32,19 +31,19 @@ namespace amocrm.library
             this.RepositoryCreator = new LoggedRepositoryCreator(Provider, logger);
         }
 
-        public async Tasks.Task DirectAuthorization()
-        {
-            await Provider.Auth();
-        }
-
         public IQueryableRepository<Lead> Leads => RepositoryCreator.GetRepository<Lead>();
 
         public IQueryableRepository<Contact> Contacts => RepositoryCreator.GetRepository<Contact>();
 
-        public ICrmRepository<Company> Companies => RepositoryCreator.GetRepository<Company>();
+        public IQueryableRepository<Company> Companies => RepositoryCreator.GetRepository<Company>();
 
-        public ICrmRepository<Task> Tasks => RepositoryCreator.GetRepository<Task>();
+        public IQueryableRepository<Models.Task> Tasks => RepositoryCreator.GetRepository<Models.Task>();
 
-        public ICrmRepository<Note> Notes => RepositoryCreator.GetRepository<Note>();
+        public IQueryableRepository<Note> Notes => RepositoryCreator.GetRepository<Note>();
+
+        public async System.Threading.Tasks.Task DirectAuthorization()
+        {
+            await Provider.Auth();
+        }
     }
 }

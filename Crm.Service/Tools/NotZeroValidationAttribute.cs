@@ -2,7 +2,7 @@
 
 namespace amocrm.library.Tools
 {
-    public class NotZeroValidationAttribute : ValidationAttribute
+    internal class NotZeroValidationAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)
         {

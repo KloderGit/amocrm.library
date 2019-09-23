@@ -2,7 +2,7 @@
 
 namespace amocrm.library.Extensions
 {
-    public static class DateTimeExtensions
+    internal static class DateTimeExtensions
     {
         public static DateTime FromTimestamp(this DateTime date, long timestamp)
         {
@@ -12,7 +12,7 @@ namespace amocrm.library.Extensions
             return startDate.AddSeconds(timestamp).ToLocalTime();
         }
 
-        public static long ToTimestamp(this DateTime date)
+        internal static long ToTimestamp(this DateTime date)
         {
             if (date == DateTime.MinValue) return 0;
 

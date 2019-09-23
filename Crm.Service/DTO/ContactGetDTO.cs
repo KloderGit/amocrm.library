@@ -7,7 +7,7 @@ using System.Collections.Generic;
 namespace amocrm.library.DTO
 {
     [SelectDtoAttribute(typeof(Contact), ActionEnum.Get)]
-    public class ContactGetDTO
+    internal class ContactGetDTO
     {
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }

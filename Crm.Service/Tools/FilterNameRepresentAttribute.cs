@@ -1,6 +1,6 @@
 ﻿namespace amocrm.library.Tools
 {
-    public class FilterNameRepresentAttribute : System.Attribute
+    internal class FilterNameRepresentAttribute : System.Attribute
     {
         public string Name { get; set; }
 

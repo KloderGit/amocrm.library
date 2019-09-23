@@ -7,7 +7,7 @@ using System.Text;
 
 namespace amocrm.library.Factory
 {
-    public class ContactValidatingRulesFactory : IValidationRulesFactory<Contact>
+    internal class ContactValidatingRulesFactory : IValidationRulesFactory<Contact>
     {
         public IValidateRules<Contact> CreateAdd()
         {

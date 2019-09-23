@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace amocrm.library.DTO
 {
     [SelectDtoAttribute(typeof(Note), ActionEnum.Get)]
-    public class NoteGetDTO
+    internal class NoteGetDTO
     {
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
@@ -50,7 +50,7 @@ namespace amocrm.library.DTO
         public ParamDTO @Params { get; set; }
     }
 
-    public class Params2
+    internal class Params2
     {
         public int STATUS_NEW { get; set; }
         public int STATUS_OLD { get; set; }
@@ -60,7 +60,7 @@ namespace amocrm.library.DTO
         public int LOSS_REASON_ID { get; set; }
     }
 
-    public class ParamDTO
+    internal class ParamDTO
     {
         [JsonProperty(PropertyName = "text")]
         public string Text { get; set; }

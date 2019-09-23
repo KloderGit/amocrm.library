@@ -5,7 +5,7 @@ using System;
 
 namespace amocrm.library.Tools
 {
-    public abstract class RepositoryCreator : IRepositoryCreator
+    internal abstract class RepositoryCreator : IRepositoryCreator
     {
         protected ICrmProvider provider;
         protected ILogger logger;
@@ -26,7 +26,7 @@ namespace amocrm.library.Tools
     }
 
 
-    public class LoggedRepositoryCreator : RepositoryCreator
+    internal class LoggedRepositoryCreator : RepositoryCreator
     {
         public LoggedRepositoryCreator(ICrmProvider provider, ILogger logger)
         {
@@ -43,7 +43,7 @@ namespace amocrm.library.Tools
         }
     }
 
-    public class BasicRepositoryCreator : RepositoryCreator
+    internal class BasicRepositoryCreator : RepositoryCreator
     {
         public BasicRepositoryCreator(ICrmProvider provider)
         {

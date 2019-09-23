@@ -5,7 +5,7 @@ using System;
 
 namespace amocrm.library.Factory
 {
-    public class CompanyValidatingRulesFactory : IValidationRulesFactory<Company>
+    internal class CompanyValidatingRulesFactory : IValidationRulesFactory<Company>
     {
         public IValidateRules<Company> CreateAdd()
         {

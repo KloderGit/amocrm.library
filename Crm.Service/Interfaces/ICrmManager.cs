@@ -1,15 +1,15 @@
 ﻿
-
 using amocrm.library.Models;
 
 namespace amocrm.library.Interfaces
 {
     public interface ICrmManager
     {
-        ICrmRepository<Lead> Leads { get; }
+        System.Threading.Tasks.Task DirectAuthorization();
+        IQueryableRepository<Lead> Leads { get; }
         IQueryableRepository<Contact> Contacts { get; }
-        ICrmRepository<Company> Companies { get; }
-        ICrmRepository<Task> Tasks { get; }
-        ICrmRepository<Note> Notes { get; }
+        IQueryableRepository<Company> Companies { get; }
+        IQueryableRepository<Task> Tasks { get; }
+        IQueryableRepository<Note> Notes { get; }
     }
 }

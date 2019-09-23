@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace amocrm.library.DTO
 {
     [SelectDtoAttribute(typeof(Contact), ActionEnum.Add)]
-    public class ContactAddDTO
+    internal class ContactAddDTO
     {
         [Required]
         [JsonProperty(PropertyName = "name")]

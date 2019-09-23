@@ -1,18 +1,16 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace amocrm.library.DTO
 {
 
-    public class LinkedDataList
+    internal class LinkedDataList
     {
         [JsonProperty(PropertyName = "id")]
         public List<int> Id { get; set; }
     }
 
-    public class SimpleDtoObject
+    internal class SimpleDtoObject
     {
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
@@ -21,7 +19,7 @@ namespace amocrm.library.DTO
         public string Name { get; set; }
     }
 
-    public class CustomFieldsDto
+    internal class CustomFieldsDto
     {
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
@@ -39,12 +37,12 @@ namespace amocrm.library.DTO
         public string Code { get; set; }
     }
 
-    public class Values
+    internal class Values
     {
         [JsonProperty(PropertyName = "value")]
         public string Value { get; set; }
 
-        [JsonProperty(PropertyName = "_enum")]
+        [JsonProperty(PropertyName = "enum")]
         public int @Enum { get; set; }
     }
 }

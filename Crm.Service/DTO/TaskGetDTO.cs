@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace amocrm.library.DTO
 {
     [SelectDtoAttribute(typeof(Task), ActionEnum.Get )]
-    public class TaskGetDTO
+    internal class TaskGetDTO
     {
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }
@@ -53,7 +53,7 @@ namespace amocrm.library.DTO
         public TaskResultDto Result { get; set; }
     }
 
-    public class TaskResultDto
+    internal class TaskResultDto
     {
         [JsonProperty(PropertyName = "id")]
         public int Id { get; set; }

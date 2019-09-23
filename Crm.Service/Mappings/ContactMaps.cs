@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace amocrm.library.Mappings
 {
-    public class ContactMaps
+    internal class ContactMaps
     {
         public ContactMaps()
         {

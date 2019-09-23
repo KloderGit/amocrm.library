@@ -8,7 +8,7 @@ namespace Crm.Tests.Data
 {
     public static class TaskMockData
     {
-        public static IEnumerable<TaskGetDTO> GetTaskDto()
+        internal static IEnumerable<TaskGetDTO> GetTaskDto()
         {
             var dto1 = new TaskGetDTO
             {

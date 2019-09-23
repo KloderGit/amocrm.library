@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 namespace amocrm.library.DTO
 {
     [SelectDtoAttribute(typeof(Contact), ActionEnum.Update)]
-    public class ContactUpdateDTO
+    internal class ContactUpdateDTO
     {
         [Required]
         [JsonProperty(PropertyName = "id")]
@@ -48,7 +48,7 @@ namespace amocrm.library.DTO
         public List<CustomFieldsDto> CustomFields { get; set; }
     }
 
-    public class UnlinkFromContact
+    internal class UnlinkFromContact
     {
         [JsonProperty(PropertyName = "leads_id")]
         public List<int> Leads { get; set; }

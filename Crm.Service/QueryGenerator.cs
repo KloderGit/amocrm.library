@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace amocrm.library
 {
-    public class QueryGenerator : IQueryGenerator
+    internal class QueryGenerator : IQueryGenerator
     {
         List<Expression> Expressions { get; set; } = new List<Expression>();
 

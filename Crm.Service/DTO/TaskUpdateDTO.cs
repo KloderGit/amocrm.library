@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 namespace amocrm.library.DTO
 {
     [SelectDtoAttribute(typeof(Task), ActionEnum.Update )]
-    public class TaskUpdateDTO
+    internal class TaskUpdateDTO
     {
         [Required]
         [JsonProperty(PropertyName = "id")]
