@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace amocrm.library.Extensions
 {
 
-    internal static class IQueryableRepositoryExtentions
+    public static class IQueryableRepositoryExtentions
     {
 
         public static IQueryableRepository<Contact> Where(this IQueryableRepository<Contact> queryable, Expression<Func<ContactFilter, bool>> predicate)
