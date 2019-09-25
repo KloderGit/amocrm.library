@@ -53,9 +53,18 @@
         SMS_OUT = 103
     }
 
+    public enum ContactSystemFields
+    {
+        Phone = 54667,
+        Position = 54665,
+        Email = 54669,
+        Messanger = 54673,
+        Agreement = 573355
+    }
+
+
     public enum PhoneTypeEnum
     {
-        NotSet = 0,
         MOB = 114611,
         WORK = 114607,
         OTHER = 114617,
@@ -66,7 +75,6 @@
 
     public enum EmailTypeEnum
     {
-        NotSet = 0,
         PRIV = 114621,
         WORK = 114619,
         OTHER = 114623

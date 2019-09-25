@@ -11,8 +11,7 @@ namespace amocrm.library.Converters
         {
             var serializerSettings = new JsonSerializerSettings()
             {
-                //ContractResolver = new ValueIsNotNullResolver(),
-               // ContractResolver = new ZeroValuesAndNameContractResolver(true),
+                ContractResolver = new ChangeNameContractResolver(true),
                 NullValueHandling = NullValueHandling.Ignore,
                 DefaultValueHandling = DefaultValueHandling.Ignore
             };

@@ -8,6 +8,7 @@ using Mapster;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -83,5 +84,52 @@ namespace Crm.Tests.Mappings
         [TestMethod] public void FieldsHasValues() => Assert.AreEqual(array.Adapt<CompanyUpdateDTO>().CustomFields.Count, 3);
         [TestMethod] public void FieldsFirstValue() => Assert.AreEqual(array.Adapt<CompanyUpdateDTO>().CustomFields[0].Id, 66339);
         [TestMethod] public void FieldsIsNull() => Assert.IsNull(new Company().Adapt<CompanyUpdateDTO>().CustomFields);
+
+
+        [TestMethod]
+        public void FieldsToArrayOfEnumsIfMultiselect()
+        {
+            var company = new Company();
+            company.Fields.Add(new Field
+            {
+                FieldType = 5,
+                Id = 555,
+                IsSystem = false,
+                Name = "",
+                Values = new List<FieldValue>
+                {
+                 new FieldValue { Enum = 654, Value = "OOO" },
+                 new FieldValue { Enum = 345, Value = "GGG" },
+                 new FieldValue { Enum = 678, Value = "EEE" }
+                }
+            });
+
+            Assert.IsInstanceOfType(array.Adapt<CompanyUpdateDTO>().CustomFields[0].Values, typeof(ArrayList));
+            Assert.AreEqual(company.Adapt<CompanyUpdateDTO>().CustomFields[0].Values.Count, 3);
+            Assert.AreEqual(company.Adapt<CompanyUpdateDTO>().CustomFields[0].Values.ToArray()[0], "654");
+        }
+
+        [TestMethod]
+        public void FieldsToArrayOfObject()
+        {
+            var company = new Company();
+            company.Fields.Add(new Field
+            {
+                FieldType = 3,
+                Id = 555,
+                IsSystem = false,
+                Name = "",
+                Values = new List<FieldValue>
+                {
+                 new FieldValue { Enum = 654, Value = "OOO" },
+                 new FieldValue { Enum = 345, Value = "GGG" },
+                 new FieldValue { Enum = 678, Value = "EEE" }
+                }
+            });
+
+            Assert.IsInstanceOfType(array.Adapt<CompanyUpdateDTO>().CustomFields[0].Values, typeof(ArrayList));
+            Assert.AreEqual(company.Adapt<CompanyUpdateDTO>().CustomFields[0].Values.Count, 3);
+            Assert.AreEqual(((FieldValue)company.Adapt<CompanyUpdateDTO>().CustomFields[0].Values.ToArray()[0]).Value, "OOO");
+        }
     }
 }
