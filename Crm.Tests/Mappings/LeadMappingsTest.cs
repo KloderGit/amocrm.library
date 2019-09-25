@@ -19,7 +19,7 @@ namespace Crm.Tests.Mappings
 
         public LeadDtoToLeadTest()
         {
-            new ContactMaps();
+            new LeadtMaps();
 
             dto = LeadMockData.GetLeadDTO().First();
         }

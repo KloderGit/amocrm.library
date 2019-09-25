@@ -2,6 +2,7 @@
 using amocrm.library.Models.Fields;
 using amocrm.library.Models;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Crm.Tests.Data
 {

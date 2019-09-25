@@ -1,4 +1,5 @@
-﻿using amocrm.library.DTO;
+﻿using amocrm.library.Configurations;
+using amocrm.library.DTO;
 using amocrm.library.Extensions;
 using amocrm.library.Mappings;
 using amocrm.library.Models;
@@ -20,7 +21,7 @@ namespace Crm.Tests.Mappings
 
         public NoteDtoToNoteTest()
         {
-            new ContactMaps();
+            new NoteMaps();
         }
 
         [TestMethod]
@@ -41,7 +42,7 @@ namespace Crm.Tests.Mappings
         [TestMethod] public void GroupId() => Assert.AreEqual(dto.Adapt<Note>().GroupId, 212704);
         [TestMethod] public void CreatedBy() => Assert.AreEqual(dto.Adapt<Note>().CreatedBy, 2081797);
         [TestMethod] public void ElementId() => Assert.AreEqual(dto.Adapt<Note>().ElementId, 654654);
-        [TestMethod] public void ElementType() => Assert.AreEqual(dto.Adapt<Note>().ElementType, 2);
+        [TestMethod] public void ElementType() => Assert.AreEqual(dto.Adapt<Note>().ElementType, ElementTypeEnum.Lead);
         [TestMethod] public void NoteType() => Assert.AreEqual(dto.Adapt<Note>().NoteType, 987);
 
         [TestMethod] public void IsEditable() => Assert.AreEqual(dto.Adapt<Note>().IsEditable, false);

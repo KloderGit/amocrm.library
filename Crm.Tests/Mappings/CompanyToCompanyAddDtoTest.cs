@@ -20,7 +20,7 @@ namespace Crm.Tests.Mappings
 
         public CompanyToCompanyAddDtoTest()
         {
-            new ContactMaps();
+            new CompanyMaps();
         }
 
         [TestMethod]

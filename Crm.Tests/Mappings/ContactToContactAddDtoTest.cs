@@ -30,6 +30,37 @@ namespace Crm.Tests.Mappings
             //    Equality ensures that all properties have been converted correctly.
 
 
+            var contact = new Contact();
+            contact.Fields.Add(new Field
+            {
+                FieldType = 5,
+                Id = 555,
+                IsSystem = false,
+                Name = "",
+                Values = new List<FieldValue>
+                {
+                 new FieldValue { Enum = 654, Value = "OOO" },
+                 new FieldValue { Enum = 345, Value = "GGG" },
+                 new FieldValue { Enum = 678, Value = "EEE" }
+                }
+            });
+            contact.Fields.Add(new Field
+            {
+                FieldType = 3,
+                Id = 555,
+                IsSystem = false,
+                Name = "",
+                Values = new List<FieldValue>
+                {
+                 new FieldValue { Enum = 654, Value = "OOO" },
+                 new FieldValue { Enum = 345, Value = "GGG" },
+                 new FieldValue { Enum = 678, Value = "EEE" }
+                }
+            });
+
+            var onv = contact.Adapt<ContactAddDTO>();
+
+
             var dtoFromContact = new Contact().Adapt<ContactAddDTO>();
             var dtoFromNew = new ContactAddDTO();
 
@@ -80,5 +111,12 @@ namespace Crm.Tests.Mappings
         [TestMethod] public void FieldsHasValues() => Assert.AreEqual(array.Adapt<ContactAddDTO>().CustomFields.Count, 3);
         [TestMethod] public void FieldsFirstValue() => Assert.AreEqual(array.Adapt<ContactAddDTO>().CustomFields[0].Id, 112);
         [TestMethod] public void FieldsIsNull() => Assert.IsNull(new Contact().Adapt<ContactAddDTO>().CustomFields);
+
+
+        [TestMethod]
+        public void FieldsArrayValues()
+        {
+            Assert.IsNull(new Contact().Adapt<ContactAddDTO>().CustomFields);
+        }
     }
 }

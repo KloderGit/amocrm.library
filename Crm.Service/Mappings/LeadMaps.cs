@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace amocrm.library.Mappings
 {
-    internal class LeadtMaps
+    internal class LeadtMaps : CommonMaps
     {
         public LeadtMaps()
         {
@@ -61,11 +61,6 @@ namespace amocrm.library.Mappings
                 .Map(dest => dest.Contacts, src => src.Contacts == null || src.Contacts.Count == 0 ? null : src.Contacts)
                 .Map(dest => dest.Company, src => src.Company == null ? 0 : src.Company.Id);
 
-        }
-
-        bool isNull(object item)
-        {
-            return item == null ? true : false;
         }
     }
 }

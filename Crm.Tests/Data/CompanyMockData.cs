@@ -3,6 +3,7 @@ using amocrm.library.Extensions;
 using amocrm.library.Models;
 using amocrm.library.Models.Fields;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 

@@ -1,14 +1,16 @@
-﻿using amocrm.library.DTO;
+﻿using amocrm.library.Configurations;
+using amocrm.library.DTO;
 using amocrm.library.Extensions;
 using amocrm.library.Models;
 using Mapster;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace amocrm.library.Mappings
 {
-    internal class ContactMaps
+    internal class ContactMaps : CommonMaps
     {
         public ContactMaps()
         {
@@ -58,11 +60,7 @@ namespace amocrm.library.Mappings
                 .Map(dest => dest.Leads, src => src.Leads == null || src.Leads.Count() == 0 ? null : src.Leads)
                 .Map(dest => dest.Customers, src => src.Customers == null || src.Customers.Count() == 0 ? null : src.Customers)
                 .Map(dest => dest.CustomFields, src => src.Fields == null || src.Fields.Count == 0 ? null : src.Fields);
-        }
 
-        bool isNull(object item)
-        {
-            return item == null ? true : false;
         }
     }
 }

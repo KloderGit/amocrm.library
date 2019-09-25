@@ -18,7 +18,7 @@ namespace Crm.Tests.Mappings
 
         public LeadToLeadAddDtoTest()
         {
-            new ContactMaps();
+            new LeadtMaps();
         }
 
         [TestMethod]

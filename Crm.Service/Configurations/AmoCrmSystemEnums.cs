@@ -1,5 +1,26 @@
 ﻿namespace amocrm.library.Configurations
 {
+    public enum FieldType
+    {
+        TEXT = 1,
+        NUMERIC = 2,
+        CHECKBOX = 3,
+        SELECT = 4,
+        MULTISELECT = 5,
+        DATE = 6,
+        URL = 7,
+        MULTITEXT = 8,
+        TEXTAREA = 9,
+        RADIOBUTTON = 10,
+        STREETADDRESS = 11,
+        SMART_ADDRESS = 13,
+        BIRTHDAY = 14,
+        LEGAL_ENTITY = 15,
+        ITEMS = 16,
+        ORG_LEGAL_NAME = 17
+    }
+
+
     public enum TaskType
     {
         Звонок = 1,

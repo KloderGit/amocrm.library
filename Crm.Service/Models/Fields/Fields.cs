@@ -10,6 +10,8 @@ namespace amocrm.library.Models
 
         public string Name { get; set; } = String.Empty;
 
+        public int FieldType { get; set; }
+
         public List<FieldValue> Values { get; set; } = new List<FieldValue>();
 
         public bool? IsSystem { get; set; }
