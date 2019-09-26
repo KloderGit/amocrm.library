@@ -58,7 +58,7 @@
         Phone = 54667,
         Position = 54665,
         Email = 54669,
-        Messanger = 54673,
+        Messenger = 54673,
         Agreement = 573355
     }
 

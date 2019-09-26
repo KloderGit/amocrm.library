@@ -4,6 +4,7 @@ using amocrm.library.Models.Fields;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace amocrm.library.Models
 {
@@ -26,10 +27,12 @@ namespace amocrm.library.Models
 
         public void Phone(string value)
         {
-            var values = this.Fields.FirstOrDefault(fl => fl.Id == (int)ContactSystemFields.Phone)
-                .Values ?? new List<FieldValue>();
+            IEnumerable<int> curentTypes = new List<int>();
 
-            var curentTypes = values.Select(x => x.Enum) ?? new List<int>();
+            if (this.Fields?.FirstOrDefault(fl => fl.Id == (int)ContactSystemFields.Phone)?.Values != null)
+                curentTypes = Fields.FirstOrDefault(fl => fl.Id == (int)ContactSystemFields.Phone)
+                .Values.Select(x => x.Enum);
+
             var allTypes = new List<int> { 114611, 114607, 114617, 114609, 114615, 114613 }.Except(curentTypes);
             var nextType = allTypes.FirstOrDefault();
 
@@ -38,28 +41,39 @@ namespace amocrm.library.Models
 
         public void Phone(string value, PhoneTypeEnum type)
         {
-            if (String.IsNullOrEmpty(value)) return;
-
-            this.Fields = this.Fields ?? new List<Field>();
-
-            if (!this.Fields.Any(fl => fl.Id == (int)ContactSystemFields.Phone))
-                this.Fields.Add(new Field { Id = (int)ContactSystemFields.Phone });
-
-            var values = this.Fields.FirstOrDefault(fl => fl.Id == (int)ContactSystemFields.Phone)
-                .Values ?? new List<FieldValue>();
-
-            values.Add(new FieldValue { Enum = (int)type, Value = value });
+            if (String.IsNullOrEmpty(value) || CheckPhoneDouble(value)) return;
+            SetField((int)ContactSystemFields.Phone, value, (int)type);
         }
 
+        bool CheckPhoneDouble(string phone)
+        {
+            var phones = Phone();
+
+            if (phones == null) return false;
+                
+            return phones.Values.Select(x => CutPhoneCode(x.Value)).Any(x => x == CutPhoneCode(phone));
+
+            string CutPhoneCode(string item)
+            {
+                Regex regex = new Regex(@"[^0-9]");
+                string str = regex.Replace(item, "");
+
+                string substring = str.Length >= 10 ? str.Substring(str.Length - 10) : str;
+
+                return substring;
+            }
+        }
 
         public Field Email() => this.GetField((int)ContactSystemFields.Email);
 
         public void Email(string value)
         {
-            var values = this.Fields.FirstOrDefault(fl => fl.Id == (int)ContactSystemFields.Email)
-                .Values ?? new List<FieldValue>();
+            IEnumerable<int> curentTypes = new List<int>();
 
-            var curentTypes = values.Select(x => x.Enum) ?? new List<int>();
+            if (this.Fields?.FirstOrDefault(fl => fl.Id == (int)ContactSystemFields.Email)?.Values != null)
+                curentTypes = Fields.FirstOrDefault(fl => fl.Id == (int)ContactSystemFields.Email)
+                .Values.Select(x => x.Enum);
+
             var allTypes = new List<int> { 114621, 114619, 114623 }.Except(curentTypes);
             var nextType = allTypes.Except(curentTypes).FirstOrDefault();
 
@@ -68,69 +82,38 @@ namespace amocrm.library.Models
 
         public void Email(string value, EmailTypeEnum type)
         {
-            if (String.IsNullOrEmpty(value)) return;
+            if (String.IsNullOrEmpty(value) || CheckEmailDouble(value)) return;
+            SetField((int)ContactSystemFields.Email, value, (int)type);
+        }
 
-            this.Fields = this.Fields ?? new List<Field>();
+        bool CheckEmailDouble(string email)
+        {
+            var emails = Email();
 
-            if (!this.Fields.Any(fl => fl.Id == (int)ContactSystemFields.Email))
-                this.Fields.Add(new Field { Id = (int)ContactSystemFields.Email });
+            if (emails == null) return false;
 
-            var values = this.Fields.FirstOrDefault(fl => fl.Id == (int)ContactSystemFields.Email)
-                .Values ?? new List<FieldValue>();
-
-            values.Add(new FieldValue { Enum = (int)type, Value = value });
+            var array = Email().Values.Select(x => x.Value.Replace(" ", String.Empty));
+            return array.Any(x => x == email.Replace(" ", String.Empty));
         }
 
 
         public Field Position() => this.GetField((int)ContactSystemFields.Position);
-
         public void Position(string value)
         {
             if (String.IsNullOrEmpty(value)) return;
-
-            this.Fields = this.Fields ?? new List<Field>();
-
-            if (!this.Fields.Any(fl => fl.Id == (int)ContactSystemFields.Position))
-                this.Fields.Add(new Field { Id = (int)ContactSystemFields.Position });
-
-            var values = this.Fields.FirstOrDefault(fl => fl.Id == (int)ContactSystemFields.Position)
-                .Values ?? new List<FieldValue>();
-
-            values.Add(new FieldValue { Value = value });
+            SetField((int)ContactSystemFields.Position, value);
         }
 
+        public Field Messenger() => this.GetField((int)ContactSystemFields.Messenger);
 
-        public Field Messanger() => this.GetField((int)ContactSystemFields.Messanger);
-
-        public void Messanger(string value, MessengerTypeEnum type)
+        public void Messenger(string value, MessengerTypeEnum type)
         {
             if (String.IsNullOrEmpty(value) || type == default) return;
-
-            this.Fields = this.Fields ?? new List<Field>();
-
-            if (!this.Fields.Any(fl => fl.Id == (int)ContactSystemFields.Position))
-                this.Fields.Add(new Field { Id = (int)ContactSystemFields.Position });
-
-            var values = this.Fields.FirstOrDefault(fl => fl.Id == (int)ContactSystemFields.Position)
-                .Values ?? new List<FieldValue>();
-
-            values.Add(new FieldValue { Value = value, Enum = (int)type });
+            SetField((int)ContactSystemFields.Messenger, value, (int)type);
         }
-
 
         public Field Agreement() => GetField((int)ContactSystemFields.Agreement);
+        public void Agreement(bool value) => SetField((int)ContactSystemFields.Agreement, value ? "1" : null);
 
-        public void Agreement(bool value)
-        {
-            this.Fields = Fields ?? new List<Field>();
-
-            if (!this.Fields.Any(fl => fl.Id == (int)ContactSystemFields.Agreement))
-                this.Fields.Add(new Field { Id = (int)ContactSystemFields.Agreement });
-
-            var values = this.Fields.FirstOrDefault(fl => fl.Id == (int)ContactSystemFields.Agreement)
-                .Values ?? new List<FieldValue>();
-
-            values.Add(new FieldValue { Value = value ? "1" : null });
-        }
     }
 }
