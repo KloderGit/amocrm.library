@@ -62,6 +62,14 @@
         Agreement = 573355
     }
 
+    public enum CompanySystemFields
+    {
+        Phone = 54667,
+        Email = 54669,
+        Web = 54671,
+        Location =54675
+    }
+
 
     public enum PhoneTypeEnum
     {

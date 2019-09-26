@@ -23,9 +23,9 @@ namespace amocrm.library.Models
             return validateRules.ValidateBool(this);
         }
 
-        public Field Phone() => this.GetField((int)ContactSystemFields.Phone);
+        public virtual Field Phone() => this.GetField((int)ContactSystemFields.Phone);
 
-        public void Phone(string value)
+        public virtual void Phone(string value)
         {
             IEnumerable<int> curentTypes = new List<int>();
 
@@ -39,7 +39,7 @@ namespace amocrm.library.Models
             Phone(value, (PhoneTypeEnum)nextType);
         }
 
-        public void Phone(string value, PhoneTypeEnum type)
+        public virtual void Phone(string value, PhoneTypeEnum type)
         {
             if (String.IsNullOrEmpty(value) || CheckPhoneDouble(value)) return;
             SetField((int)ContactSystemFields.Phone, value, (int)type);
@@ -64,9 +64,9 @@ namespace amocrm.library.Models
             }
         }
 
-        public Field Email() => this.GetField((int)ContactSystemFields.Email);
+        public virtual Field Email() => this.GetField((int)ContactSystemFields.Email);
 
-        public void Email(string value)
+        public virtual void Email(string value)
         {
             IEnumerable<int> curentTypes = new List<int>();
 
@@ -80,7 +80,7 @@ namespace amocrm.library.Models
             Email(value, (EmailTypeEnum)nextType);
         }
 
-        public void Email(string value, EmailTypeEnum type)
+        public virtual void Email(string value, EmailTypeEnum type)
         {
             if (String.IsNullOrEmpty(value) || CheckEmailDouble(value)) return;
             SetField((int)ContactSystemFields.Email, value, (int)type);
@@ -97,23 +97,23 @@ namespace amocrm.library.Models
         }
 
 
-        public Field Position() => this.GetField((int)ContactSystemFields.Position);
+        public virtual Field Position() => this.GetField((int)ContactSystemFields.Position);
         public void Position(string value)
         {
             if (String.IsNullOrEmpty(value)) return;
             SetField((int)ContactSystemFields.Position, value);
         }
 
-        public Field Messenger() => this.GetField((int)ContactSystemFields.Messenger);
+        public virtual Field Messenger() => this.GetField((int)ContactSystemFields.Messenger);
 
-        public void Messenger(string value, MessengerTypeEnum type)
+        public virtual void Messenger(string value, MessengerTypeEnum type)
         {
             if (String.IsNullOrEmpty(value) || type == default) return;
             SetField((int)ContactSystemFields.Messenger, value, (int)type);
         }
 
-        public Field Agreement() => GetField((int)ContactSystemFields.Agreement);
-        public void Agreement(bool value) => SetField((int)ContactSystemFields.Agreement, value ? "1" : null);
+        public virtual Field Agreement() => GetField((int)ContactSystemFields.Agreement);
+        public virtual void Agreement(bool value) => SetField((int)ContactSystemFields.Agreement, value ? "1" : null);
 
     }
 }
