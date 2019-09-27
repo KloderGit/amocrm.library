@@ -70,8 +70,8 @@ namespace Crm.Tests.ModelTests
         public void AddTwoMessanger()
         {
             var contact = new Contact();
-            contact.Messenger("acc", MessengerTypeEnum.SKYPE);
-            contact.Messenger("acct", MessengerTypeEnum.ICQ);
+            contact.AddMessenger("acc", MessengerTypeEnum.SKYPE);
+            contact.AddMessenger("acct", MessengerTypeEnum.ICQ);
 
             var value1 = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Messenger).Values[0].Value;
             var value2 = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Messenger).Values[1].Value;

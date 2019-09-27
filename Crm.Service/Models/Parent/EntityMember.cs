@@ -23,13 +23,11 @@ namespace amocrm.library.Models
             return this.Fields.FirstOrDefault(x => x.Id == fieldId);
         }
 
-        public virtual void SetField(int fieldId, string value, int @enum = 0)
+        public virtual void SetField(int fieldId, string value, int @enum = 0, bool add = false)
         {
-            //if (string.IsNullOrEmpty(value) || fieldId == default) return;
-
             var array = InitFieldsArray();
             var currentField = InitCurrentField(fieldId);
-            var values = InitValuesOfField(currentField);
+            var values = add ? InitValuesOfField(currentField) : currentField.Values = new List<FieldValue>();
 
             values.Add(new FieldValue { Enum = @enum, Value = value });
         }

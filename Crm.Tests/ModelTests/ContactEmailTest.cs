@@ -41,25 +41,11 @@ namespace Crm.Tests.ModelTests
         }
 
         [TestMethod]
-        public void AddTwoEmailAndNextType()
+        public void AddTwoEmailDefaultType()
         {
             var contact = new Contact();
-            contact.Email("post@domain.com");
-            contact.Email("89995556633");
-
-            var value1 = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Email).Values[0].Enum;
-            var value2 = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Email).Values[1].Enum;
-
-            Assert.AreEqual(value1, (int)EmailTypeEnum.PRIV);
-            Assert.AreEqual(value2, (int)EmailTypeEnum.WORK);
-        }
-
-        [TestMethod]
-        public void AddTwoEmailAndSameType()
-        {
-            var contact = new Contact();
-            contact.Email("post@domain.com", EmailTypeEnum.PRIV);
-            contact.Email("89995556633", EmailTypeEnum.PRIV);
+            contact.AddEmail("post@domain.com");
+            contact.AddEmail("89995556633");
 
             var value1 = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Email).Values[0].Enum;
             var value2 = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Email).Values[1].Enum;
@@ -69,11 +55,25 @@ namespace Crm.Tests.ModelTests
         }
 
         [TestMethod]
+        public void AddTwoEmailAndSameType()
+        {
+            var contact = new Contact();
+            contact.AddEmail("post@domain.com", EmailTypeEnum.WORK);
+            contact.AddEmail("89995556633", EmailTypeEnum.WORK);
+
+            var value1 = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Email).Values[0].Enum;
+            var value2 = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Email).Values[1].Enum;
+
+            Assert.AreEqual(value1, (int)EmailTypeEnum.WORK);
+            Assert.AreEqual(value2, (int)EmailTypeEnum.WORK);
+        }
+
+        [TestMethod]
         public void NullDoesntChangeArray()
         {
             var contact = new Contact();
-            contact.Email(null, EmailTypeEnum.PRIV);
-            contact.Email("", EmailTypeEnum.PRIV);
+            contact.AddEmail(null, EmailTypeEnum.PRIV);
+            contact.AddEmail("", EmailTypeEnum.PRIV);
 
             var value = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Email);
 

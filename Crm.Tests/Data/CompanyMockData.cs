@@ -32,9 +32,9 @@ namespace Crm.Tests.Data
                 Tags = new List<SimpleDtoObject> { new SimpleDtoObject { Id = 123, Name = "tag1" }, new SimpleDtoObject { Id = 456, Name = "tag2" } },
                 CustomFields = new List<CustomFieldsDto>
                 {
-                    new CustomFieldsDto { Id = 66339, Name = "Директор", Type = FieldType.TEXT, IsSystem = false, Values = new List<Values> { new Values { Enum = 139517, Value = "Дмитрий" } } },
-                    new CustomFieldsDto { Id = 66349, Name = "Адрес", Type = FieldType.TEXT, IsSystem = false, Values = new List<Values> { new Values { Enum = 139967, Value = "Москва" } } },
-                    new CustomFieldsDto { Id = 579887, Name = "БИК", Type = FieldType.TEXT, IsSystem = false, Values = new List<Values> { new Values { Enum = 1203319, Value = "889977" } } }
+                    new CustomFieldsDto { Id = 66339, Name = "Директор", Type = FieldType.TEXT, IsSystem = false, Values = new List<Values> { new Values { @Enum = 139517, Value = "Дмитрий" } } },
+                    new CustomFieldsDto { Id = 66349, Name = "Адрес", Type = FieldType.TEXT, IsSystem = false, Values = new List<Values> { new Values { @Enum = 139967, Value = "Москва" } } },
+                    new CustomFieldsDto { Id = 579887, Name = "БИК", Type = FieldType.TEXT, IsSystem = false, Values = new List<Values> { new Values { @Enum = 1203319, Value = "889977" } } }
                 }                 
             };
 

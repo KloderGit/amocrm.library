@@ -23,7 +23,7 @@ namespace amocrm.library.Mappings
             foreach (var item in array)
             {
                 if (type == (int)FieldType.MULTISELECT) result.Add(item.Enum.ToString());
-                else result.Add(item);
+                else result.Add(new { @enum = item.Enum, value = item.Value }); 
             }
 
             return result;

@@ -22,24 +22,16 @@ namespace amocrm.library.Models
 
         public virtual Field Phone() => this.GetField((int)CompanySystemFields.Phone);
 
-        public virtual void Phone(string value)
+        public virtual void Phone(string value, PhoneTypeEnum type = PhoneTypeEnum.MOB)
         {
-            IEnumerable<int> curentTypes = new List<int>();
-
-            if (this.Fields?.FirstOrDefault(fl => fl.Id == (int)CompanySystemFields.Phone)?.Values != null)
-                curentTypes = Fields.FirstOrDefault(fl => fl.Id == (int)CompanySystemFields.Phone)
-                .Values.Select(x => x.Enum);
-
-            var allTypes = new List<int> { 114611, 114607, 114609, 114615, 114613, 114617 }.Except(curentTypes);
-            var nextType = allTypes.FirstOrDefault();
-
-            Phone(value, (PhoneTypeEnum)nextType);
+            if (String.IsNullOrEmpty(value)) return;
+            SetField((int)ContactSystemFields.Phone, value, (int)type);
         }
 
-        public virtual void Phone(string value, PhoneTypeEnum type)
+        public virtual void AddPhone(string value, PhoneTypeEnum type = PhoneTypeEnum.MOB)
         {
             if (String.IsNullOrEmpty(value) || CheckPhoneDouble(value)) return;
-            SetField((int)CompanySystemFields.Phone, value, (int)type);
+            SetField((int)ContactSystemFields.Phone, value, (int)type, add: true);
         }
 
         bool CheckPhoneDouble(string phone)
@@ -64,24 +56,16 @@ namespace amocrm.library.Models
 
         public virtual Field Email() => this.GetField((int)CompanySystemFields.Email);
 
-        public virtual void Email(string value)
+        public virtual void Email(string value, EmailTypeEnum type = EmailTypeEnum.PRIV)
         {
-            IEnumerable<int> curentTypes = new List<int>();
-
-            if (this.Fields?.FirstOrDefault(fl => fl.Id == (int)CompanySystemFields.Email)?.Values != null)
-                curentTypes = Fields.FirstOrDefault(fl => fl.Id == (int)CompanySystemFields.Email)
-                .Values.Select(x => x.Enum);
-
-            var allTypes = new List<int> { 114621, 114619, 114623 }.Except(curentTypes);
-            var nextType = allTypes.Except(curentTypes).FirstOrDefault();
-
-            Email(value, (EmailTypeEnum)nextType);
+            if (String.IsNullOrEmpty(value)) return;
+            SetField((int)ContactSystemFields.Email, value, (int)type);
         }
 
-        public virtual void Email(string value, EmailTypeEnum type)
+        public virtual void AddEmail(string value, EmailTypeEnum type = EmailTypeEnum.PRIV)
         {
             if (String.IsNullOrEmpty(value) || CheckEmailDouble(value)) return;
-            SetField((int)CompanySystemFields.Email, value, (int)type);
+            SetField((int)ContactSystemFields.Email, value, (int)type, add: true);
         }
 
         bool CheckEmailDouble(string email)

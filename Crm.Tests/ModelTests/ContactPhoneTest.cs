@@ -41,25 +41,11 @@ namespace Crm.Tests.ModelTests
         }
 
         [TestMethod]
-        public void AddTwoPhoneAndNextType()
+        public void AddTwoPhoneDefaultType()
         {
             var contact = new Contact();
-            contact.Phone("89995556644");
-            contact.Phone("89995556633");
-
-            var value1 = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Phone).Values[0].Enum;
-            var value2 = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Phone).Values[1].Enum;
-
-            Assert.AreEqual(value1, (int)PhoneTypeEnum.MOB);
-            Assert.AreEqual(value2, (int)PhoneTypeEnum.WORK);
-        }
-
-        [TestMethod]
-        public void AddTwoPhoneAndSameType()
-        {
-            var contact = new Contact();
-            contact.Phone("89995556644", PhoneTypeEnum.MOB);
-            contact.Phone("89995556633", PhoneTypeEnum.MOB);
+            contact.AddPhone("89995556644");
+            contact.AddPhone("89995556633");
 
             var value1 = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Phone).Values[0].Enum;
             var value2 = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Phone).Values[1].Enum;
@@ -69,11 +55,25 @@ namespace Crm.Tests.ModelTests
         }
 
         [TestMethod]
+        public void AddTwoPhoneAndSameType()
+        {
+            var contact = new Contact();
+            contact.AddPhone("89995556644", PhoneTypeEnum.WORK);
+            contact.AddPhone("89995556633", PhoneTypeEnum.WORK);
+
+            var value1 = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Phone).Values[0].Enum;
+            var value2 = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Phone).Values[1].Enum;
+
+            Assert.AreEqual(value1, (int)PhoneTypeEnum.WORK);
+            Assert.AreEqual(value2, (int)PhoneTypeEnum.WORK);
+        }
+
+        [TestMethod]
         public void NullDoesntChangeArray()
         {
             var contact = new Contact();
-            contact.Phone(null, PhoneTypeEnum.MOB);
-            contact.Phone("", PhoneTypeEnum.MOB);
+            contact.AddPhone(null, PhoneTypeEnum.MOB);
+            contact.AddPhone("", PhoneTypeEnum.MOB);
 
             var value = contact.Fields.Find(x => x.Id == (int)ContactSystemFields.Phone);
 
