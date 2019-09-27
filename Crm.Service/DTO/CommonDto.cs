@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using amocrm.library.Configurations;
+using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace amocrm.library.DTO
@@ -27,6 +29,8 @@ namespace amocrm.library.DTO
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
 
+        public FieldType Type { get; set; }
+
         [JsonProperty(PropertyName = "values")]
         public List<Values> Values { get; set; }
 
@@ -44,5 +48,25 @@ namespace amocrm.library.DTO
 
         [JsonProperty(PropertyName = "enum")]
         public int @Enum { get; set; }
+    }
+
+    internal class CustomFieldPostDto
+    {
+        [JsonProperty(PropertyName = "id")]
+        public int Id { get; set; }
+
+        [JsonProperty(PropertyName = "name")]
+        public string Name { get; set; }
+
+        public FieldType Type { get; set; }
+
+        [JsonProperty(PropertyName = "values")]
+        public ArrayList Values { get; set; }
+
+        [JsonProperty(PropertyName = "is_system")]
+        public bool? IsSystem { get; set; }
+
+        [JsonProperty(PropertyName = "code")]
+        public string Code { get; set; }
     }
 }

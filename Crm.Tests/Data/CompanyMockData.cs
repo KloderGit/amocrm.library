@@ -1,8 +1,10 @@
-﻿using amocrm.library.DTO;
+﻿using amocrm.library.Configurations;
+using amocrm.library.DTO;
 using amocrm.library.Extensions;
 using amocrm.library.Models;
 using amocrm.library.Models.Fields;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -30,9 +32,9 @@ namespace Crm.Tests.Data
                 Tags = new List<SimpleDtoObject> { new SimpleDtoObject { Id = 123, Name = "tag1" }, new SimpleDtoObject { Id = 456, Name = "tag2" } },
                 CustomFields = new List<CustomFieldsDto>
                 {
-                    new CustomFieldsDto { Id = 66339, Name = "Директор", IsSystem = false, Values = new List<Values> { new Values { Enum = 139517, Value = "Дмитрий" } } },
-                    new CustomFieldsDto { Id = 66349, Name = "Адрес", IsSystem = false, Values = new List<Values> { new Values { Enum = 139967, Value = "Москва" } } },
-                    new CustomFieldsDto { Id = 579887, Name = "БИК", IsSystem = false, Values = new List<Values> { new Values { Enum = 1203319, Value = "889977" } } }
+                    new CustomFieldsDto { Id = 66339, Name = "Директор", Type = FieldType.TEXT, IsSystem = false, Values = new List<Values> { new Values { @Enum = 139517, Value = "Дмитрий" } } },
+                    new CustomFieldsDto { Id = 66349, Name = "Адрес", Type = FieldType.TEXT, IsSystem = false, Values = new List<Values> { new Values { @Enum = 139967, Value = "Москва" } } },
+                    new CustomFieldsDto { Id = 579887, Name = "БИК", Type = FieldType.TEXT, IsSystem = false, Values = new List<Values> { new Values { @Enum = 1203319, Value = "889977" } } }
                 }                 
             };
 
@@ -59,9 +61,9 @@ namespace Crm.Tests.Data
                 Tags = new List<SimpleObject> { new SimpleObject { Id = 123, Name = "tag1" }, new SimpleObject { Id = 456, Name = "tag2" } },
                 Fields = new List<Field>
                 {
-                    new Field { Id = 66339, Name = "Директор", IsSystem = false, Values = new List<FieldValue>{ new FieldValue { Enum = 139517, Value = "Дмитрий" } } },
-                    new Field { Id = 66349, Name = "Адрес", IsSystem = false, Values = new  List<FieldValue> { new FieldValue { Enum = 139967, Value = "Москва" } } },
-                    new Field { Id = 579887, Name = "БИК", IsSystem = false, Values = new List<FieldValue> { new FieldValue { Enum = 1203319, Value = "889977" } } }
+                    new Field { Id = 66339, Name = "Директор", FieldType = 1, IsSystem = false, Values = new List<FieldValue>{ new FieldValue { Enum = 139517, Value = "Дмитрий" } } },
+                    new Field { Id = 66349, Name = "Адрес", FieldType = 1, IsSystem = false, Values = new  List<FieldValue> { new FieldValue { Enum = 139967, Value = "Москва" } } },
+                    new Field { Id = 579887, Name = "БИК", FieldType = 1, IsSystem = false, Values = new List<FieldValue> { new FieldValue { Enum = 1203319, Value = "889977" } } }
                 }
             };
 

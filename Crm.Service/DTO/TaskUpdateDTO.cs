@@ -1,8 +1,6 @@
-﻿using amocrm.library.Interfaces;
-using amocrm.library.Models;
+﻿using amocrm.library.Models;
 using amocrm.library.Tools;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace amocrm.library.DTO

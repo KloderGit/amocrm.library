@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace amocrm.library.Mappings
 {
-    internal class TaskMaps
+    internal class TaskMaps : CommonMaps
     {
         public TaskMaps()
         {
@@ -42,11 +42,6 @@ namespace amocrm.library.Mappings
                 .Map(dest => dest.CompleteTillAt, src => src.CompleteTillAt.ToTimestamp())
                 .Map(dest => dest.CreatedAt, src => src.CreatedAt.ToTimestamp())
                 .Map(dest => dest.UpdatedAt, src => src.UpdatedAt.ToTimestamp());
-        }
-
-        bool isNull(object item)
-        {
-            return item == null ? true : false;
         }
     }
 }

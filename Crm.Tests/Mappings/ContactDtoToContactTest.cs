@@ -63,6 +63,7 @@ namespace Crm.Tests.Mappings
         [TestMethod] public void FieldsIsNotNull() => Assert.AreNotEqual(dto.Adapt<Contact>().Fields, null);
         [TestMethod] public void FieldsHasValues() => Assert.AreEqual(dto.Adapt<Contact>().Fields.Count, 12);
         [TestMethod] public void FieldsFirstValue() => Assert.AreEqual(dto.Adapt<Contact>().Fields[0].Id, 72337);
+        [TestMethod] public void FieldsValue() => Assert.AreEqual(dto.Adapt<Contact>().Fields[0].Values[0].Value, "Москва");
         [TestMethod] public void FieldsIsNull() => Assert.IsNotNull(new ContactGetDTO().Adapt<Contact>().Fields);
 
         [TestMethod] public void LeadsTypeIs() => Assert.IsInstanceOfType(dto.Adapt<Contact>().Leads, typeof(IEnumerable<int>));

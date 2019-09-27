@@ -19,7 +19,7 @@ namespace Crm.Tests.Mappings
 
         public TaskToTaskDtoTest()
         {
-            new ContactMaps();
+            new TaskMaps();
         }
 
         [TestMethod]

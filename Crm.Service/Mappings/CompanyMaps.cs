@@ -8,7 +8,7 @@ using System.Linq;
 
 namespace amocrm.library.Mappings
 {
-    internal class CompanyMaps
+    internal class CompanyMaps : CommonMaps
     {
         public CompanyMaps()
         {
@@ -48,7 +48,6 @@ namespace amocrm.library.Mappings
                 .Map(dest => dest.Customers, src => src.Customers == null || src.Customers.Count() == 0 ? null : src.Customers)
                 .Map(dest => dest.CustomFields, src => src.Fields == null || src.Fields.Count == 0 ? null : src.Fields);
 
-
             TypeAdapterConfig<Company, CompanyAddDTO>
                 .NewConfig()
                 .Map(dest => dest.Name, src => String.IsNullOrEmpty(src.Name) ? null : src.Name)
@@ -61,9 +60,5 @@ namespace amocrm.library.Mappings
                 .Map(dest => dest.CustomFields, src => src.Fields == null || src.Fields.Count == 0 ? null : src.Fields);
         }
 
-        bool isNull(object item)
-        {
-            return item == null ? true : false;
-        }
     }
 }

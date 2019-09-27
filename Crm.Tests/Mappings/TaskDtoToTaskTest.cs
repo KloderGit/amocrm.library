@@ -1,4 +1,5 @@
-﻿using amocrm.library.DTO;
+﻿using amocrm.library.Configurations;
+using amocrm.library.DTO;
 using amocrm.library.Extensions;
 using amocrm.library.Mappings;
 using amocrm.library.Models;
@@ -19,7 +20,7 @@ namespace Crm.Tests.Mappings
 
         public TaskDtoToTaskTest()
         {
-            new ContactMaps();
+            new TaskMaps();
         }
 
         [TestMethod]
@@ -41,7 +42,7 @@ namespace Crm.Tests.Mappings
         [TestMethod] public void GroupId() => Assert.AreEqual(dto.Adapt<Task>().GroupId, 212704);
         [TestMethod] public void CreatedBy() => Assert.AreEqual(dto.Adapt<Task>().CreatedBy, 2081797);
         [TestMethod] public void ElementId() => Assert.AreEqual(dto.Adapt<Task>().ElementId, 9999);
-        [TestMethod] public void ElementType() => Assert.AreEqual(dto.Adapt<Task>().ElementType, 2);
+        [TestMethod] public void ElementType() => Assert.AreEqual(dto.Adapt<Task>().ElementType, ElementTypeEnum.Lead);
         [TestMethod] public void TaskType() => Assert.AreEqual(dto.Adapt<Task>().TaskType, 1);
         [TestMethod] public void IsEditable() => Assert.AreEqual(dto.Adapt<Task>().IsCompleted, true);
         [TestMethod] public void IsEditableIsNull() => Assert.IsNull(new TaskGetDTO().Adapt<Task>().IsCompleted);

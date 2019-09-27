@@ -6,6 +6,7 @@ using Crm.Tests.Data;
 using Mapster;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -18,7 +19,7 @@ namespace Crm.Tests.Mappings
 
         public LeadToLeadAddDtoTest()
         {
-            new ContactMaps();
+            new LeadtMaps();
         }
 
         [TestMethod]
@@ -70,5 +71,51 @@ namespace Crm.Tests.Mappings
         [TestMethod] public void FieldsHasValues() => Assert.AreEqual(array.Adapt<LeadAddDTO>().CustomFields.Count, 3);
         [TestMethod] public void FieldsFirstValue() => Assert.AreEqual(array.Adapt<LeadAddDTO>().CustomFields[0].Id, 66339);
         [TestMethod] public void FieldsIsNull() => Assert.IsNull(new Lead().Adapt<LeadAddDTO>().CustomFields);
+
+        [TestMethod]
+        public void FieldsToArrayOfEnumsIfMultiselect()
+        {
+            var obj = new Lead();
+            obj.Fields.Add(new Field
+            {
+                FieldType = 5,
+                Id = 555,
+                IsSystem = false,
+                Name = "",
+                Values = new List<FieldValue>
+                {
+                 new FieldValue { Enum = 654, Value = "OOO" },
+                 new FieldValue { Enum = 345, Value = "GGG" },
+                 new FieldValue { Enum = 678, Value = "EEE" }
+                }
+            });
+
+            Assert.IsInstanceOfType(array.Adapt<LeadAddDTO>().CustomFields[0].Values, typeof(ArrayList));
+            Assert.AreEqual(obj.Adapt<LeadAddDTO>().CustomFields[0].Values.Count, 3);
+            Assert.AreEqual(obj.Adapt<LeadAddDTO>().CustomFields[0].Values.ToArray()[0], "654");
+        }
+
+        [TestMethod]
+        public void FieldsToArrayOfObject()
+        {
+            var obj = new Lead();
+            obj.Fields.Add(new Field
+            {
+                FieldType = 3,
+                Id = 555,
+                IsSystem = false,
+                Name = "",
+                Values = new List<FieldValue>
+                {
+                 new FieldValue { Enum = 654, Value = "OOO" },
+                 new FieldValue { Enum = 345, Value = "GGG" },
+                 new FieldValue { Enum = 678, Value = "EEE" }
+                }
+            });
+
+            Assert.IsInstanceOfType(array.Adapt<LeadAddDTO>().CustomFields[0].Values, typeof(ArrayList));
+            Assert.AreEqual(obj.Adapt<LeadAddDTO>().CustomFields[0].Values.Count, 3);
+            Assert.AreEqual(((FieldValue)obj.Adapt<LeadAddDTO>().CustomFields[0].Values.ToArray()[0]).Value, "OOO");
+        }
     }
 }

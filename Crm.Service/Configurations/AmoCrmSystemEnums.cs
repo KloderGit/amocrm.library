@@ -1,5 +1,26 @@
 ﻿namespace amocrm.library.Configurations
 {
+    public enum FieldType
+    {
+        TEXT = 1,
+        NUMERIC = 2,
+        CHECKBOX = 3,
+        SELECT = 4,
+        MULTISELECT = 5,
+        DATE = 6,
+        URL = 7,
+        MULTITEXT = 8,
+        TEXTAREA = 9,
+        RADIOBUTTON = 10,
+        STREETADDRESS = 11,
+        SMART_ADDRESS = 13,
+        BIRTHDAY = 14,
+        LEGAL_ENTITY = 15,
+        ITEMS = 16,
+        ORG_LEGAL_NAME = 17
+    }
+
+
     public enum TaskType
     {
         Звонок = 1,
@@ -32,9 +53,26 @@
         SMS_OUT = 103
     }
 
+    public enum ContactSystemFields
+    {
+        Phone = 54667,
+        Position = 54665,
+        Email = 54669,
+        Messenger = 54673,
+        Agreement = 573355
+    }
+
+    public enum CompanySystemFields
+    {
+        Phone = 54667,
+        Email = 54669,
+        Web = 54671,
+        Location =54675
+    }
+
+
     public enum PhoneTypeEnum
     {
-        NotSet = 0,
         MOB = 114611,
         WORK = 114607,
         OTHER = 114617,
@@ -45,7 +83,6 @@
 
     public enum EmailTypeEnum
     {
-        NotSet = 0,
         PRIV = 114621,
         WORK = 114619,
         OTHER = 114623

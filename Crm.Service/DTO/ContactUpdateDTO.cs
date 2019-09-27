@@ -45,7 +45,7 @@ namespace amocrm.library.DTO
         public List<int> Customers { get; set; }
 
         [JsonProperty(PropertyName = "custom_fields")]
-        public List<CustomFieldsDto> CustomFields { get; set; }
+        public List<CustomFieldPostDto> CustomFields { get; set; }
     }
 
     internal class UnlinkFromContact

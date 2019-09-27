@@ -40,6 +40,6 @@ namespace amocrm.library.DTO
         public List<int> Contacts { get; set; }
 
         [JsonProperty(PropertyName = "custom_fields")]
-        public List<CustomFieldsDto> CustomFields { get; set; }
+        public List<CustomFieldPostDto> CustomFields { get; set; }
     }
 }

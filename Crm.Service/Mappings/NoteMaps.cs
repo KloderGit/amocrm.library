@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace amocrm.library.Mappings
 {
-    internal class NoteMaps
+    internal class NoteMaps : CommonMaps
     {
         public NoteMaps()
         {
@@ -39,11 +39,6 @@ namespace amocrm.library.Mappings
                 .Map(dest => dest.Attachment, src => String.IsNullOrEmpty(src.Attachment) ? null : src.Attachment)
                 .Map(dest => dest.CreatedAt, src => src.CreatedAt.ToTimestamp())
                 .Map(dest => dest.UpdatedAt, src => src.UpdatedAt.ToTimestamp());
-        }
-
-        bool isNull(object item)
-        {
-            return item == null ? true : false;
         }
     }
 }

@@ -2,6 +2,7 @@
 using amocrm.library.Models.Fields;
 using amocrm.library.Models;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace Crm.Tests.Data
 {
@@ -68,9 +69,9 @@ namespace Crm.Tests.Data
                 Contacts = new LinkedDataList { Id = new List<int> { 29127849, 29127848 } },
                 Pipeline = new SimpleDtoObject { Id = 1020193 },
                 CustomFields = new List<CustomFieldsDto> {
-                    new CustomFieldsDto{ Id = 66339, Name = "Источник", IsSystem = false, Values = new List<Values>{ new Values { Enum = 139517, Value = "Сайт" } } },
-                    new CustomFieldsDto{ Id = 66349, Name = "Интересующая услуга", IsSystem = false, Values = new List<Values>{ new Values { Enum = 139967, Value = "Восстановление двигательной активности" } } },
-                    new CustomFieldsDto{ Id = 579887, Name = "Группа обучения [ очное ]", IsSystem = false, Values = new List<Values>{ new Values { Enum = 1203319, Value = "№ 190 ПТ" } } }
+                    new CustomFieldsDto{ Id = 66339, Name = "Источник", IsSystem = false, Values = new List<Values>{ new Values { @Enum = 139517, Value = "Сайт" } } },
+                    new CustomFieldsDto{ Id = 66349, Name = "Интересующая услуга", IsSystem = false, Values = new List<Values>{ new Values { @Enum = 139967, Value = "Восстановление двигательной активности" } } },
+                    new CustomFieldsDto{ Id = 579887, Name = "Группа обучения [ очное ]", IsSystem = false, Values = new List<Values>{ new Values { @Enum = 1203319, Value = "№ 190 ПТ" } } }
                 }
             };
 
