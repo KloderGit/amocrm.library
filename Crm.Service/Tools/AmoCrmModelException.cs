@@ -11,7 +11,7 @@ namespace amocrm.library.Tools
         IEnumerable<ValidationResult> Errors { get; set; } = new List<ValidationResult>();
 
         public AmoCrmModelException(IEnumerable<ValidationResult> errors)
-            : base(String.Join(" | ", errors.Select(x => x.ErrorMessage)))
+            : base(String.Join("; ", errors.Select(x => x.ErrorMessage)))
         {
             Errors = errors;
         }

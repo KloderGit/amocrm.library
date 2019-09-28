@@ -67,7 +67,7 @@ namespace amocrm.library
             var client = await Provider.GetClient();
             var endPoint = Provider.GetEndPoint<T>();
 
-            if (isModelValid(elements, validatingRulesFactory.CreateUpdate()))
+            if (!isModelValid(elements, validatingRulesFactory.CreateUpdate()))
                     GenerateException(elements, validatingRulesFactory.CreateUpdate());
 
             SetUpdateDateTime(elements);
@@ -91,7 +91,7 @@ namespace amocrm.library
             var client = await Provider.GetClient();
             var endPoint = Provider.GetEndPoint<T>();
 
-            if (isModelValid(elements, validatingRulesFactory.CreateAdd()))
+            if (!isModelValid(elements, validatingRulesFactory.CreateAdd()))
                 GenerateException(elements, validatingRulesFactory.CreateAdd());
 
             var dtoToAdd = new DtoModelBuilder<T>().GetAddModel(elements);
