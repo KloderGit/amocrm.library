@@ -90,7 +90,6 @@
 
     public enum MessengerTypeEnum
     {
-        NotSet = 0,
         SKYPE = 114625,
         ICQ = 114627,
         JABBER = 114629,

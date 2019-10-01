@@ -1,4 +1,5 @@
 ﻿using amocrm.library.Configurations;
+using amocrm.library.Interfaces;
 using amocrm.library.Models.Fields;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 
 namespace amocrm.library.Models
 {
-    public class EntityMember : EntityCore
+    public class EntityMember : EntityCore, ICustomField
     {
         public string Name { get; set; } = String.Empty;
 
