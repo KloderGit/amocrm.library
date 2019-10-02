@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using amocrm.library.Interfaces;
+using amocrm.library.Models.Account;
 
 namespace amocrm.library.Mappings
 {
@@ -14,5 +16,6 @@ namespace amocrm.library.Mappings
             new NoteMaps();
             new TaskMaps();
         }
+
     }
 }

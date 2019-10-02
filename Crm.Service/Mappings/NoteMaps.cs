@@ -9,13 +9,13 @@ using System.Linq;
 
 namespace amocrm.library.Mappings
 {
-    internal class NoteMaps : CommonMaps
+    internal class NoteMaps
     {
         public NoteMaps()
         {
              TypeAdapterConfig<NoteGetDTO, Note>
                 .NewConfig()
-                .Map(dest => dest.Text, src => isNull(src.Text) ? string.Empty : src.Text)
+                .Map(dest => dest.Text, src => string.IsNullOrEmpty(src.Text) ? string.Empty : src.Text)
                 .Map(dest => dest.CreatedAt, src => new DateTime().FromTimestamp(src.CreatedAt))
                 .Map(dest => dest.UpdatedAt, src => new DateTime().FromTimestamp(src.UpdatedAt));
 

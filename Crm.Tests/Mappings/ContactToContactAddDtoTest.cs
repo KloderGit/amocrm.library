@@ -21,7 +21,7 @@ namespace Crm.Tests.Mappings
 
         public ContactToContactAddDtoTest()
         {
-            new ContactMaps();
+            new InitMappings();
         }
 
         [TestMethod]

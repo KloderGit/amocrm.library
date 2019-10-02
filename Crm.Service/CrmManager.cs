@@ -9,18 +9,12 @@ namespace amocrm.library
 {
     public class CrmManager : ICrmManager
     {
-        ICrmProvider Provider { get; }
-        ContactMaps mappings = new ContactMaps();
+        IAmoCrmProvider Provider { get; }
         IRepositoryCreator RepositoryCreator;
 
-        public CrmManager()
+        public CrmManager(string account, string login, string pass)
         {
             new InitMappings();
-        }
-
-        public CrmManager(string account, string login, string pass)
-            : this()
-        {
             Provider = new AmoCrmProvider(account: account, login: login, pass: pass);
             this.RepositoryCreator = new BasicRepositoryCreator(Provider);
         }

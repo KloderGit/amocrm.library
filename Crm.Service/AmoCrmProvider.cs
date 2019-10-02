@@ -3,6 +3,7 @@ using amocrm.library.Configurations;
 using amocrm.library.Extensions;
 using amocrm.library.Interfaces;
 using amocrm.library.Models;
+using amocrm.library.Models.Account;
 using amocrm.library.Tools;
 using Newtonsoft.Json;
 using System;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace amocrm.library
 {
-    internal class AmoCrmProvider : ICrmProvider
+    internal class AmoCrmProvider : IAmoCrmProvider
     {
         static DateTime cookiesLiveTime;
 
@@ -26,7 +27,8 @@ namespace amocrm.library
 
         static object locker = new object();
 
-        public AuthContent AuthInfo { get; set; }
+        AuthContent AuthInfo { get; set; }
+        public AccountInfo AccountInfo { get; set; }
 
         public TimeSpan ServerTimeDiff { get; set; }
 
@@ -61,10 +63,9 @@ namespace amocrm.library
             AuthInfo = JsonConvert.DeserializeObject<AuthResponse>(response).Content;
             ServerTimeDiff = (DateTime.Now - new DateTime().FromTimestamp(AuthInfo.ServerTime)) * -1;
 
-            lock (locker)
-            {
-                AmoCrmProvider.cookiesLiveTime = DateTime.Now;
-            }
+            lock (locker) { AmoCrmProvider.cookiesLiveTime = DateTime.Now; }
+
+            if (AccountInfo == null) AccountInfo = await GetCrmInfo();
         }
 
         public bool AuthCookiesLifeTime()
@@ -89,5 +90,19 @@ namespace amocrm.library
             return endPoint.GetUrl<TPoint>();
         }
 
+
+        public async Task<AccountInfo> GetCrmInfo()
+        {
+            var request = await client.GetAsync(GetEndPoint<AccountInfo>());
+            var response = await request.Content.ReadAsStringAsync();
+            if (!request.IsSuccessStatusCode)
+            {
+                var error = JsonConvert.DeserializeObject<AuthResponse>(response);
+                var exception = new AmoCrmHttpException(error);
+                throw exception;
+            }
+
+            return JsonConvert.DeserializeObject<AccountInfo>(response);
+        }
     }
 }

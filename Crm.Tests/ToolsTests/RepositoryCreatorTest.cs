@@ -14,7 +14,7 @@ namespace Crm.Tests.ToolsTests
         [TestMethod]
         public void CreateBasicGenericRepository()
         {
-            var provider = new Mock<ICrmProvider>().Object;
+            var provider = new Mock<IAmoCrmProvider>().Object;
 
             IRepositoryCreator creator = new BasicRepositoryCreator(provider);
 
@@ -24,7 +24,7 @@ namespace Crm.Tests.ToolsTests
         [TestMethod]
         public void CreateLoggedGenericRepository()
         {
-            var provider = new Mock<ICrmProvider>().Object;
+            var provider = new Mock<IAmoCrmProvider>().Object;
             var logger = new Mock<ILogger>().Object;
 
             IRepositoryCreator creator = new LoggedRepositoryCreator(provider, logger);

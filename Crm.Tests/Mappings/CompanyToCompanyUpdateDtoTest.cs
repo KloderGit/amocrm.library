@@ -21,7 +21,7 @@ namespace Crm.Tests.Mappings
 
         public CompanyToCompanyUpdateDtoTest()
         {
-            new CompanyMaps();
+            new InitMappings();
 
             array = CompanyMockData.GetCompany().First();
         }

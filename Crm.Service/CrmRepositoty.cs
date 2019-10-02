@@ -12,15 +12,15 @@ namespace amocrm.library
     public partial class CrmRepositoty<T> : IQueryableRepository<T>, IEnumerable where T : EntityCore, new()
     {
         public IQueryGenerator QueryGenerator { get; set; } = new QueryGenerator();
-        public ICrmProvider Provider { get; }
+        public IAmoCrmProvider Provider { get; }
 
         private IValidationRulesFactory<T> validatingRulesFactory = new ValidateRulesManager().GetFactory<T>();
 
-        public CrmRepositoty(ICrmProvider crmProvider)
+        public CrmRepositoty(IAmoCrmProvider crmProvider)
         {
             this.Provider = crmProvider;
         }
-        public CrmRepositoty(ICrmProvider crmProvider, IQueryGenerator generator)
+        public CrmRepositoty(IAmoCrmProvider crmProvider, IQueryGenerator generator)
             : this(crmProvider)
         {
             this.QueryGenerator = generator;
@@ -72,7 +72,8 @@ namespace amocrm.library
 
             SetUpdateDateTime(elements);
 
-            var dtoToUpdate = new DtoModelBuilder<T>().GetUpdateModel(elements);
+            var dtoToUpdate = new DtoModelBuilder<T>(Provider.AccountInfo.FieldsTypeStore.FieldInfo)
+                .GetUpdateModel(elements);
 
             var responseString = await client.PostResultAsync(endPoint, dtoToUpdate).ConfigureAwait(false);
 
@@ -94,7 +95,8 @@ namespace amocrm.library
             if (!isModelValid(elements, validatingRulesFactory.CreateAdd()))
                 GenerateException(elements, validatingRulesFactory.CreateAdd());
 
-            var dtoToAdd = new DtoModelBuilder<T>().GetAddModel(elements);
+            var dtoToAdd = new DtoModelBuilder<T>(Provider.AccountInfo.FieldsTypeStore.FieldInfo)
+                .GetAddModel(elements);
 
             var responseString = await client.PostResultAsync(endPoint, dtoToAdd).ConfigureAwait(false);
 

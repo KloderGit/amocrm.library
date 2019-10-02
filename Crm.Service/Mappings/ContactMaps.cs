@@ -2,6 +2,7 @@
 using amocrm.library.DTO;
 using amocrm.library.Extensions;
 using amocrm.library.Models;
+using amocrm.library.Models.Account;
 using Mapster;
 using System;
 using System.Collections;

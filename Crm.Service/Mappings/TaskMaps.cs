@@ -9,14 +9,14 @@ using System.Linq;
 
 namespace amocrm.library.Mappings
 {
-    internal class TaskMaps : CommonMaps
+    internal class TaskMaps
     {
         public TaskMaps()
         {
 
             TypeAdapterConfig<TaskGetDTO, Task>
                 .NewConfig()
-                .Map(dest => dest.Text, src => isNull(src.Text) ? string.Empty : src.Text)
+                .Map(dest => dest.Text, src => string.IsNullOrEmpty(src.Text) ? string.Empty : src.Text)
                 .Map(dest => dest.CompleteTillAt, src => new DateTime().FromTimestamp(src.CompleteTillAt))
                 .Map(dest => dest.CreatedAt, src => new DateTime().FromTimestamp(src.CreatedAt))
                 .Map(dest => dest.UpdatedAt, src => new DateTime().FromTimestamp(src.UpdatedAt));

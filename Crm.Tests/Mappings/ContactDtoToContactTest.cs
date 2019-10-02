@@ -19,7 +19,7 @@ namespace Crm.Tests.Mappings
 
         public ContactDtoToContactTest()
         {
-            new ContactMaps();
+            new InitMappings();
             dto = new ContactMockData().GetDTOs().First();
         }
 

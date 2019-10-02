@@ -1,4 +1,5 @@
 ﻿using amocrm.library.Models;
+using amocrm.library.Models.Account;
 using System;
 using System.Collections.Generic;
 
@@ -22,7 +23,7 @@ namespace amocrm.library.Configurations
             //urls.Add(typeof(CatalogDTO), new Uri(_baseUrl, "api/v2/catalog_elements"));
             urls.Add(typeof(Task), new Uri(_baseUrl, "api/v2/tasks"));
             urls.Add(typeof(Note), new Uri(_baseUrl, "api/v2/notes"));
-            //urls.Add(typeof(Account), new Uri(_baseUrl, "api/v2/account"));
+            urls.Add(typeof(AccountInfo), new Uri(_baseUrl, "api/v2/account?with=custom_fields,users,pipelines,note_types,task_types"));
         }
 
         public Uri GetUrl<T>()

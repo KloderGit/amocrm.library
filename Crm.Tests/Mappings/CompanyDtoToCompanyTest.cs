@@ -19,7 +19,7 @@ namespace Crm.Tests.Mappings
 
         public CompanyDtoToCompanyTest()
         {
-            new CompanyMaps();
+            new InitMappings();
 
             companyDto = CompanyMockData.GetCompanyGetDTO().First();
         }
