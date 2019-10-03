@@ -22,13 +22,15 @@ namespace amocrm.library
         HttpClient client;
         HttpClientHandler handler;
         CrmEndPointConfig endPoint;
+
         private readonly string login;
         private readonly string pass;
 
         static object locker = new object();
 
-        AuthContent AuthInfo { get; set; }
-        public AccountInfo AccountInfo { get; set; }
+        public AuthContent AuthInfo { get; set; }
+
+        public AccountInfo Account { get; set; }
 
         public TimeSpan ServerTimeDiff { get; set; }
 
@@ -63,9 +65,9 @@ namespace amocrm.library
             AuthInfo = JsonConvert.DeserializeObject<AuthResponse>(response).Content;
             ServerTimeDiff = (DateTime.Now - new DateTime().FromTimestamp(AuthInfo.ServerTime)) * -1;
 
-            lock (locker) { AmoCrmProvider.cookiesLiveTime = DateTime.Now; }
+            lock (locker) { cookiesLiveTime = DateTime.Now; }
 
-            if (AccountInfo == null) AccountInfo = await GetCrmInfo();
+            if (Account == null) Account = await GetCrmInfo();
         }
 
         public bool AuthCookiesLifeTime()
@@ -90,11 +92,16 @@ namespace amocrm.library
             return endPoint.GetUrl<TPoint>();
         }
 
-
         public async Task<AccountInfo> GetCrmInfo()
         {
-            var request = await client.GetAsync(GetEndPoint<AccountInfo>());
+            if (Account != null) return Account;
+
+            var client = await GetClient();
+            var endPoint = GetEndPoint<AccountInfo>();
+
+            var request = await client.GetAsync(endPoint);
             var response = await request.Content.ReadAsStringAsync();
+
             if (!request.IsSuccessStatusCode)
             {
                 var error = JsonConvert.DeserializeObject<AuthResponse>(response);
@@ -102,7 +109,9 @@ namespace amocrm.library
                 throw exception;
             }
 
-            return JsonConvert.DeserializeObject<AccountInfo>(response);
+            Account = JsonConvert.DeserializeObject<AccountInfo>(response);
+
+            return Account;
         }
     }
 }

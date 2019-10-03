@@ -4,24 +4,25 @@ using amocrm.library.Models.Account;
 using Mapster;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace amocrm.library.Tools
 {
     internal class DtoModelBuilder<TEntity> where TEntity : EntityCore
     {
         private Type dtoType;
-        private Type listType = typeof(List<>);
+        private readonly Type listType = typeof(List<>);
         private Type genericListType;
-        private CustomFieldInfo customFieldInfo;
+        private AccountInfo account;
 
-        public DtoModelBuilder(CustomFieldInfo fieldsStore)
+        public DtoModelBuilder(AccountInfo account)
         {
-            customFieldInfo = fieldsStore;
+            this.account = account;
         }
 
         public Object GetUpdateModel(IEnumerable<TEntity> entities)
         {
-            if (customFieldInfo != null) DetectFieldsType(entities);
+            if (account?.GetCustomFieldsType() != null) DetectFieldsType(entities);
 
             dtoType = typeof(TEntity).GetDtoType(ActionEnum.Update);
 
@@ -30,11 +31,25 @@ namespace amocrm.library.Tools
 
         public Object GetAddModel(IEnumerable<TEntity> entities)
         {
-            if (customFieldInfo != null) DetectFieldsType(entities);
+            if (account?.GetCustomFieldsType() != null) DetectFieldsType(entities);
 
             dtoType = typeof(TEntity).GetDtoType(ActionEnum.Add);
 
             return new { add = ConvertEntityCollectionToDto(entities) };
+        }
+
+        private void DetectFieldsType(IEnumerable<TEntity> entities)
+        {
+            if (!(entities is IEnumerable<EntityMember>)) return;
+
+            foreach (var item in (IEnumerable<EntityMember>)entities)
+            {
+                foreach (var fild in item.Fields)
+                {
+                    var res = account.GetCustomFieldsType().TryGetValue(fild.Id, out int value);
+                    if (res) fild.FieldType = value;
+                }
+            }
         }
 
         private Object ConvertEntityCollectionToDto(object elements)
@@ -46,19 +61,6 @@ namespace amocrm.library.Tools
             var array = elements.Adapt(type1, this.genericListType);
 
             return array;
-        }
-
-        private void DetectFieldsType(IEnumerable<TEntity> entities)
-        {
-            if (!(entities is IEnumerable<EntityMember>)) return;
-
-            foreach (var item in (IEnumerable<EntityMember>)entities)
-            {
-                foreach (var fild in item.Fields)
-                {
-                    fild.FieldType = (int)customFieldInfo.FindFildType(fild.Id);
-                }
-            }
         }
     }
 }

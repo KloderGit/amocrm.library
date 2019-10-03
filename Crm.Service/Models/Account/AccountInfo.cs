@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace amocrm.library.Models.Account
@@ -26,6 +27,31 @@ namespace amocrm.library.Models.Account
 
         [JsonProperty(PropertyName = "_embedded")]
         public TypeInfoStore FieldsTypeStore { get; set; }
+
+        public CustomFieldInfo GetCustomFieldsInfo()
+        {
+            return FieldsTypeStore.FieldInfo;
+        }
+
+        public Dictionary<int, int> GetCustomFieldsType()
+        {
+            var fields = GetCustomFieldsInfo();
+
+            var pairs = new Dictionary<int, int>();
+
+            foreach (var cont in fields.Contact) if (!pairs.ContainsKey(cont.Key)) pairs.Add(cont.Key, cont.Value.FieldType);
+            foreach (var comp in fields.Company) if (!pairs.ContainsKey(comp.Key)) pairs.Add(comp.Key, comp.Value.FieldType);
+            foreach (var led in fields.Lead) if (!pairs.ContainsKey(led.Key)) pairs.Add(led.Key, led.Value.FieldType);
+
+            return pairs;
+        }
+
+        public int FindFieldTypeByFieldId(int id)
+        {
+            var array = GetCustomFieldsType();
+            array.TryGetValue(id, out int result);
+            return result;
+        }
     }
 
     public class DataPattern
@@ -35,7 +61,7 @@ namespace amocrm.library.Models.Account
         public string DateAndTime { get; set; }
         public string TimeFull { get; set; }
 
-        public CultureInfo dateTimeFormat()
+        public CultureInfo DateTimeFormat()
         {
             CultureInfo culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
             culture.DateTimeFormat.ShortDatePattern = "dd/MM/yyyy";
