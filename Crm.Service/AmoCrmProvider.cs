@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace amocrm.library
 {
-    internal class AmoCrmProvider : IAmoCrmProvider
+    internal class AmoCrmProvider : IAmoCrmProvider, IAmoCrmAccount
     {
         static DateTime cookiesLiveTime;
 
@@ -66,8 +66,6 @@ namespace amocrm.library
             ServerTimeDiff = (DateTime.Now - new DateTime().FromTimestamp(AuthInfo.ServerTime)) * -1;
 
             lock (locker) { cookiesLiveTime = DateTime.Now; }
-
-            if (Account == null) Account = await GetCrmInfo();
         }
 
         public bool AuthCookiesLifeTime()
@@ -92,11 +90,12 @@ namespace amocrm.library
             return endPoint.GetUrl<TPoint>();
         }
 
+
         public async Task<AccountInfo> GetCrmInfo()
         {
             if (Account != null) return Account;
 
-            var client = await GetClient();
+            client = await GetClient();
             var endPoint = GetEndPoint<AccountInfo>();
 
             var request = await client.GetAsync(endPoint);
@@ -112,6 +111,32 @@ namespace amocrm.library
             Account = JsonConvert.DeserializeObject<AccountInfo>(response);
 
             return Account;
+        }
+
+        public async Task<CustomFieldInfo> GetCustomFieldsInfo()
+        {
+            var fields = await GetCrmInfo();
+            return fields.FieldsTypeStore.FieldInfo;
+        }
+
+        public async Task<Dictionary<int, int>> GetCustomFieldsType()
+        {
+            var fields = await GetCustomFieldsInfo();
+
+            var pairs = new Dictionary<int, int>();
+
+            foreach (var cont in fields.Contact) if (!pairs.ContainsKey(cont.Key)) pairs.Add(cont.Key, cont.Value.FieldType);
+            foreach (var comp in fields.Company) if (!pairs.ContainsKey(comp.Key)) pairs.Add(comp.Key, comp.Value.FieldType);
+            foreach (var led in fields.Lead) if (!pairs.ContainsKey(led.Key)) pairs.Add(led.Key, led.Value.FieldType);
+
+            return pairs;
+        }
+
+        public async Task<int> FindFieldTypeByFieldId(int id)
+        {
+            var array = await GetCustomFieldsType();
+            array.TryGetValue(id, out int result);
+            return result;
         }
     }
 }

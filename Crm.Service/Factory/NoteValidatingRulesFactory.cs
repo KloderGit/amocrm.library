@@ -1,4 +1,5 @@
-﻿using amocrm.library.Interfaces;
+﻿using amocrm.library.Filters;
+using amocrm.library.Interfaces;
 using amocrm.library.Models;
 using amocrm.library.Tools;
 using System;
@@ -18,6 +19,20 @@ namespace amocrm.library.Factory
             rules.AddRule(x => !String.IsNullOrEmpty(x.Text), "Text field can't be empty");
 
             return rules;
+        }
+
+        public IValidateRules<NoteFilter> CreateGet()
+        {
+            var rules = new ValidateRules<NoteFilter>();
+            rules.AddRule(f => f.Element != default, "An element for note is not specified");
+            rules.AddRule(f => f.LimitOffset != 0 && f.LimitRows == 0, "Specify the LimitRows");
+
+            return rules;
+        }
+
+        public IValidateRules<TFilter> CreateGet<TFilter>()
+        {
+            throw new NotImplementedException();
         }
 
         public IValidateRules<Note> CreateUpdate()

@@ -15,18 +15,17 @@ namespace amocrm.library
         public IAmoCrmProvider Provider { get; }
 
         private readonly IValidationRulesFactory<T> validatingRulesFactory = new ValidateRulesManager().GetFactory<T>();
-
         private readonly DtoModelBuilder<T> dtoBuilder;
 
         public CrmRepositoty(IAmoCrmProvider crmProvider)
         {
             this.Provider = crmProvider;
-            this.dtoBuilder = new DtoModelBuilder<T>(Provider.Account);
+            dtoBuilder = new DtoModelBuilder<T>(Provider as IAmoCrmAccount);
         }
         public CrmRepositoty(IAmoCrmProvider crmProvider, IQueryGenerator generator)
             : this(crmProvider)
         {
-            this.QueryGenerator = generator;
+            this.QueryGenerator = generator;            
         }
 
         public IEnumerable<T> Execute()
@@ -39,6 +38,7 @@ namespace amocrm.library
         {
             var client = await Provider.GetClient();
             var endPoint = Provider.GetEndPoint<T>();
+
             var query = await QueryGenerator.Generate();
 
             var responseString = await client.GetResultAsync(endPoint + query).ConfigureAwait(false);
@@ -75,9 +75,9 @@ namespace amocrm.library
 
             SetUpdateDateTime(elements);
 
-            var dtoToUpdate = dtoBuilder.GetUpdateModel(elements);
+            var dto = await dtoBuilder.GetUpdateModel(elements);
 
-            var responseString = await client.PostResultAsync(endPoint, dtoToUpdate).ConfigureAwait(false);
+            var responseString = await client.PostResultAsync(endPoint, dto).ConfigureAwait(false);
 
             if (string.IsNullOrEmpty(responseString)) return new List<int>();
 
@@ -97,9 +97,9 @@ namespace amocrm.library
             if (!isModelValid(elements, validatingRulesFactory.CreateAdd()))
                 GenerateException(elements, validatingRulesFactory.CreateAdd());
 
-            var dtoToAdd = dtoBuilder.GetAddModel(elements);
+            var dto = await dtoBuilder.GetAddModel(elements);
 
-            var responseString = await client.PostResultAsync(endPoint, dtoToAdd).ConfigureAwait(false);
+            var responseString = await client.PostResultAsync(endPoint, dto).ConfigureAwait(false);
 
             if (string.IsNullOrEmpty(responseString)) return new List<int>();
 

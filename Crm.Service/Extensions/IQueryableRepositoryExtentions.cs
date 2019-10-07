@@ -31,6 +31,11 @@ namespace amocrm.library.Extensions
             return queryable;
         }
 
+        public static IQueryableRepository<Note> Where(this IQueryableRepository<Note> queryable, Expression<Func<NoteFilter, bool>> predicate)
+        {
+            queryable.QueryGenerator.CreateQuery(predicate);
+            return queryable;
+        }
     }
 
 }

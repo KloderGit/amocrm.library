@@ -11,7 +11,5 @@ namespace amocrm.library.Interfaces
         Task Auth();
         bool AuthCookiesLifeTime();
         TimeSpan ServerTimeDiff { get; set; }
-        AccountInfo Account { get; set; }
-        Task<AccountInfo> GetCrmInfo();
     }
 }

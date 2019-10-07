@@ -3,7 +3,6 @@ using amocrm.library.Mappings;
 using amocrm.library.Models;
 using amocrm.library.Tools;
 using Microsoft.Extensions.Logging;
-using System.Runtime.CompilerServices;
 
 namespace amocrm.library
 {
@@ -15,7 +14,7 @@ namespace amocrm.library
         public CrmManager(string account, string login, string pass)
         {
             new InitMappings();
-            Provider = new AmoCrmProvider(account: account, login: login, pass: pass);
+            Provider = new AmoCrmProvider(account: account, login: login, pass: pass);            
             this.RepositoryCreator = new BasicRepositoryCreator(Provider);
         }
 

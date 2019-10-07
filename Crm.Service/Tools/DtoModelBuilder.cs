@@ -1,6 +1,6 @@
 ﻿using amocrm.library.Extensions;
+using amocrm.library.Interfaces;
 using amocrm.library.Models;
-using amocrm.library.Models.Account;
 using Mapster;
 using System;
 using System.Collections.Generic;
@@ -13,32 +13,34 @@ namespace amocrm.library.Tools
         private Type dtoType;
         private readonly Type listType = typeof(List<>);
         private Type genericListType;
-        private AccountInfo account;
+        private IAmoCrmAccount provider;
 
-        public DtoModelBuilder(AccountInfo account)
+        public DtoModelBuilder(IAmoCrmAccount provider)
         {
-            this.account = account;
+            this.provider = provider;
         }
 
-        public Object GetUpdateModel(IEnumerable<TEntity> entities)
+        public async Task<Object> GetUpdateModel(IEnumerable<TEntity> entities)
         {
-            if (account?.GetCustomFieldsType() != null) DetectFieldsType(entities);
+            var fieldTypes = await provider?.GetCustomFieldsType();
+            if (fieldTypes != null) DetectFieldsType(entities, fieldTypes);
 
             dtoType = typeof(TEntity).GetDtoType(ActionEnum.Update);
 
             return new { update = ConvertEntityCollectionToDto(entities) };
         }
 
-        public Object GetAddModel(IEnumerable<TEntity> entities)
+        public async Task<Object> GetAddModel(IEnumerable<TEntity> entities)
         {
-            if (account?.GetCustomFieldsType() != null) DetectFieldsType(entities);
+            var fieldTypes = await provider?.GetCustomFieldsType();
+            if (fieldTypes != null) DetectFieldsType(entities, fieldTypes);
 
             dtoType = typeof(TEntity).GetDtoType(ActionEnum.Add);
 
             return new { add = ConvertEntityCollectionToDto(entities) };
         }
 
-        private void DetectFieldsType(IEnumerable<TEntity> entities)
+        private void DetectFieldsType(IEnumerable<TEntity> entities, Dictionary<int, int> dictionary)
         {
             if (!(entities is IEnumerable<EntityMember>)) return;
 
@@ -46,7 +48,7 @@ namespace amocrm.library.Tools
             {
                 foreach (var fild in item.Fields)
                 {
-                    var res = account.GetCustomFieldsType().TryGetValue(fild.Id, out int value);
+                    var res = dictionary.TryGetValue(fild.Id, out int value);
                     if (res) fild.FieldType = value;
                 }
             }

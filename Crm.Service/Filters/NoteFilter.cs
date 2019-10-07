@@ -1,4 +1,5 @@
-﻿using amocrm.library.Tools;
+﻿using amocrm.library.Configurations;
+using amocrm.library.Tools;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,7 +21,7 @@ namespace amocrm.library.Filters
         /// The task relates to elements of the type contact / leader / company / task
         /// </summary>
         [FilterNameRepresent("type")]
-        public int Element { get; set; }
+        public ElementTypeEnum Element { get; set; }
 
         /// <summary>
         /// Id of element - contact/lead/company/task
