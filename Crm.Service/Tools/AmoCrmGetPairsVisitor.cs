@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -17,7 +18,12 @@ namespace amocrm.library.Tools
         {
             if (node.NodeType == ExpressionType.Equal)
             {
-                var left = (MemberExpression)node.Left;
+                MemberExpression left;
+
+                if (node.Left is UnaryExpression) left = ((UnaryExpression)node.Left).Operand as MemberExpression;
+                else if (node.Left is MemberExpression) left = (MemberExpression)node.Left;
+                else throw new ArgumentException("First part of a condition must be a property");
+
                 var title = left.Member.GetCustomAttributes(false).First() as FilterNameRepresentAttribute;
 
                 var right = Expression.Lambda(node.Right).Compile().DynamicInvoke();

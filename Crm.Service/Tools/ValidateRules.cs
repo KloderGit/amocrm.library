@@ -45,7 +45,10 @@ namespace amocrm.library.Tools
                     var body = expression.Body as BinaryExpression;
                     if (body != null)
                     {
-                        var left = body.Left as MemberExpression;
+                        MemberExpression left;
+                        if (body.Left is UnaryExpression) left = ((UnaryExpression)body.Left).Operand as MemberExpression;
+                        else left = body.Left as MemberExpression;
+
                         if (left != null) result.Add(new ValidationResult(message, new List<string> { left.Member.Name }));
                     }
                     else

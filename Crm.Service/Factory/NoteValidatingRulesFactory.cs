@@ -24,7 +24,7 @@ namespace amocrm.library.Factory
         public IValidateRules<NoteFilter> CreateGet()
         {
             var rules = new ValidateRules<NoteFilter>();
-            rules.AddRule(f => f.Element != default, "An element for note is not specified");
+            rules.AddRule(f => string.IsNullOrEmpty(f.Element), "An element for note is not specified");
             rules.AddRule(f => f.LimitOffset != 0 && f.LimitRows == 0, "Specify the LimitRows");
 
             return rules;

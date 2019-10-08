@@ -30,11 +30,11 @@
 
     public enum ElementTypeEnum
     {
-        Contact = 1,
-        Lead = 2,
-        Company = 3,
-        Task = 4,
-        Customer = 12
+        contact = 1,
+        lead = 2,
+        company = 3,
+        task = 4,
+        customer = 12
     }
 
     public enum NoteType

@@ -21,7 +21,7 @@ namespace amocrm.library.Filters
         /// The task relates to elements of the type contact / leader / company / task
         /// </summary>
         [FilterNameRepresent("type")]
-        public ElementTypeEnum Element { get; set; }
+        public string Element { get; set; }
 
         /// <summary>
         /// Id of element - contact/lead/company/task
