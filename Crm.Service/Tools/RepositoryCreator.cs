@@ -7,7 +7,7 @@ namespace amocrm.library.Tools
 {
     internal abstract class RepositoryCreator : IRepositoryCreator
     {
-        protected IAmoCrmProvider provider;
+        protected ICrmProvider provider;
         protected ILogger logger;
 
         public IQueryableRepository<T> GetRepository<T>()
@@ -28,7 +28,7 @@ namespace amocrm.library.Tools
 
     internal class LoggedRepositoryCreator : RepositoryCreator
     {
-        public LoggedRepositoryCreator(IAmoCrmProvider provider, ILogger logger)
+        public LoggedRepositoryCreator(ICrmProvider provider, ILogger logger)
         {
             this.provider = provider;
             this.logger = logger;
@@ -45,7 +45,7 @@ namespace amocrm.library.Tools
 
     internal class BasicRepositoryCreator : RepositoryCreator
     {
-        public BasicRepositoryCreator(IAmoCrmProvider provider)
+        public BasicRepositoryCreator(ICrmProvider provider)
         {
             this.provider = provider;
         }

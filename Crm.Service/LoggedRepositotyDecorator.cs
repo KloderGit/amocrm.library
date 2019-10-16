@@ -12,7 +12,7 @@ namespace amocrm.library
     public class LoggedRepositotyDecorator<T> : IQueryableRepository<T>, IEnumerable where T : EntityCore, new()
     {
         ILogger logger;
-        public IAmoCrmProvider Provider { get => Repository.Provider; }
+        public ICrmProvider Provider { get => Repository.Provider; }
         public IQueryableRepository<T> Repository { get; set; }
 
         public IQueryGenerator QueryGenerator

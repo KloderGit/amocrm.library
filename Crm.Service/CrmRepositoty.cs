@@ -12,17 +12,17 @@ namespace amocrm.library
     public partial class CrmRepositoty<T> : IQueryableRepository<T>, IEnumerable where T : EntityCore, new()
     {
         public IQueryGenerator QueryGenerator { get; set; } = new QueryGenerator();
-        public IAmoCrmProvider Provider { get; }
+        public ICrmProvider Provider { get; }
 
         private readonly IValidationRulesFactory<T> validatingRulesFactory = new ValidateRulesManager().GetFactory<T>();
         private readonly DtoModelBuilder<T> dtoBuilder;
 
-        public CrmRepositoty(IAmoCrmProvider crmProvider)
+        public CrmRepositoty(ICrmProvider crmProvider)
         {
             this.Provider = crmProvider;
-            dtoBuilder = new DtoModelBuilder<T>(Provider as IAmoCrmAccount);
+            dtoBuilder = new DtoModelBuilder<T>(Provider as ICrmData);
         }
-        public CrmRepositoty(IAmoCrmProvider crmProvider, IQueryGenerator generator)
+        public CrmRepositoty(ICrmProvider crmProvider, IQueryGenerator generator)
             : this(crmProvider)
         {
             this.QueryGenerator = generator;            

@@ -13,9 +13,9 @@ namespace amocrm.library.Tools
         private Type dtoType;
         private readonly Type listType = typeof(List<>);
         private Type genericListType;
-        private IAmoCrmAccount provider;
+        private ICrmData provider;
 
-        public DtoModelBuilder(IAmoCrmAccount provider)
+        public DtoModelBuilder(ICrmData provider)
         {
             this.provider = provider;
         }

@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace amocrm.library
 {
-    internal class AmoCrmProvider : IAmoCrmProvider, IAmoCrmAccount
+    internal class CrmProvider : ICrmProvider, ICrmData
     {
         static DateTime cookiesLiveTime;
 
@@ -34,7 +34,7 @@ namespace amocrm.library
 
         public TimeSpan ServerTimeDiff { get; set; }
 
-        public AmoCrmProvider(string account, string login, string pass)
+        public CrmProvider(string account, string login, string pass)
         {
             endPoint = new CrmEndPointConfig(account);
             this.login = login;
@@ -74,7 +74,7 @@ namespace amocrm.library
             {
                 var lifeTime = TimeSpan.FromMinutes(13);
 
-                return DateTime.Now.Subtract(AmoCrmProvider.cookiesLiveTime) < lifeTime & handler != null;
+                return DateTime.Now.Subtract(CrmProvider.cookiesLiveTime) < lifeTime & handler != null;
             }
         }
 
