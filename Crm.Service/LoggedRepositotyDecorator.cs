@@ -23,7 +23,7 @@ namespace amocrm.library
 
         public LoggedRepositotyDecorator(IQueryableRepository<T> repository, ILogger logger)
         {
-            logger.LogDebug($"Creating logged repository - {this.GetType().Name}");
+            logger.LogTrace($"Creating logged repository - {this.GetType().Name}");
             this.logger = logger;
             Repository = repository;
         }
@@ -38,21 +38,21 @@ namespace amocrm.library
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            logger.LogDebug($"Request for get data (async).");
-            logger.LogDebug($"The authentication cookie has not expired - {Repository.Provider.AuthCookiesLifeTime()}.");
+            logger.LogTrace("Request for get data (async).");
+            logger.LogTrace($"The authentication cookie has not expired - {Repository.Provider.AuthCookiesLifeTime()}.");
 
             var endPointLog = Repository.Provider.GetEndPoint<T>();
-            logger.LogDebug($"EndPoint to send request is - {endPointLog}.");
+            logger.LogTrace($"EndPoint to send request is - {endPointLog}.");
 
             var queryLog = await Repository.QueryGenerator.Generate();
-            logger.LogDebug($"Query filters are generated  - {queryLog}.");
-            logger.LogDebug($"Full request URL - {endPointLog}{queryLog}.");
+            logger.LogTrace($"Query filters are generated  - {queryLog}.");
+            logger.LogTrace($"Full request URL - {endPointLog}{queryLog}.");
 
             var result = await Repository.ExecuteAsync();
-            logger.LogDebug($"Received {result.Count()} records.");
+            logger.LogDebug("Received {@Count} records. {@Model}", result.Count(), result);
 
             sw.Stop();
-            logger.LogDebug("Query execution time - {time} ", sw.Elapsed);
+            logger.LogTrace("Query execution time - {time} ", sw.Elapsed);
 
             return result;
         }
@@ -79,18 +79,18 @@ namespace amocrm.library
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            logger.LogDebug($"Request for update data (async).");
+            logger.LogTrace("Request for update data (async).");
 
-            logger.LogDebug($"The authentication cookie has not expired - {Repository.Provider.AuthCookiesLifeTime()}.");
+            logger.LogTrace($"The authentication cookie has not expired - {Repository.Provider.AuthCookiesLifeTime()}.");
 
             var endPointLog = Repository.Provider.GetEndPoint<T>();
-            logger.LogDebug($"EndPoint to send request is - {endPointLog}.");
+            logger.LogTrace($"EndPoint to send request is - {endPointLog}.");
 
             var result = await Repository.UpdateAsync(elements);
-            logger.LogDebug($"Updated {result.Count()} records.");
+            logger.LogDebug("Updated {@Count} records. {@Model}", result.Count(), result);
 
             sw.Stop();
-            logger.LogDebug("Query execution time - {time} ", sw.Elapsed);
+            logger.LogTrace("Query execution time - {time} ", sw.Elapsed);
 
             return result;
         }
@@ -105,19 +105,19 @@ namespace amocrm.library
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            logger.LogDebug($"Request for add data (async).");
+            logger.LogTrace("Request for add data (async).");
 
-            logger.LogDebug($"The authentication cookie has not expired - {Repository.Provider.AuthCookiesLifeTime()}.");
+            logger.LogTrace($"The authentication cookie has not expired - {Repository.Provider.AuthCookiesLifeTime()}.");
 
             var endPointLog = Repository.Provider.GetEndPoint<T>();
-            logger.LogDebug($"EndPoint to send request is - {endPointLog}.");
+            logger.LogTrace($"EndPoint to send request is - {endPointLog}.");
 
 
             var result = await Repository.AddAsync(elements);
-            logger.LogDebug($"Added {result.Count()} records.");
+            logger.LogDebug("Added {@Count} records. {@Model}", result.Count(), result);
 
             sw.Stop();
-            logger.LogDebug("Query execution time - {time} ", sw.Elapsed);
+            logger.LogTrace("Query execution time - {time} ", sw.Elapsed);
 
             return result;
         }
@@ -127,18 +127,18 @@ namespace amocrm.library
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            logger.LogDebug($"Find object by Id (async).");
+            logger.LogTrace("Find object by Id (async).");
 
-            logger.LogDebug($"The authentication cookie has not expired - {Repository.Provider.AuthCookiesLifeTime()}.");
+            logger.LogTrace($"The authentication cookie has not expired - {Repository.Provider.AuthCookiesLifeTime()}.");
 
             var endPointLog = Repository.Provider.GetEndPoint<T>();
-            logger.LogDebug($"EndPoint to send request is - {endPointLog}.");
+            logger.LogTrace($"EndPoint to send request is - {endPointLog}.");
 
             var result = await Repository.FindByIdAsync(id);
-            logger.LogInformation($"Found { (result == null ? 0 : 1) } record. Type - {result.GetType().Name}");
+            logger.LogDebug("Found {@Count} record. Type - {@Type}", result == null ? 0 : 1, result.GetType().Name);
 
             sw.Stop();
-            logger.LogDebug("Query execution time - {time} ", sw.Elapsed);
+            logger.LogTrace("Query execution time - {time} ", sw.Elapsed);
 
             return (T)result;
         }
