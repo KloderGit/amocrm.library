@@ -1,5 +1,6 @@
 ﻿
 using amocrm.library.Models;
+using amocrm.library.Models.Account;
 
 namespace amocrm.library.Interfaces
 {
@@ -11,5 +12,6 @@ namespace amocrm.library.Interfaces
         IQueryableRepository<Company> Companies { get; }
         IQueryableRepository<Task> Tasks { get; }
         IQueryableRepository<Note> Notes { get; }
+        System.Threading.Tasks.Task<CustomFieldInfo> CustomFields { get; }
     }
 }
