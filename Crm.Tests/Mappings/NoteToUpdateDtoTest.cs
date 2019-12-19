@@ -37,7 +37,7 @@ namespace Crm.Tests.Mappings
 
         [TestMethod] public void Id() => Assert.AreEqual(note.Adapt<NoteUpdateDTO>().Id, 8663699);
         [TestMethod] public void ElementId() => Assert.AreEqual(note.Adapt<NoteUpdateDTO>().ElementId, 654654);
-        [TestMethod] public void ElementType() => Assert.AreEqual(note.Adapt<NoteUpdateDTO>().ElementType, "Contact");
+        [TestMethod] public void ElementType() => Assert.AreEqual(note.Adapt<NoteUpdateDTO>().ElementType, "contact");
         [TestMethod] public void NoteDTOType() => Assert.AreEqual(note.Adapt<NoteUpdateDTO>().NoteType, 987);
 
         [TestMethod] public void CreatedAt() => Assert.AreEqual(note.Adapt<NoteUpdateDTO>().CreatedAt, 1527690442);

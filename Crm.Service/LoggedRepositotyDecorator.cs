@@ -135,7 +135,7 @@ namespace amocrm.library
             logger.LogTrace($"EndPoint to send request is - {endPointLog}.");
 
             var result = await Repository.FindByIdAsync(id);
-            logger.LogDebug("Found {@Count} record. Type - {@Type}", result == null ? 0 : 1, result.GetType().Name);
+            logger.LogDebug("Found {@Count} record. Type - {@Type}", result == null ? 0 : 1, typeof(T).Name);
 
             sw.Stop();
             logger.LogTrace("Query execution time - {time} ", sw.Elapsed);

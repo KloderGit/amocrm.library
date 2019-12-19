@@ -119,7 +119,7 @@ namespace Crm.Tests.Mappings
 
             Assert.IsInstanceOfType(array.Adapt<LeadUpdateDTO>().CustomFields[0].Values, typeof(ArrayList));
             Assert.AreEqual(obj.Adapt<LeadUpdateDTO>().CustomFields[0].Values.Count, 3);
-            Assert.AreEqual(((FieldValue)obj.Adapt<LeadUpdateDTO>().CustomFields[0].Values.ToArray()[0]).Value, "OOO");
+            Assert.AreEqual(((dynamic)obj.Adapt<LeadUpdateDTO>().CustomFields[0].Values.ToArray()[0]).value, "OOO");
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Crm.Tests.Data
                 CreatedBy = 2081797,
                 GroupId = 212704,
                 ElementId = 654654,
-                ElementType = ElementTypeEnum.Contact,
+                ElementType = ElementTypeEnum.contact,
                 IsEditable = false,
                 NoteType = 987,
                 ResponsibleUserId = 88888,

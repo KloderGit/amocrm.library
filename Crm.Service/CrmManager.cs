@@ -1,8 +1,10 @@
 ﻿using amocrm.library.Interfaces;
 using amocrm.library.Mappings;
 using amocrm.library.Models;
+using amocrm.library.Models.Account;
 using amocrm.library.Tools;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace amocrm.library
 {
@@ -33,6 +35,8 @@ namespace amocrm.library
         public IQueryableRepository<Models.Task> Tasks => RepositoryCreator.GetRepository<Models.Task>();
 
         public IQueryableRepository<Note> Notes => RepositoryCreator.GetRepository<Note>();
+
+        public Task<CustomFieldInfo> CustomFields => ((ICrmData)Provider).GetCustomFieldsInfo();
 
         public async System.Threading.Tasks.Task DirectAuthorization()
         {

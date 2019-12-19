@@ -33,61 +33,6 @@ namespace Crm.Tests.ToolsTests
             Assert.AreEqual(visitor.Pairs.Count(), 2);
         }
 
-
-        [TestMethod]
-        public void GetResultKeysAndValues()
-        {
-            //var connect = new Connection("apfitness", "kloder@fitness-pro.ru", "99aad176302f7ea9213c307e1e6ab8fc");
-            //ILoggerFactory loggerFactory = new LoggerFactory();
-
-            ////ILogger logger = loggerFactory.CreateLogger<Contact>();
-
-            //var amo = new CrmManager(connect, loggerFactory);
-
-            //var pr = new AmoCrmQueryProvider<Contact, ContactDTO>(amo.Contacts);
-
-            //var repo = new AmoCrmRepositoty<Contact>(pr);
-
-            //var repos = new AmoCrmRepositoty<Contact>(null);
-
-            //Expression<Func<Filter, bool>> lambda = x => x.Id == 12;
-
-
-            //var repoWithExpression = repo.Where(x => x.Id == 12)
-            //                             .Where(x => x.Id == 12)
-            //                             .Where(x => x.Name == "First")
-            //                             .Where(x => x.User == "Second")
-            //                             .Where(x => x.Id == 11);
-
-
-            //var visitor = new AmoCrmGetPairsVisitor();
-
-            //foreach (var exp in repoWithExpression.Expressions)
-            //{
-            //    Expression modifiedExpr = visitor.Apply((Expression)exp);
-            //}
-
-            //var pairs = visitor.Pairs;
-
-            //// Pairs doesn't have any doubles
-            //Assert.AreEqual(pairs.Count, 4);
-            //Assert.IsNotNull(pairs.FirstOrDefault(x=>x.Key == "id"));
-            //Assert.AreEqual(pairs.Where(x => x.Key == "id" && x.Value == "12").Count(), 1);
-            //Assert.AreEqual(pairs.Where(x => x.Key == "id").Count(), 2);
-
-
-
-            var visitor = new AmoCrmGetPairsVisitor();
-
-
-            //Expression<Func<Filter, bool>> exp = x => x.User == "CheckName";
-            //Expression result = visitor.Apply((Expression)exp);
-
-            //// Replace FieldName to AttributeName - ex. User -> contact
-            //Assert.IsNotNull(visitor.Pairs.FirstOrDefault(x => x.Key == "contact"));
-            //Assert.AreEqual(visitor.Pairs.FirstOrDefault(x => x.Key == "contact").Value, "CheckName");
-        }
-
         [TestMethod]
         public void DistinctKeysAndValues()
         {
@@ -95,8 +40,9 @@ namespace Crm.Tests.ToolsTests
 
             Expression<Func<ContactFilter, bool>> exp1 = x => x.Id == 12;
             Expression<Func<ContactFilter, bool>> exp2 = x => x.Id == 12;
+            Expression<Func<ContactFilter, bool>> exp3 = x => x.Id == 13;
 
-            var list = new List<Expression>() { exp1, exp2 };
+            var list = new List<Expression>() { exp1, exp2, exp3 };
 
             foreach (var exp in list)
             {
@@ -105,7 +51,7 @@ namespace Crm.Tests.ToolsTests
 
             // There is just one value of id
             Assert.IsNotNull(visitor.Pairs.FirstOrDefault(x => x.Key == "id[]"));
-            Assert.AreEqual(visitor.Pairs.Where(x => x.Key == "id[]").Count(), 1);
+            Assert.AreEqual(visitor.Pairs.Where(x => x.Key == "id[]").Count(), 2);
         }
     }
 }

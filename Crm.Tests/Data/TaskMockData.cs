@@ -44,7 +44,7 @@ namespace Crm.Tests.Data
                 GroupId = 212704,
                 Duration = 55,
                 ElementId = 9999,
-                ElementType = ElementTypeEnum.Lead,
+                ElementType = ElementTypeEnum.lead,
                 IsCompleted = true,
                 ResponsibleUserId = 2997712,
                 TaskType = 1,

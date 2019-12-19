@@ -7,7 +7,7 @@ namespace amocrm.library.Tools
 {
     internal class AmoCrmGetPairsVisitor : ExpressionVisitor
     {
-        public HashSet<KeyValuePair<string, string>> Pairs { get; } = new HashSet<KeyValuePair<string, string>>();
+        public List<KeyValuePair<string, string>> Pairs { get; } = new List<KeyValuePair<string, string>>();
 
         public Expression Apply(Expression expression)
         {
@@ -28,10 +28,22 @@ namespace amocrm.library.Tools
 
                 var right = Expression.Lambda(node.Right).Compile().DynamicInvoke();
 
-                Pairs.Add(new KeyValuePair<string, string>(title.Name, right.ToString()));
+                if(isValueExist(title.Name, right.ToString()) == false)
+                    Pairs.Add(new KeyValuePair<string, string>(title.Name, right.ToString()));
             }
 
             return base.VisitBinary(node);
+        }
+
+        private bool isValueExist(string name, string value)
+        {
+            var pairs = Pairs.Where(x => x.Key == name);
+            if (pairs.Count() == 0) return false;
+
+            var result = pairs.Where(x => x.Value == value);
+            if (result.Count() == 0) return false;
+
+            return true;
         }
     }
 }

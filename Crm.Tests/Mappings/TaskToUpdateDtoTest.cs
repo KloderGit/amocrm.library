@@ -35,7 +35,7 @@ namespace Crm.Tests.Mappings
 
         [TestMethod] public void Id() => Assert.AreEqual(task.Adapt<TaskUpdateDTO>().Id, 5555);
         [TestMethod] public void ElementId() => Assert.AreEqual(task.Adapt<TaskUpdateDTO>().ElementId, 9999);
-        [TestMethod] public void ElementType() => Assert.AreEqual(task.Adapt<TaskUpdateDTO>().ElementType, "Lead");
+        [TestMethod] public void ElementType() => Assert.AreEqual(task.Adapt<TaskUpdateDTO>().ElementType, "lead");
 
         [TestMethod] public void CompleteTillAt() => Assert.AreEqual(task.Adapt<TaskUpdateDTO>().CompleteTillAt, new DateTime(2019, 10, 30).ToTimestamp());
         [TestMethod] public void CompleteTillAtZero() => Assert.AreEqual(new Task().Adapt<TaskUpdateDTO>().CompleteTillAt, 0);
