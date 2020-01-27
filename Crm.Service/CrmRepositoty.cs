@@ -30,9 +30,16 @@ namespace amocrm.library
 
         public IEnumerable<T> Execute()
         {
-            var result = this.ExecuteAsync().ConfigureAwait(false).GetAwaiter().GetResult();
+            var result = new List<T>();
+
+            var task = this.ExecuteAsync();
+            task.ContinueWith( _ => {
+                result = task.Result.ToList();
+            });
+
             return result;
         }
+
 
         public async Task<IEnumerable<T>> ExecuteAsync()
         {
