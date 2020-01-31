@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace amocrm.library
 {
-    public partial class CrmRepositoty<T> : IQueryableRepository<T>, IEnumerable where T : EntityCore, new()
+    public partial class CrmRepositoty<T> : IQueryableRepository<T> where T : EntityCore, new()
     {
         public IQueryGenerator QueryGenerator { get; set; } = new QueryGenerator();
         public ICrmProvider Provider { get; }
@@ -25,19 +25,19 @@ namespace amocrm.library
         public CrmRepositoty(ICrmProvider crmProvider, IQueryGenerator generator)
             : this(crmProvider)
         {
-            this.QueryGenerator = generator;            
+            this.QueryGenerator = generator;
         }
 
         public IEnumerable<T> Execute()
         {
             var result = new List<T>();
 
-            var task = this.ExecuteAsync();
-            task.ContinueWith( _ => {
-                result = task.Result.ToList();
-            });
+            var task = System.Threading.Tasks.Task.Run<IEnumerable<T>>(
+                    async () => await this.ExecuteAsync().ConfigureAwait(false)
+                ).GetAwaiter();
+            result = task.GetResult().ToList();
 
-            return result;
+            return result;;
         }
 
 

@@ -5,8 +5,6 @@ namespace amocrm.library.Interfaces
 {
     public interface ICrmRepository<T>
     {
-        ICrmProvider Provider { get; }
-
         Task<T> FindByIdAsync(int id);
         Task<IEnumerable<int>> AddAsync(T element);
         Task<IEnumerable<int>> AddAsync(IEnumerable<T> element);
