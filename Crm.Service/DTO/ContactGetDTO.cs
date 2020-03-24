@@ -37,7 +37,7 @@ namespace amocrm.library.DTO
         public int GroupId { get; set; }
 
         [JsonProperty(PropertyName = "closest_task_at")]
-        public int ClosestTaskAt { get; set; }
+        public long ClosestTaskAt { get; set; }
 
 
         [JsonConverter(typeof(ObjectOrNullJsonConverter))]

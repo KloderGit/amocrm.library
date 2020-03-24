@@ -46,7 +46,7 @@ namespace amocrm.library.DTO
         public int ClosedAt { get; set; }
 
         [JsonProperty(PropertyName = "closest_task_at")]
-        public int ClosestTaskAt { get; set; }
+        public long ClosestTaskAt { get; set; }
 
         [JsonProperty(PropertyName = "sale")]
         public int Price { get; set; }
