@@ -20,7 +20,7 @@ Provides access to Leads \ Contacts \ Tasks and Notes</Description>
   <ItemGroup>
     <PackageReference Include="Mapster" Version="4.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
   </ItemGroup>
 
